@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meubles&moi • Nouvelle estimation devis</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      background-color: #F9F6F0;
+      color: #063B39;
+      margin: 0;
+      padding: 24px 12px;
+      -webkit-font-smoothing: antialiased;
+    }
+    .wrapper {
+      max-width: 620px;
+      margin: 0 auto;
+      background: #ffffff;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 10px 35px rgba(6, 59, 57, 0.08);
+      border: 1px solid #EAE5DC;
+    }
+    .header {
+      background: #063B39;
+      padding: 36px 32px 30px;
+      color: #FAF8F5;
+      text-align: left;
+    }
+    .badge {
+      display: inline-block;
+      background-color: #C55D45;
+      color: #ffffff;
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      padding: 5px 14px;
+      border-radius: 9999px;
+      margin-bottom: 14px;
+    }
+    .brand-title {
+      font-size: 26px;
+      font-weight: 800;
+      margin: 0 0 6px 0;
+      color: #ffffff;
+      letter-spacing: -0.5px;
+    }
+    .brand-subtitle {
+      font-size: 13px;
+      color: rgba(250, 248, 245, 0.75);
+      margin: 0;
+      line-height: 1.4;
+    }
+    .body-content {
+      padding: 32px 28px;
+    }
+    .card {
+      background: #FAF8F5;
+      border: 1px solid #EFECE6;
+      border-radius: 18px;
+      padding: 20px 22px;
+      margin-bottom: 24px;
+    }
+    .card-title {
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #C55D45;
+      margin: 0 0 14px 0;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .info-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .info-table td {
+      padding: 9px 0;
+      font-size: 14px;
+      vertical-align: top;
+      border-bottom: 1px solid rgba(6, 59, 57, 0.06);
+    }
+    .info-table tr:last-child td {
+      border-bottom: none;
+    }
+    .info-label {
+      font-weight: 700;
+      color: #063B39;
+      width: 40%;
+    }
+    .info-value {
+      color: #2C3E50;
+    }
+    .info-value a {
+      color: #C55D45;
+      font-weight: 700;
+      text-decoration: none;
+    }
+    .highlight-budget {
+      background: #063B39;
+      border-radius: 18px;
+      padding: 22px 24px;
+      color: #FAF8F5;
+      margin-bottom: 24px;
+      text-align: center;
+    }
+    .budget-tag {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      color: rgba(250, 248, 245, 0.7);
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .budget-amount {
+      font-size: 30px;
+      font-weight: 800;
+      color: #FAF8F5;
+      margin: 4px 0;
+      letter-spacing: -0.5px;
+    }
+    .budget-note {
+      font-size: 12px;
+      color: #FAF8F5;
+      background: rgba(197, 93, 69, 0.75);
+      display: inline-block;
+      padding: 4px 14px;
+      border-radius: 9999px;
+      font-weight: 700;
+      margin-top: 6px;
+    }
+    .highlight-text {
+      background: #FFFDF9;
+      border-left: 4px solid #C55D45;
+      border-radius: 0 14px 14px 0;
+      padding: 14px 16px;
+      font-size: 13px;
+      line-height: 1.6;
+      color: #063B39;
+      margin-top: 8px;
+    }
+    .cta-container {
+      text-align: center;
+      margin-top: 28px;
+      margin-bottom: 12px;
+    }
+    .btn {
+      display: inline-block;
+      padding: 13px 26px;
+      border-radius: 9999px;
+      font-size: 13px;
+      font-weight: 800;
+      text-decoration: none !important;
+      margin: 4px 6px;
+      letter-spacing: 0.3px;
+    }
+    .btn-terracotta {
+      background-color: #C55D45;
+      color: #ffffff !important;
+    }
+    .btn-forest {
+      background-color: #063B39;
+      color: #ffffff !important;
+    }
+    .footer {
+      background-color: #F4EFEB;
+      padding: 24px 28px;
+      text-align: center;
+      border-top: 1px solid #EAE5DC;
+      font-size: 11px;
+      color: rgba(6, 59, 57, 0.65);
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="header">
+      <div class="badge">Nouvelle Demande de Devis</div>
+      <h1 class="brand-title">Meubles&moi</h1>
+      <p class="brand-subtitle">Ameublement éco-responsable, sélection soignée & clés en main • Lyon</p>
+    </div>
+
+    <div class="body-content">
+      <!-- Bloc Prospect -->
+      <div class="card">
+        <div class="card-title">👤 Coordonnées du Prospect</div>
+        <table class="info-table">
+          <tr>
+            <td class="info-label">Nom complet</td>
+            <td class="info-value"><strong>{{ prenom }} {{ nom }}</strong></td>
+          </tr>
+          <tr>
+            <td class="info-label">Téléphone direct</td>
+            <td class="info-value"><a href="tel:{{ telephone }}">{{ telephone }}</a></td>
+          </tr>
+          <tr>
+            <td class="info-label">Adresse e-mail</td>
+            <td class="info-value"><a href="mailto:{{ email }}">{{ email }}</a></td>
+          </tr>
+          <tr>
+            <td class="info-label">Ville / Secteur</td>
+            <td class="info-value">{{ ville }}</td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- Bloc Budget Estimé Clé en Main -->
+      <div class="highlight-budget">
+        <div class="budget-tag">Estimation indicative clés en main ({{ type_bien }})</div>
+        <div class="budget-amount">{{ budget_calcule }}</div>
+        <div class="budget-note">🌱 Mobilier sourcé, livré & installé</div>
+      </div>
+
+      <!-- Bloc Détails Logement & Ambiance -->
+      <div class="card">
+        <div class="card-title">🏡 Détails du Projet</div>
+        <table class="info-table">
+          <tr>
+            <td class="info-label">Type de bien</td>
+            <td class="info-value"><strong>{{ type_bien }}</strong></td>
+          </tr>
+          <tr>
+            <td class="info-label">Surface exacte</td>
+            <td class="info-value"><strong>{{ surface_m2 }}</strong></td>
+          </tr>
+          <tr>
+            <td class="info-label">Date souhaitée</td>
+            <td class="info-value">{{ date_souhaitee }}</td>
+          </tr>
+          <tr>
+            <td class="info-label">Équipements en place</td>
+            <td class="info-value">{{ equipement_existant_detail }}</td>
+          </tr>
+        </table>
+
+        <div style="margin-top: 14px;">
+          <div style="font-size: 11px; font-weight: 700; color: #063B39; text-transform: uppercase; letter-spacing: 0.8px;">
+            ✨ Ambiance & Style souhaité :
+          </div>
+          <div class="highlight-text">
+            {{ ambiance_souhaitee }}
+          </div>
+        </div>
+      </div>
+
+      <!-- Boutons d'action rapide -->
+      <div class="cta-container">
+        <a href="tel:{{ telephone }}" class="btn btn-terracotta">📞 Appeler {{ prenom }}</a>
+        <a href="mailto:{{ email }}" class="btn btn-forest">✉️ Répondre par e-mail</a>
+      </div>
+    </div>
+
+    <div class="footer">
+      <strong>Meubles&moi — Mobilier durable, seconde main d'exception & prêt-à-vivre</strong><br>
+      Notification automatique d'estimation de projet transmise depuis meubles-et-moi.fr
+    </div>
+  </div>
+</body>
+</html>

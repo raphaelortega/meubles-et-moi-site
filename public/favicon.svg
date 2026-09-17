@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <rect width="64" height="64" rx="16" fill="#FAF8F5"/>
+  <rect x="2" y="2" width="60" height="60" rx="14" stroke="#2D5A46" stroke-width="2" stroke-opacity="0.15"/>
+  <!-- Minimalist stylized armchair & leaf -->
+  <path d="M20 44V34C20 28.4772 24.4772 24 30 24H34C39.5228 24 44 28.4772 44 34V44" stroke="#2D5A46" stroke-width="4" stroke-linecap="round"/>
+  <path d="M16 36H48" stroke="#2D5A46" stroke-width="4" stroke-linecap="round"/>
+  <path d="M22 44V48M42 44V48" stroke="#2D5A46" stroke-width="4" stroke-linecap="round"/>
+  <!-- Eco leaf / sparkle in Terracotta -->
+  <path d="M38 16C38 16 46 17 46 25C46 25 38 25 38 16Z" fill="#C86D51"/>
+  <circle cx="36" cy="22" r="2" fill="#FAF8F5"/>
+</svg>
