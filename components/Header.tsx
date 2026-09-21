@@ -77,7 +77,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenEstimate }) => {
           </a>
 
           {/* Navigation Desktop */}
-          <nav className="hidden md:flex items-center gap-8 text-[13px] font-medium text-[#063B39]">
+          <nav className="hidden md:flex items-center gap-7 text-[13px] font-medium text-[#063B39]">
             <button
               onClick={() => scrollTo('promesse')}
               className="hover:text-[#C55D45] transition-colors duration-200 cursor-pointer"
@@ -95,6 +95,12 @@ export const Header: React.FC<HeaderProps> = ({ onOpenEstimate }) => {
               className="hover:text-[#C55D45] transition-colors duration-200 cursor-pointer"
             >
               Réalisations
+            </button>
+            <button
+              onClick={() => scrollTo('faq')}
+              className="hover:text-[#C55D45] transition-colors duration-200 cursor-pointer"
+            >
+              FAQ
             </button>
           </nav>
 
@@ -161,6 +167,12 @@ export const Header: React.FC<HeaderProps> = ({ onOpenEstimate }) => {
                 className="py-2.5 font-display font-bold text-[#063B39] hover:text-[#C55D45] text-base"
               >
                 Réalisations Avant / Après
+              </button>
+              <button
+                onClick={() => scrollTo('faq')}
+                className="py-2.5 font-display font-bold text-[#063B39] hover:text-[#C55D45] text-base"
+              >
+                Questions fréquentes (FAQ)
               </button>
               
               <div className="pt-2 border-t border-[#063B39]/10 flex flex-col gap-3">

@@ -93,6 +93,15 @@ export const Footer: React.FC = () => {
               <li>
                 <button
                   type="button"
+                  onClick={() => scrollTo('faq')}
+                  className="bg-transparent border-none p-0 text-left text-stone-300 hover:text-white transition-colors cursor-pointer"
+                >
+                  Questions fréquentes (FAQ)
+                </button>
+              </li>
+              <li>
+                <button
+                  type="button"
                   onClick={() => scrollTo('devis')}
                   className="bg-transparent border-none p-0 text-left text-[#C55D45] hover:underline font-semibold transition-colors cursor-pointer"
                 >
@@ -110,7 +119,7 @@ export const Footer: React.FC = () => {
             <ul className="space-y-2.5 text-xs sm:text-sm text-stone-300">
               <li className="flex items-start gap-2.5">
                 <MapPin className="w-4 h-4 text-[#C55D45] shrink-0 mt-0.5" />
-                <span>Atelier Meubles&moi<br />69006 Lyon (Lyon 6)</span>
+                <span>Meubles&moi<br />69006 Lyon (Lyon 6)</span>
               </li>
               <li className="flex flex-col gap-1.5">
                 <div className="flex items-center gap-2.5">

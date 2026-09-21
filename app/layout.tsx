@@ -182,6 +182,44 @@ const jsonLd = {
       },
       inLanguage: 'fr-FR',
     },
+    {
+      '@type': 'FAQPage',
+      '@id': 'https://www.meubles-et-moi.fr/#faq',
+      mainEntity: [
+        {
+          '@type': 'Question',
+          name: 'En quoi consiste votre service d’aménagement d’appartement clé en main ?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'Notre service d’aménagement d’appartement clé en main prend en charge l’intégralité de votre projet pour vous libérer de toute charge mentale. Dès l’analyse de vos besoins (surface, style souhaité, contraintes d’espace et budget), nous élaborons une sélection cohérente et harmonieuse de mobilier reconditionné de seconde main. Nous gérons ensuite toute la chaîne logistique : transport, livraison à l’étage, assemblage et montage complet sur place. Vous retrouvez un logement immédiatement fonctionnel, soigné et prêt à vivre ou à louer, sans avoir à porter le moindre meuble ni manipuler un tournevis.',
+          },
+        },
+        {
+          '@type': 'Question',
+          name: 'Pourquoi choisir du mobilier reconditionné et de seconde main ?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'Opter pour du mobilier reconditionné et de seconde main offre un triple bénéfice : économique, écologique et qualitatif. Vous réalisez jusqu’à 40 % d’économies par rapport à du mobilier neuf équivalent, tout en profitant de matériaux nobles et durables (bois massif, structures robustes). Chaque meuble est minutieusement choisi pour son esthétique, sa solidité et son parfait état d’usage. Enfin, en privilégiant l’économie circulaire locale, vous évitez la surproduction industrielle et économisez en moyenne 1,2 tonne de CO₂ par appartement.',
+          },
+        },
+        {
+          '@type': 'Question',
+          name: 'Comment se déroulent l’installation et la livraison de meubles à Lyon et sa métropole ?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'Notre équipe dédiée prend en charge l’acheminement complet de votre mobilier dans toute la métropole de Lyon (Presqu’île, Croix-Rousse, Part-Dieu, Confluence, Villeurbanne, etc.), quel que soit l’étage, avec ou sans ascenseur. Nous réalisons sur place le montage minutieux de chaque élément selon vos plans d’agencement. Une fois le mobilier installé, nous évacuons l’intégralité des protections et emballages pour vous restituer des pièces propres et prêtes à l’usage. L’intervention est planifiée selon vos disponibilités et réalisée en 48h chrono après validation.',
+          },
+        },
+        {
+          '@type': 'Question',
+          name: 'Votre service d’ameublement clé en main est-il compatible avec la fiscalité LMNP ?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'Oui, absolument. Notre prestation d’aménagement en mobilier reconditionné répond à 100 % à la liste des équipements obligatoires définis par le décret du statut LMNP (Loueur en Meublé Non Professionnel). Si vous louez au régime réel, la totalité du coût du mobilier et de son installation est amortissable sur 5 à 10 ans, ce qui permet de déduire ces charges de vos revenus locatifs et d’effacer vos impôts fonciers. Nous vous fournissons une facture détaillée et conforme pour votre expert-comptable.',
+          },
+        },
+      ],
+    },
   ],
 };
 
