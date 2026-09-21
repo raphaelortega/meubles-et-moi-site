@@ -88,7 +88,7 @@ export const Gallery: React.FC = () => {
               <div className="relative aspect-[3/4] overflow-hidden bg-stone-100">
                 <img
                   src={project.image}
-                  alt={project.title}
+                  alt={`Projet d’aménagement intérieur Meubles&Moi : ${project.title} (${project.style})`}
                   className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />

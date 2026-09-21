@@ -76,11 +76,11 @@ export const Packs: React.FC<PacksProps> = ({ onSelectPack }) => {
           <span className="text-xs uppercase font-extrabold text-terracotta-600 tracking-wider block mb-1">
             Nos Formules Clé en Main
           </span>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-charcoal-900 tracking-tight">
-            Tout le mobilier obligatoire et la déco inclus.
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-[#063B39] tracking-tight">
+            Tout le mobilier complet et soigné, prêt à vivre.
           </h2>
-          <p className="text-slate-600 text-sm mt-2">
-            Chaque formule est livrée, montée et prête à louer en 48h à Lyon.
+          <p className="text-[#063B39]/70 text-sm mt-2">
+            Chaque formule est livrée, montée et prête à vivre ou à louer en 48h à Lyon.
           </p>
         </div>
 
@@ -91,21 +91,21 @@ export const Packs: React.FC<PacksProps> = ({ onSelectPack }) => {
               key={idx}
               className={`rounded-3xl p-6 flex flex-col justify-between border transition-all ${
                 formula.popular
-                  ? 'bg-cream-100 border-2 border-sage-600 shadow-float relative'
-                  : 'bg-white border-cream-300 shadow-subtle'
+                  ? 'bg-[#FAF8F5] border-2 border-[#063B39] shadow-md relative'
+                  : 'bg-white border-stone-200 shadow-sm'
               }`}
             >
               <div>
                 {formula.badge && (
-                  <span className="absolute -top-3 left-6 bg-sage-600 text-white text-[11px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+                  <span className="absolute -top-3 left-6 bg-[#063B39] text-white text-[11px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">
                     {formula.badge}
                   </span>
                 )}
 
-                <div className="relative rounded-2xl overflow-hidden aspect-[16/10] mb-5 bg-cream-200">
+                <div className="relative rounded-2xl overflow-hidden aspect-[16/10] mb-5 bg-stone-100">
                   <img
                     src={formula.image}
-                    alt={formula.name}
+                    alt={`Pack mobilier reconditionné Meubles&Moi - ${formula.name}`}
                     className="w-full h-full object-cover"
                   />
                   <div className="absolute bottom-2 left-2 bg-charcoal-900/80 text-white text-xs font-semibold px-2.5 py-1 rounded-md">

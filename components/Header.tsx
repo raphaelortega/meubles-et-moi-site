@@ -60,7 +60,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenEstimate }) => {
             <div className="w-8 h-8 rounded-full overflow-hidden shadow-sm transition-transform duration-300 group-hover:scale-105 group-hover:rotate-6 shrink-0 bg-[#063B39]">
               <img
                 src="/logo.png"
-                alt="Meubles&moi"
+                alt="Meubles&Moi - Aménagement clé en main et mobilier écoresponsable"
                 className="w-full h-full object-cover"
                 width={32}
                 height={32}

@@ -32,7 +32,7 @@ export const Footer: React.FC = () => {
             <div className="w-10 h-10 rounded-full overflow-hidden border border-white/20 bg-[#063B39] shadow-sm shrink-0 flex items-center justify-center">
               <img
                 src="/logo.png"
-                alt="Meubles&moi"
+                alt="Meubles&Moi - Mobilier de seconde main et aménagement clé en main"
                 className="w-full h-full object-cover"
                 width={40}
                 height={40}

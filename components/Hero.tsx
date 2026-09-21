@@ -71,12 +71,12 @@ export const Hero: React.FC<HeroProps> = ({ onOpenEstimate }) => {
             </div>
           </motion.div>
 
-          {/* Titre H1 percutant et massif */}
+          {/* Titre H1 percutant et universel */}
           <motion.h1
             variants={itemVariants}
             className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-[68px] font-extrabold text-[#063B39] tracking-tight leading-[1.08] mb-6"
           >
-            On meuble votre appartement.{' '}
+            On meuble votre intérieur.{' '}
             <span className="block sm:inline text-[#063B39]">Moins cher.{' '}</span>
             <span className="text-[#C55D45] inline-block relative">
               Écoresponsable.
@@ -90,12 +90,12 @@ export const Hero: React.FC<HeroProps> = ({ onOpenEstimate }) => {
             </span>
           </motion.h1>
 
-          {/* Sous-titre court et clair */}
+          {/* Sous-titre court, clair et orienté SEO */}
           <motion.p
             variants={itemVariants}
             className="text-base sm:text-lg md:text-xl text-[#063B39]/80 font-normal leading-relaxed max-w-2xl mb-9"
           >
-            Pour particuliers et professionnels : nous sélectionnons du mobilier de seconde main de qualité, le livrons et l'installons chez vous.{' '}
+            Particuliers, locataires, propriétaires et professionnels : packs de mobilier reconditionné et de seconde main soigné, livrés et montés clé en main.{' '}
             <span className="font-semibold text-[#063B39]">Zéro logistique, 100 % d'impact.</span>
           </motion.p>
 
@@ -139,22 +139,22 @@ export const Hero: React.FC<HeroProps> = ({ onOpenEstimate }) => {
               <img
                 className="inline-block h-8 w-8 rounded-full ring-2 ring-white object-cover shadow-sm"
                 src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&h=120&q=80"
-                alt="Client Meubles&moi"
+                alt="Avis client Meubles&Moi - Aménagement mobilier de seconde main"
               />
               <img
                 className="inline-block h-8 w-8 rounded-full ring-2 ring-white object-cover shadow-sm"
                 src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=120&h=120&q=80"
-                alt="Client Meubles&moi"
+                alt="Témoignage propriétaire Meubles&Moi - Pack meuble clé en main"
               />
               <img
                 className="inline-block h-8 w-8 rounded-full ring-2 ring-white object-cover shadow-sm"
                 src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=120&h=120&q=80"
-                alt="Client Meubles&moi"
+                alt="Client satisfait Meubles&Moi - Mobilier reconditionné"
               />
               <img
                 className="inline-block h-8 w-8 rounded-full ring-2 ring-white object-cover shadow-sm"
                 src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=120&h=120&q=80"
-                alt="Client Meubles&moi"
+                alt="Avis aménagement intérieur Meubles&Moi"
               />
             </div>
 
@@ -184,7 +184,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenEstimate }) => {
             <div className="relative aspect-[16/10] sm:aspect-[16/9] w-full overflow-hidden bg-stone-100">
               <img
                 src="/images/hero-appartement.jpg"
-                alt="Réalisation Meubles & Moi - Appartement rénové et meublé à Lyon"
+                alt="Aménagement intérieur clé en main et mobilier reconditionné par Meubles&Moi à Lyon"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.02]"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#063B39]/80 via-black/10 to-transparent pointer-events-none" />
@@ -198,9 +198,9 @@ export const Hero: React.FC<HeroProps> = ({ onOpenEstimate }) => {
                       Réalisation réelle • Lyon
                     </span>
                   </div>
-                  <h3 className="font-display text-lg sm:text-2xl font-extrabold text-white tracking-tight">
+                  <p className="font-display text-lg sm:text-2xl font-extrabold text-white tracking-tight">
                     Appartement meublé clé en main • Salon, cuisine bar & verrière
-                  </h3>
+                  </p>
                 </div>
 
                 <div className="flex items-center gap-3 text-xs">
