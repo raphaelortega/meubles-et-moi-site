@@ -13,26 +13,6 @@ export interface LeadFormData {
   message?: string;
 }
 
-export interface PackRoom {
-  name: string;
-  iconName: string;
-  items: string[];
-}
-
-export interface FurniturePack {
-  id: string;
-  name: string;
-  tagline: string;
-  badge?: string;
-  recommendedSurface: string;
-  targetTenants: string;
-  installationTime: string;
-  popular?: boolean;
-  rooms: PackRoom[];
-  features: string[];
-  imageUrl: string;
-}
-
 export interface Testimonial {
   id: string;
   name: string;
@@ -50,5 +30,5 @@ export interface FaqItem {
   id: string;
   question: string;
   answer: string;
-  category: 'lmnp' | 'seconde-main' | 'livraison' | 'packs';
+  category: 'lmnp' | 'seconde-main' | 'livraison' | 'amenagement';
 }

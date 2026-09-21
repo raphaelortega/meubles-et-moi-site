@@ -8,13 +8,13 @@ import { submitLead } from '@/lib/supabase';
 interface QuoteFormProps {
   initialPropertyType?: string;
   initialSurface?: number;
-  initialPack?: string;
+  initialFormula?: string;
 }
 
 export const QuoteForm: React.FC<QuoteFormProps> = ({
   initialPropertyType = 'T2 (2 pièces)',
   initialSurface = 42,
-  initialPack = 'Formule T2',
+  initialFormula = 'Formule T2',
 }) => {
   const [formData, setFormData] = useState<LeadFormData>({
     nom: '',
@@ -25,7 +25,7 @@ export const QuoteForm: React.FC<QuoteFormProps> = ({
     surface_m2: initialSurface,
     ville: 'Lyon',
     date_souhaitee: 'Express sous 48h',
-    pack_selectionne: initialPack,
+    pack_selectionne: initialFormula,
     message: '',
   });
 
@@ -36,10 +36,10 @@ export const QuoteForm: React.FC<QuoteFormProps> = ({
     if (initialSurface) {
       setFormData((prev) => ({ ...prev, surface_m2: initialSurface }));
     }
-    if (initialPack) {
-      setFormData((prev) => ({ ...prev, pack_selectionne: initialPack }));
+    if (initialFormula) {
+      setFormData((prev) => ({ ...prev, pack_selectionne: initialFormula }));
     }
-  }, [initialPropertyType, initialSurface, initialPack]);
+  }, [initialPropertyType, initialSurface, initialFormula]);
 
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);

@@ -8,18 +8,18 @@ export const metadata: Metadata = {
     template: '%s | Meubles&Moi',
   },
   description:
-    'Aménagement intérieur clé en main & packs de meubles de seconde main reconditionnés. Livraison et montage soignés inclus pour particuliers et professionnels.',
+    'Aménagement intérieur clé en main & mobilier de seconde main reconditionné. Livraison et montage soignés inclus pour particuliers et professionnels.',
   keywords: [
     'Meubles&Moi',
     'mobilier reconditionné',
     'aménagement intérieur clé en main',
-    'packs meubles seconde main',
+    'mobilier seconde main',
     'livraison et montage inclus',
     'ameublement écoresponsable',
     'économie circulaire ameublement',
     'meubles seconde main lyon',
     'aménagement locatif lmnp',
-    'packs mobilier étudiant lyon',
+    'agencement clé en main',
     'décoration circulaire',
   ],
   authors: [{ name: 'Meubles&Moi', url: 'https://www.meubles-et-moi.fr' }],
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Meubles&Moi | Aménagement clé en main et mobilier écoresponsable',
     description:
-      'Aménagement intérieur clé en main & packs de meubles de seconde main reconditionnés. Livraison et montage soignés inclus pour particuliers et professionnels.',
+      'Aménagement intérieur clé en main & mobilier de seconde main reconditionné. Livraison et montage soignés inclus pour particuliers et professionnels.',
     url: 'https://www.meubles-et-moi.fr',
     siteName: 'Meubles&Moi',
     locale: 'fr_FR',
@@ -54,7 +54,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Meubles&Moi | Aménagement clé en main et mobilier écoresponsable',
     description:
-      'Aménagement intérieur clé en main & packs de meubles de seconde main reconditionnés. Livraison et montage soignés inclus.',
+      'Aménagement intérieur clé en main & mobilier de seconde main reconditionné. Livraison et montage soignés inclus.',
     images: ['/images/hero-appartement.jpg'],
   },
   robots: {
@@ -96,7 +96,7 @@ const jsonLd = {
       logo: 'https://www.meubles-et-moi.fr/logo.png',
       image: 'https://www.meubles-et-moi.fr/images/hero-appartement.jpg',
       description:
-        'Service d’aménagement intérieur clé en main et packs de mobilier reconditionné de seconde main pour particuliers, locataires, propriétaires et professionnels. Sélection soignée, livraison, montage et démarche circulaire.',
+        'Service d’aménagement intérieur clé en main et mobilier reconditionné de seconde main pour particuliers, locataires, propriétaires et professionnels. Sélection soignée, livraison, montage et démarche circulaire.',
       telephone: '+33783276352',
       email: 'r.ortega@meubles-et-moi.fr',
       address: {
@@ -164,9 +164,9 @@ const jsonLd = {
             '@type': 'Offer',
             itemOffered: {
               '@type': 'Service',
-              name: 'Packs meubles de seconde main',
+              name: 'Mobilier reconditionné pour logements et locaux professionnels',
               description:
-                'Packs complets pour studios, T1, T2 et colocations avec mobilier sélectionné, livré et monté en 48h.',
+                'Mobilier soigné pour studios, appartements et locaux professionnels, livré et monté sous 48h.',
             },
           },
         ],

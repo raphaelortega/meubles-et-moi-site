@@ -95,7 +95,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenEstimate }) => {
             variants={itemVariants}
             className="text-base sm:text-lg md:text-xl text-[#063B39]/80 font-normal leading-relaxed max-w-2xl mb-9"
           >
-            Particuliers, locataires, propriétaires et professionnels : packs de mobilier reconditionné et de seconde main soigné, livrés et montés clé en main.{' '}
+            Particuliers, locataires, propriétaires et professionnels : mobilier reconditionné et de seconde main soigné, livré et monté clé en main.{' '}
             <span className="font-semibold text-[#063B39]">Zéro logistique, 100 % d'impact.</span>
           </motion.p>
 
@@ -144,7 +144,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenEstimate }) => {
               <img
                 className="inline-block h-8 w-8 rounded-full ring-2 ring-white object-cover shadow-sm"
                 src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=120&h=120&q=80"
-                alt="Témoignage propriétaire Meubles&Moi - Pack meuble clé en main"
+                alt="Témoignage propriétaire Meubles&Moi - Aménagement clé en main"
               />
               <img
                 className="inline-block h-8 w-8 rounded-full ring-2 ring-white object-cover shadow-sm"
