@@ -2,9 +2,13 @@
 
 import React from 'react';
 import { motion, type Variants } from 'framer-motion';
-import { PiggyBank, Leaf, KeyRound, CheckCircle2 } from 'lucide-react';
+import { PiggyBank, Leaf, KeyRound, CheckCircle2, ArrowRight } from 'lucide-react';
 
-export const Pillars: React.FC = () => {
+interface PillarsProps {
+  onOpenEstimate?: () => void;
+}
+
+export const Pillars: React.FC<PillarsProps> = ({ onOpenEstimate }) => {
   const pillars = [
     {
       id: 'economique',
@@ -157,6 +161,42 @@ export const Pillars: React.FC = () => {
               </motion.div>
             );
           })}
+        </motion.div>
+
+        {/* Bannière bulle verte de réassurance & CTA */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="mt-12 sm:mt-16 bg-[#063B39] text-[#FAF8F5] rounded-3xl p-6 sm:p-8 md:p-10 flex flex-col md:flex-row items-center justify-between gap-6 shadow-md"
+        >
+          <div className="space-y-1 text-center md:text-left">
+            <span className="text-xs uppercase font-extrabold text-[#C55D45] tracking-widest block font-display">
+              Un projet d’aménagement à Lyon ?
+            </span>
+            <p className="text-lg sm:text-xl font-display font-bold text-white">
+              Obtenez une estimation personnalisée et recevez une proposition adaptée sous 24h à 48h.
+            </p>
+            <p className="text-xs sm:text-sm text-stone-300">
+              Sans engagement • Conseils d’agencement • Service complet à Lyon et toute sa métropole.
+            </p>
+          </div>
+
+          <button
+            type="button"
+            onClick={() => {
+              if (onOpenEstimate) onOpenEstimate();
+              else {
+                const el = document.getElementById('devis');
+                if (el) el.scrollIntoView({ behavior: 'smooth' });
+              }
+            }}
+            className="shrink-0 inline-flex items-center gap-2.5 px-6 py-3.5 rounded-full font-display font-bold text-xs uppercase tracking-wider text-white bg-[#C55D45] hover:bg-[#B04F38] shadow-glow-terracotta transition-all cursor-pointer hover:scale-105 active:scale-95"
+          >
+            <span>Estimer mon projet</span>
+            <ArrowRight className="w-4 h-4" />
+          </button>
         </motion.div>
 
       </div>

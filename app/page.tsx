@@ -32,7 +32,7 @@ export default function Home() {
         <Hero onOpenEstimate={handleOpenEstimate} />
 
         {/* SECTION 2 : LA PROMESSE EN 3 PILIERS */}
-        <Pillars />
+        <Pillars onOpenEstimate={handleOpenEstimate} />
 
         {/* SECTION 3 : COMMENT ÇA MARCHE */}
         <Method onOpenEstimate={handleOpenEstimate} />
