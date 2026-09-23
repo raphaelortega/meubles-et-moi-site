@@ -4,7 +4,6 @@ import React, { useState } from 'react';
 import { Header } from '@/components/Header';
 import { Hero } from '@/components/Hero';
 import { Pillars } from '@/components/Pillars';
-import { AboutSection } from '@/components/AboutSection';
 import { Method } from '@/components/Method';
 import { Gallery } from '@/components/Gallery';
 import { FAQ } from '@/components/FAQ';
@@ -35,10 +34,7 @@ export default function Home() {
         {/* SECTION 2 : LA PROMESSE EN 3 PILIERS */}
         <Pillars />
 
-        {/* SECTION 3 : PRÉSENTATION DÉTAILLÉE SEO */}
-        <AboutSection onOpenEstimate={handleOpenEstimate} />
-
-        {/* SECTION 4 : COMMENT ÇA MARCHE */}
+        {/* SECTION 3 : COMMENT ÇA MARCHE */}
         <Method onOpenEstimate={handleOpenEstimate} />
 
         {/* SECTION 5 : GALERIE / AVANT-APRÈS */}
