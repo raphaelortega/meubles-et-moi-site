@@ -32,8 +32,8 @@ const PROJECTS: Project[] = [
     location: 'Lyon',
     style: 'Couleurs douces, bois clair et ambiance chaleureuse',
     image: '/images/realisations/realisation-2.jpg',
-    description: 'Un espace clair et apaisant avec un grand canapé d’angle gris, une grande étagère en bois et une petite table basse élégante.',
-    highlights: ['Grand canapé d’angle', 'Grande étagère en bois', 'Table basse en bois', 'Tapis chaleureux'],
+    description: 'Un espace clair et apaisant avec un canapé gris confortable, une grande étagère en bois, un meuble TV blanc et une table basse pratique.',
+    highlights: ['Canapé gris confortable', 'Grande étagère en bois', 'Meuble TV blanc', 'Table basse pratique'],
     co2: '980 kg CO₂ évités',
   },
   {
