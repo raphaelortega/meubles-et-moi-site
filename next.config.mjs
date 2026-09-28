@@ -10,6 +10,14 @@ const nextConfig = {
       },
     ],
   },
+  async rewrites() {
+    return [
+      {
+        source: '/simulateur',
+        destination: '/simulateur/index.html',
+      },
+    ];
+  },
 };
 
 export default nextConfig;

@@ -1,0 +1,419 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Simulateur location nue ou meublée | Meubles&amp;moi</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --green:#063B39; --terra:#c25e46; --cream:#f4f0c9;
+  --bg:#fbfaf2; --surface:#fff; --ink:#063B39; --text:#22312f; --muted:#5b6b68;
+  --line:#e2dfca; --field:#fff; --field-line:#d6d2b8;
+  --panel:#063B39; --panel-text:#f4f0c9; --panel-muted:#b7c6bd; --panel-line:rgba(244,240,201,.18);
+  --note-bg:#fbeee9; --note-text:#7a3222;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#051c1b; --surface:#0b2928; --ink:#f4f0c9; --text:#e6e3c8; --muted:#a3b3ad;
+    --line:#1d403e; --field:#082221; --field-line:#2a5451; --panel:#0f3b38;
+    --note-bg:#3a1d16; --note-text:#f2b9a9;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#051c1b; --surface:#0b2928; --ink:#f4f0c9; --text:#e6e3c8; --muted:#a3b3ad;
+  --line:#1d403e; --field:#082221; --field-line:#2a5451; --panel:#0f3b38;
+  --note-bg:#3a1d16; --note-text:#f2b9a9;
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.55 Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+h1,h2,.brand,.gain,.big{font-family:Montserrat,"Segoe UI",Arial,sans-serif}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--terra);outline-offset:2px}
+
+.top{display:flex;justify-content:space-between;align-items:center;padding:22px 0 6px}
+.brand{font-weight:800;font-size:22px;color:var(--ink);text-decoration:none}
+.brand span{color:var(--terra)}
+.top small{color:var(--muted);font-size:14px}
+
+.intro{padding:26px 0 28px;max-width:680px}
+.for{display:inline-block;margin:0 0 14px;padding:6px 12px;border-radius:999px;background:var(--surface);border:1px solid var(--line);font-size:14px;color:var(--muted)}
+.intro h1{margin:0 0 12px;font-weight:800;font-size:clamp(30px,4.4vw,46px);line-height:1.08;letter-spacing:-.02em;color:var(--ink)}
+.intro p{margin:0;color:var(--muted);font-size:17px}
+
+.grid{display:grid;gap:26px;padding-bottom:44px}
+@media (min-width:920px){
+  .grid{grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);align-items:start}
+  .results{position:sticky;top:calc(16px + env(safe-area-inset-top,0px))}
+}
+
+form{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:24px}
+.q{margin-bottom:18px}
+.q:last-child{margin-bottom:0}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:480px){.row{grid-template-columns:1fr}}
+label,.lbl{display:block;font-size:14px;font-weight:600;margin-bottom:6px}
+.hint{display:block;font-size:13px;color:var(--muted);margin-top:5px;line-height:1.4}
+.field{position:relative}
+.unit{position:absolute;right:12px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:14px;pointer-events:none}
+input[type=number],input[type=text],select{width:100%;padding:12px 58px 12px 12px;border:1.5px solid var(--field-line);border-radius:10px;background:var(--field);color:var(--text);font:inherit;appearance:none;-webkit-appearance:none;-moz-appearance:textfield}
+select{padding-right:34px;background-image:linear-gradient(45deg,transparent 50%,var(--muted) 50%),linear-gradient(135deg,var(--muted) 50%,transparent 50%);background-position:calc(100% - 18px) 50%,calc(100% - 13px) 50%;background-size:5px 5px;background-repeat:no-repeat}
+input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+input:focus,select:focus{border-color:var(--terra);outline:none;box-shadow:0 0 0 3px rgba(194,94,70,.2)}
+input::placeholder{color:var(--muted)}
+.seg{display:flex;gap:8px;flex-wrap:wrap}
+.seg input{position:absolute;opacity:0;pointer-events:none}
+.seg label{margin:0;padding:10px 16px;border:1.5px solid var(--field-line);border-radius:999px;cursor:pointer;font-size:15px;background:var(--field)}
+.seg input:checked + label{background:var(--green);border-color:var(--green);color:var(--cream)}
+.seg input:focus-visible + label{outline:3px solid var(--terra);outline-offset:2px}
+
+.panel{background:var(--panel);color:var(--panel-text);border-radius:22px;padding:28px 26px}
+.panel .lead{margin:0;color:var(--panel-muted);font-size:15px}
+.gain{font-weight:800;font-size:clamp(46px,7vw,66px);line-height:1;letter-spacing:-.03em;margin:8px 0 8px}
+.gain.neg{color:#f2b9a9}
+.panel .sub{margin:0 0 22px;color:var(--panel-muted)}
+.panel .sub strong{color:var(--panel-text);font-weight:600}
+.cmp{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+.cmp th,.cmp td{padding:11px 0;text-align:right;border-bottom:1px solid var(--panel-line);font-size:15px}
+.cmp th:first-child,.cmp td:first-child{text-align:left;color:var(--panel-muted);font-weight:400}
+.cmp thead th{color:var(--panel-text);font-weight:600;font-size:14px}
+.cmp tr:last-child td{border-bottom:0;font-weight:700;color:var(--panel-text);font-size:16px}
+.cmp td.m{color:var(--panel-text)}
+.cmp small{display:block;font-size:12px;color:var(--panel-muted);font-weight:400}
+
+.card{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:22px 24px;margin-top:16px}
+.card h2{margin:0 0 14px;font-size:19px;font-weight:700;color:var(--ink)}
+.furn{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+.furn div{border:1px solid var(--line);border-radius:14px;padding:14px}
+.furn div.ours{border:2px solid var(--green)}
+.furn span{display:block;font-size:13px;color:var(--muted);line-height:1.35}
+.big{display:block;font-size:24px;font-weight:700;color:var(--ink);margin-top:4px;font-variant-numeric:tabular-nums}
+.card p{margin:0 0 8px}
+.card p strong{color:var(--terra)}
+.cta{display:block;text-align:center;margin-top:16px;padding:16px 20px;border-radius:14px;background:var(--terra);color:#fff;font-family:Montserrat,sans-serif;font-weight:700;font-size:17px;text-decoration:none}
+.cta:hover{filter:brightness(1.06)}
+.note{margin-top:14px;background:var(--note-bg);color:var(--note-text);border-radius:12px;padding:12px 14px;font-size:14px}
+.note a{font-weight:600}
+
+details.how{margin-top:16px;border:1px solid var(--line);border-radius:16px;background:var(--surface);padding:14px 18px}
+details.how summary{cursor:pointer;font-weight:600;color:var(--ink)}
+details.how p{font-size:14px;color:var(--muted);margin:10px 0 0}
+details.how table{width:100%;border-collapse:collapse;font-size:14px;margin-top:10px;font-variant-numeric:tabular-nums}
+details.how td{padding:6px 0;border-bottom:1px solid var(--line);text-align:right}
+details.how td:first-child{text-align:left;color:var(--muted)}
+.tw{overflow-x:auto}
+.rev{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums;font-size:15px}
+.rev td{padding:9px 0;border-bottom:1px solid var(--line);text-align:right}
+.rev td:first-child{text-align:left;color:var(--muted)}
+.rev tr.tot td{border-bottom:0;font-weight:700;color:var(--ink);font-size:17px;padding-top:12px}
+
+.share{margin-top:12px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.btn{background:transparent;border:1.5px solid var(--field-line);color:var(--text);border-radius:10px;padding:9px 14px;font:inherit;font-size:14px;font-weight:600;cursor:pointer}
+.share input{flex:1;min-width:200px;padding:9px 12px;border:1.5px solid var(--field-line);border-radius:10px;background:var(--field);color:var(--text);font-size:13px}
+.share span{font-size:13px;color:var(--muted)}
+
+footer{border-top:1px solid var(--line);padding:22px 0 36px;color:var(--muted);font-size:13px}
+footer p{max-width:80ch;margin:0 0 8px}
+footer strong{color:var(--text)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="https://www.meubles-et-moi.fr/" target="_blank" rel="noopener">Meubles<span>&amp;</span>moi</a>
+    <small>Simulateur propriétaire</small>
+  </header>
+
+  <section class="intro">
+    <p class="for" id="forWho" hidden></p>
+    <h1>Nu ou meublé&nbsp;: combien votre logement peut vous rapporter en plus&nbsp;?</h1>
+    <p>Quelques informations, un résultat immédiat après impôts, jusqu'à la revente. Rien n'est enregistré.</p>
+  </section>
+
+  <main class="grid">
+    <form id="f" autocomplete="off" onsubmit="return false">
+      <div class="q">
+        <span class="lbl" id="typeLbl">Type de logement</span>
+        <div class="seg" role="radiogroup" aria-labelledby="typeLbl">
+          <input type="radio" name="type" id="t1" value="T1"><label for="t1">Studio / T1</label>
+          <input type="radio" name="type" id="t2" value="T2" checked><label for="t2">T2</label>
+          <input type="radio" name="type" id="t3" value="T3"><label for="t3">T3</label>
+          <input type="radio" name="type" id="t4" value="T4"><label for="t4">T4 et +</label>
+        </div>
+      </div>
+      <div class="q row">
+        <div>
+          <label for="cp">Code postal</label>
+          <div class="field"><input type="text" id="cp" name="cp" value="69003" inputmode="numeric" maxlength="5" pattern="[0-9AB]{5}" autocomplete="postal-code"></div>
+          <select id="commune" name="commune" aria-label="Commune" hidden style="margin-top:8px"></select>
+        </div>
+        <div>
+          <label for="surface">Surface</label>
+          <div class="field"><input type="number" id="surface" name="surface" min="9" step="1" value="45" inputmode="numeric"><span class="unit">m²</span></div>
+        </div>
+      </div>
+      <div class="q">
+        <label for="loyerNu">Loyer en location nue</label>
+        <div class="field"><input type="number" id="loyerNu" name="loyerNu" min="0" step="10" value="940" inputmode="numeric"><span class="unit">€/mois</span></div>
+        <span class="hint">Actuel ou visé, hors charges.</span>
+      </div>
+      <div class="q">
+        <label for="prix">Prix d'achat du bien</label>
+        <div class="field"><input type="number" id="prix" name="prix" min="0" step="1000" value="220000" inputmode="numeric"><span class="unit">€</span></div>
+        <span class="hint">Frais de notaire inclus. C'est ce qui permet de réduire vos impôts en meublé.</span>
+      </div>
+      <div class="q">
+        <label for="tmi">Votre tranche d'imposition</label>
+        <select id="tmi" name="tmi">
+          <option value="0">0 %</option><option value="11">11 %</option>
+          <option value="30" selected>30 %</option><option value="41">41 %</option><option value="45">45 %</option>
+        </select>
+        <span class="hint">Indiquée sur votre avis d'impôt («&nbsp;taux marginal&nbsp;»).</span>
+      </div>
+      <div class="q row">
+        <div>
+          <label for="achat">Année d'achat</label>
+          <div class="field"><input type="number" id="achat" name="achat" min="1950" max="2100" step="1" inputmode="numeric"></div>
+        </div>
+        <div>
+          <label for="duree">Revente envisagée dans</label>
+          <div class="field"><input type="number" id="duree" name="duree" min="1" max="40" step="1" value="10" inputmode="numeric"><span class="unit">ans</span></div>
+        </div>
+      </div>
+      <p class="hint" style="margin:-10px 0 18px">Les abattements à la revente comptent depuis l'achat, pas depuis le passage en meublé.</p>
+      <div class="q">
+        <label for="loyerMeu">Loyer meublé visé <span style="font-weight:400;color:var(--muted)">(facultatif)</span></label>
+        <div class="field"><input type="number" id="loyerMeu" name="loyerMeu" min="0" step="10" inputmode="numeric"><span class="unit">€/mois</span></div>
+        <span class="hint">Sinon, on estime +15&nbsp;% par rapport au nu.</span>
+      </div>
+    </form>
+
+    <div class="results" aria-live="polite">
+      <section class="panel">
+        <p class="lead">En passant en meublé, vous gagnez</p>
+        <div class="gain" id="gain"></div>
+        <p class="sub" id="gainSub"></p>
+        <table class="cmp">
+          <thead><tr><th scope="col"><span style="position:absolute;left:-9999px">Poste</span></th><th scope="col">Nu</th><th scope="col">Meublé</th></tr></thead>
+          <tbody>
+            <tr><td>Loyer mensuel</td><td id="lmN"></td><td class="m" id="lmM"></td></tr>
+            <tr><td>Impôts par an</td><td id="txN"></td><td class="m" id="txM"></td></tr>
+            <tr><td>Ce qui vous reste par an</td><td id="ntN"></td><td id="ntM"></td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="card">
+        <h2 id="revTitle">Si vous revendez dans 10 ans</h2>
+        <div class="tw"><table class="rev">
+          <tr><td>Gain cumulé du meublé, loyers et impôts</td><td id="rGain"></td></tr>
+          <tr><td>Ameublement</td><td id="rPack"></td></tr>
+          <tr><td>Impôt repris à la revente</td><td id="rTax"></td></tr>
+          <tr class="tot"><td>Bilan net du passage en meublé</td><td id="rNet"></td></tr>
+        </table></div>
+        <p class="hint" id="rExp" style="margin-top:10px"></p>
+      </section>
+
+      <section class="card">
+        <h2>L'ameublement</h2>
+        <div class="furn">
+          <div class="ours"><span>Meubles&amp;moi, seconde main sélectionnée, livré et installé</span><b class="big" id="fPack"></b></div>
+          <div><span>Ameublement neuf équivalent, livré et monté</span><b class="big" id="fNeuf"></b></div>
+        </div>
+        <p class="hint" style="margin:0 0 12px">Montants indicatifs, hors électroménager. Le prix Meubles&amp;moi exact dépend de votre logement et est fixé dans le devis.</p>
+        <p id="fSave"></p>
+        <p id="payback"></p>
+        <a class="cta" id="cta" href="https://www.meubles-et-moi.fr/" target="_blank" rel="noopener">Demander mon devis gratuit</a>
+        <p class="hint" style="text-align:center;margin:10px 0 0">Ou appelez-nous au <a href="tel:0783276352">07 83 27 63 52</a>. Réponse sous 24&nbsp;h, sans engagement.</p>
+        <div class="note" id="note" hidden></div>
+      </section>
+
+      <details class="how">
+        <summary>Voir le détail du calcul</summary>
+        <div class="tw"><table>
+          <tr><td></td><td><b>Nu</b></td><td><b>Meublé</b></td></tr>
+          <tr><td>Loyers encaissés par an</td><td id="dRevN"></td><td id="dRevM"></td></tr>
+          <tr><td>Charges déductibles</td><td id="dChN"></td><td id="dChM"></td></tr>
+          <tr><td>Amortissements</td><td>–</td><td id="dAmM"></td></tr>
+          <tr><td>Revenu imposable</td><td id="dBaseN"></td><td id="dBaseM"></td></tr>
+          <tr><td>Régime retenu</td><td id="dRegN"></td><td id="dRegM"></td></tr>
+        </table></div>
+        <p>Hypothèses&nbsp;: 2 semaines de vacance par an en nu, 3 en meublé. Taxe foncière et copropriété estimées selon la surface, assurance propriétaire 150&nbsp;€, et en meublé CFE 250&nbsp;€ et comptabilité 350&nbsp;€ par an. Prélèvements sociaux&nbsp;: 17,2&nbsp;% en nu, 18,6&nbsp;% en meublé. En meublé, le bien (hors 15&nbsp;% de terrain) est amorti sur 30 ans et le mobilier sur 7 ans. On retient automatiquement le régime le plus avantageux de chaque côté. Sans crédit en cours.</p>
+        <div class="share">
+          <button type="button" class="btn" id="shareBtn">Copier le lien de cette simulation</button>
+          <input type="text" id="shareUrl" readonly hidden aria-label="Lien de la simulation">
+          <span id="shareOk" role="status"></span>
+        </div>
+      </details>
+    </div>
+  </main>
+
+  <footer>
+    <p><strong>Simulation indicative et non contractuelle.</strong> Elle repose sur vos informations et des hypothèses simplifiées (première année, sans crédit). Elle ne constitue ni un conseil fiscal ni une garantie de loyer ou de gain. Faites valider votre situation par un expert-comptable. Revente&nbsp;: depuis 2025, les amortissements du bâti effectivement déduits sont réintégrés dans la plus-value, taxée à 19&nbsp;% d'impôt et 17,2&nbsp;% de prélèvements sociaux après abattements pour durée de détention (exonération d'impôt après 22 ans, de prélèvements sociaux après 30 ans). Seul l'impôt supplémentaire lié au meublé est chiffré&nbsp;: la plus-value de marché existe aussi en location nue. Hors surtaxe sur les plus-values supérieures à 50&nbsp;000&nbsp;€. Projection à loyers et charges constants, mobilier non renouvelé.</p>
+    <p>Prix Meubles&amp;moi et prix du neuf donnés à titre indicatif, hors électroménager. Prix du neuf&nbsp;: bas des fourchettes constatées pour un ameublement complet livré et monté. Meubles&amp;moi, 121 rue Vauban, 69006 Lyon.</p>
+  </footer>
+</div>
+
+<script>
+(function(){
+  var DEVIS_URL = "https://www.meubles-et-moi.fr/";
+
+  var ENC = {"terr":{"paris":{"l":"Paris","p":false},"lille":{"l":"Lille","p":false},"plaine":{"l":"Plaine Commune","p":false},"est":{"l":"Est Ensemble","p":false},"lyon":{"l":"Lyon et Villeurbanne","p":false},"montpellier":{"l":"Montpellier","p":false},"bordeaux":{"l":"Bordeaux","p":false},"basque":{"l":"Pays basque","p":false},"grenoble":{"l":"Grenoble-Alpes Métropole","p":false},"grenobleP":{"l":"Grenoble-Alpes Métropole","p":true}},"map":{"33000":[["Bordeaux","bordeaux"]],"33100":[["Bordeaux","bordeaux"]],"33200":[["Bordeaux","bordeaux"]],"33300":[["Bordeaux","bordeaux"]],"33800":[["Bordeaux","bordeaux"]],"34000":[["Montpellier","montpellier"]],"34070":[["Montpellier","montpellier"]],"34080":[["Montpellier","montpellier"]],"34090":[["Montpellier","montpellier"]],"38000":[["Grenoble","grenobleP"]],"38100":[["Grenoble","grenobleP"]],"38120":[["Fontanil-Cornillon","grenoble"],["Mont-Saint-Martin"],["Proveysieux"],["Saint-Égrève","grenobleP"]],"38130":[["Échirolles","grenobleP"]],"38170":[["Seyssinet-Pariset","grenobleP"]],"38180":[["Seyssins","grenoble"]],"38240":[["Meylan","grenoble"]],"38320":[["Bresson","grenoble"],["Brié-et-Angonnes"],["Eybens","grenoble"],["Herbeys"],["Poisat","grenoble"]],"38360":[["Engins"],["Noyarey"],["Sassenage","grenobleP"]],"38400":[["Saint-Martin-d'Hères","grenobleP"]],"38420":[["Domène","grenoble"],["Murianette","grenoble"],["Revel"],["Saint-Jean-le-Vieux"],["Le Versoud"]],"38600":[["Fontaine","grenobleP"]],"38610":[["Gières","grenoble"],["Venon","grenoble"]],"38640":[["Claix","grenoble"]],"38700":[["Corenc"],["Le Sappey-en-Chartreuse"],["Sarcenas"],["La Tronche","grenoble"]],"38760":[["Saint-Paul-de-Varces"],["Varces-Allières-et-Risset","grenoble"]],"38800":[["Champagnier"],["Le Pont-de-Claix","grenobleP"]],"59000":[["Lille","lille"]],"59160":[["Capinghem"],["Lille","lille"]],"59260":[["Lezennes"],["Lille","lille"]],"59777":[["Lille","lille"]],"59800":[["Lille","lille"]],"64100":[["Bayonne","basque"]],"64122":[["Urrugne","basque"]],"64200":[["Arcangues","basque"],["Bassussarry","basque"],["Biarritz","basque"]],"64210":[["Ahetze","basque"],["Arbonne","basque"],["Bidart","basque"],["Guéthary","basque"]],"64310":[["Ascain","basque"],["Saint-Pée-sur-Nivelle"],["Sare"]],"64340":[["Boucau","basque"]],"64480":[["Halsou"],["Jatxou","basque"],["Larressore","basque"],["Ustaritz","basque"]],"64500":[["Ciboure","basque"],["Saint-Jean-de-Luz","basque"]],"64600":[["Anglet","basque"]],"64700":[["Biriatou","basque"],["Hendaye","basque"],["Urrugne","basque"]],"64990":[["Lahonce","basque"],["Mouguerre","basque"],["Saint-Pierre-d'Irube","basque"],["Urcuit","basque"],["Villefranque","basque"]],"69001":[["Lyon","lyon"]],"69002":[["Lyon","lyon"]],"69003":[["Lyon","lyon"]],"69004":[["Lyon","lyon"]],"69005":[["Lyon","lyon"]],"69006":[["Lyon","lyon"]],"69007":[["Lyon","lyon"]],"69008":[["Lyon","lyon"]],"69009":[["Lyon","lyon"]],"69100":[["Villeurbanne","lyon"]],"75001":[["Paris","paris"]],"75002":[["Paris","paris"]],"75003":[["Paris","paris"]],"75004":[["Paris","paris"]],"75005":[["Paris","paris"]],"75006":[["Paris","paris"]],"75007":[["Paris","paris"]],"75008":[["Paris","paris"]],"75009":[["Paris","paris"]],"75010":[["Paris","paris"]],"75011":[["Paris","paris"]],"75012":[["Paris","paris"]],"75013":[["Paris","paris"]],"75014":[["Paris","paris"]],"75015":[["Paris","paris"]],"75016":[["Paris","paris"]],"75017":[["Paris","paris"]],"75018":[["Paris","paris"]],"75019":[["Paris","paris"]],"75020":[["Paris","paris"]],"75116":[["Paris","paris"]],"93000":[["Bobigny","est"]],"93100":[["Montreuil","est"]],"93120":[["La Courneuve","plaine"]],"93130":[["Noisy-le-Sec","est"]],"93140":[["Bondy","est"]],"93170":[["Bagnolet","est"]],"93200":[["Saint-Denis","plaine"]],"93210":[["Saint-Denis","plaine"]],"93230":[["Romainville","est"]],"93240":[["Stains","plaine"]],"93260":[["Les Lilas","est"]],"93300":[["Aubervilliers","plaine"]],"93310":[["Le Pré-Saint-Gervais","est"]],"93380":[["Saint-Denis","plaine"]],"93400":[["Saint-Ouen-sur-Seine","plaine"]],"93430":[["Villetaneuse","plaine"]],"93450":[["L'Île-Saint-Denis","plaine"]],"93500":[["Pantin","est"]],"93800":[["Épinay-sur-Seine","plaine"]]}};
+  var lastCp="";
+  function loc(){
+    var cp=$("cp").value.trim(), sel=$("commune");
+    if(!/^[0-9][0-9AB][0-9]{3}$/.test(cp)){ sel.hidden=true; lastCp=""; return {ok:false}; }
+    var list=ENC.map[cp];
+    if(!list){ sel.hidden=true; lastCp=cp; return {ok:true,terr:null}; }
+    if(list.length>1){
+      if(cp!==lastCp){
+        sel.innerHTML=list.map(function(e,i){return '<option value="'+i+'">'+e[0]+'</option>';}).join("");
+        for(var i=0;i<list.length;i++){ if(list[i][1]){ sel.value=String(i); break; } }
+      }
+      sel.hidden=false;
+    } else sel.hidden=true;
+    lastCp=cp;
+    var e=list[list.length>1?(+sel.value||0):0];
+    return {ok:true,terr:e[1]||null,nom:e[0]};
+  }
+  var PACK = {T1:1490, T2:1990, T3:2990, T4:3990};
+  var NEUF = {T1:2000, T2:3500, T3:5500, T4:8000};
+  var H = {maj:15, vacNu:2, vacMeu:3, tfM2:18, coproM2:12, pno:150, cfe:250, compta:350,
+           psF:17.2, psB:18.6, terrain:15, dureeBien:30, dureeMob:7};
+
+  var form=document.getElementById("f");
+  var fmt=new Intl.NumberFormat("fr-FR",{style:"currency",currency:"EUR",maximumFractionDigits:0});
+  function $(id){return document.getElementById(id);}
+  function eur(n){return fmt.format(Math.round(n));}
+  function sgn(n){return (n>=0?"+":"−")+fmt.format(Math.abs(Math.round(n)));}
+  function num(id){var v=parseFloat(String($(id).value).replace(",","."));return isFinite(v)?Math.max(0,v):0;}
+  function type(){var r=form.querySelector("input[name=type]:checked");return r?r.value:"T2";}
+
+  (function readParams(){
+    var q=location.search.slice(1)||location.hash.slice(1); if(!q) return;
+    new URLSearchParams(q).forEach(function(v,k){
+      if(k==="prenom"){var el=$("forWho");el.textContent="Simulation préparée pour "+v;el.hidden=false;return;}
+      if(k==="type"){var r=form.querySelector('input[name=type][value="'+v+'"]');if(r)r.checked=true;return;}
+      var el=$(k); if(el&&el.form===form) el.value=v;
+    });
+  })();
+
+  function calc(){
+    var t=type(), s=num("surface"), L=loc(), tmi=num("tmi");
+    var lNu=num("loyerNu");
+    var est=Math.round(lNu*(1+H.maj/100)/10)*10;
+    $("loyerMeu").placeholder = est ? "≈ "+est : "";
+    var lMeu=$("loyerMeu").value!=="" ? num("loyerMeu") : est;
+
+    var revNu=lNu*12*(52-H.vacNu)/52, revMeu=lMeu*12*(52-H.vacMeu)/52;
+    var fixe=Math.round(s*H.tfM2)+Math.round(s*H.coproM2)+H.pno;
+    var chNu=fixe, chMeu=fixe+H.cfe+H.compta;
+
+    // Nu : meilleur entre micro-foncier et réel
+    var bReelN=Math.max(0,revNu-chNu), bN=bReelN, regN="Réel";
+    if(revNu<=15000 && revNu*0.7<bReelN){bN=revNu*0.7;regN="Micro-foncier";}
+    var txN=bN*(tmi+H.psF)/100;
+
+    // Meublé : projection année par année (LMNP réel avec report des amortissements, ou micro-BIC)
+    var pack=PACK[t], rateM=(tmi+H.psB)/100;
+    var amBienAn=num("prix")*(1-H.terrain/100)/H.dureeBien;
+    var avant=revMeu-chMeu;
+    var N=Math.max(1,Math.round(num("duree")||10));
+    var netN=revNu-chNu-txN;
+    var carry=0, cumBien=0, cumUsed=0, cumGain=0, y1=null;
+    for(var y=1;y<=N;y++){
+      var amM = y<=H.dureeMob ? pack/H.dureeMob : 0;
+      var dispo=amBienAn+amM+carry;
+      var used=Math.min(dispo,Math.max(0,avant));
+      var bReel=Math.max(0,avant-used), b=bReel, reg="LMNP réel";
+      if(revMeu<=77700 && revMeu*0.5<bReel){ b=revMeu*0.5; reg="Micro-BIC"; used=0; dispo=carry; }
+      carry=dispo-used; if(reg==="LMNP réel") cumBien+=amBienAn; cumUsed+=used;
+      var tx=b*rateM, net=revMeu-chMeu-tx;
+      cumGain+=net-netN;
+      if(y===1) y1={used:used,base:b,reg:reg,tax:tx,net:net};
+    }
+    var bM=y1.base, regM=y1.reg, txM=y1.tax, amU=y1.used, netM=y1.net, gain=netM-netN;
+
+    // Revente : réintégration des amortissements du bâti déduits (imputés en priorité sur le bâti, par prudence)
+    var reint=Math.min(cumBien,cumUsed);
+    var nowY=new Date().getFullYear(), achat=num("achat")||nowY;
+    var det=Math.max(0,nowY-achat)+N;
+    var abIR = det<6?0 : det<=21?(det-5)*6 : 100;
+    var abPS = det<6?0 : det<=21?(det-5)*1.65 : det===22?28 : Math.min(100,28+(det-22)*9);
+    var txRev=reint*(1-abIR/100)*0.19 + reint*(1-abPS/100)*0.172;
+    var bilan=cumGain-pack-txRev;
+
+    $("revTitle").textContent="Si vous revendez dans "+N+" an"+(N>1?"s":"");
+    $("rGain").textContent=sgn(cumGain);
+    $("rPack").textContent="−"+eur(pack);
+    $("rTax").textContent=txRev>0.5?"−"+eur(txRev):"0 €";
+    $("rNet").textContent=sgn(bilan);
+    var exp;
+    if(reint<1) exp="Aucun amortissement du bâti déduit, donc rien à réintégrer à la revente.";
+    else if(det>=30) exp=eur(reint)+" d'amortissements du bâti déduits, mais avec "+det+" ans de détention la plus-value est totalement exonérée&nbsp;: rien n'est repris.";
+    else exp=eur(reint)+" d'amortissements du bâti déduits sont réintégrés dans la plus-value. Avec "+det+" ans de détention, abattement de "+Math.round(abIR)+"&nbsp;% sur l'impôt et "+String(Math.round(abPS*10)/10).replace(".",",")+"&nbsp;% sur les prélèvements sociaux."+(det<22?" Plus vous gardez le bien, moins l'État en reprend.":"");
+    $("rExp").innerHTML=exp;
+
+    var g=$("gain"); g.textContent=sgn(gain)+" par an"; g.classList.toggle("neg",gain<0);
+    if(gain>0){
+      var dTax=txN-txM;
+      $("gainSub").innerHTML="Soit <strong>"+sgn(gain/12)+" par mois</strong>, après impôts et charges"+(dTax>0?", dont <strong>"+eur(dTax)+" d'impôts en moins</strong>.":".");
+    } else {
+      $("gainSub").textContent="Avec ces chiffres, le meublé ne rapporte pas plus. Essayez un autre loyer meublé.";
+    }
+    $("lmN").textContent=eur(lNu); $("lmM").textContent=eur(lMeu);
+    $("txN").textContent=eur(txN); $("txM").textContent=eur(txM);
+    $("ntN").textContent=eur(netN); $("ntM").textContent=eur(netM);
+
+    var neuf=NEUF[t];
+    $("fPack").textContent=eur(pack); $("fNeuf").textContent="dès "+eur(neuf);
+    $("fSave").innerHTML="Environ <strong>"+eur(neuf-pack)+" d'économie</strong> par rapport au neuf, sans courses, sans livraison ni montage à gérer.";
+    $("payback").innerHTML = gain>0 ? "Votre ameublement est remboursé en <strong>"+Math.ceil(pack/(gain/12))+" mois</strong> grâce au gain." : "";
+
+    var note=$("note");
+    if(L.ok && L.terr){
+      var T=ENC.terr[L.terr];
+      note.innerHTML=(L.nom&&L.nom!==T.l?L.nom+" ("+T.l+")":T.l)+(T.p?"&nbsp;: une partie de la commune applique":"&nbsp;: votre commune applique")+" l'encadrement des loyers. Vérifiez que "+eur(lMeu)+" par mois respecte le plafond meublé de votre adresse"+(L.terr==="lyon"?' sur le <a href="https://www.toodego.com" target="_blank" rel="noopener">simulateur de la Métropole</a>':" sur le simulateur officiel de votre territoire")+". On le vérifie aussi pour vous lors du devis.";
+      note.hidden=false;
+    } else if(L.ok){
+      note.innerHTML='Pas d\'encadrement des loyers dans votre commune. En zone tendue, la hausse de loyer entre deux locataires reste limitée&nbsp;: <a href="https://www.service-public.gouv.fr/simulateur/calcul/zones-tendues" target="_blank" rel="noopener">vérifier votre commune</a>.';
+      note.hidden=false;
+    } else note.hidden=true;
+
+    $("dRevN").textContent=eur(revNu); $("dRevM").textContent=eur(revMeu);
+    $("dChN").textContent="−"+eur(chNu); $("dChM").textContent="−"+eur(chMeu);
+    $("dAmM").textContent=amU>0?"−"+eur(amU):"–";
+    $("dBaseN").textContent=eur(bN); $("dBaseM").textContent=eur(bM);
+    $("dRegN").textContent=regN; $("dRegM").textContent=regM;
+
+    var qp=new URLSearchParams({utm_source:"simulateur",type:t,surface:s,cp:$("cp").value.trim(),loyer_nu:lNu,loyer_meuble:lMeu});
+    $("cta").href=DEVIS_URL+(DEVIS_URL.indexOf("?")>-1?"&":"?")+qp.toString();
+  }
+
+  $("shareBtn").addEventListener("click",function(){
+    var p=new URLSearchParams(); p.set("type",type());
+    ["cp","surface","loyerNu","prix","tmi","loyerMeu","achat","duree"].forEach(function(k){if($(k).value!=="")p.set(k,$(k).value);});
+    var cur=new URLSearchParams(location.search.slice(1)||location.hash.slice(1));
+    if(cur.get("prenom"))p.set("prenom",cur.get("prenom"));
+    var url=location.origin+location.pathname+"?"+p.toString(), box=$("shareUrl"), ok=$("shareOk");
+    box.value=url; box.hidden=false; box.select();
+    if(navigator.clipboard&&navigator.clipboard.writeText) navigator.clipboard.writeText(url).then(function(){ok.textContent="Lien copié.";},function(){ok.textContent="Copiez le lien.";});
+    else ok.textContent="Copiez le lien.";
+  });
+
+  if(!$("achat").value) $("achat").value=new Date().getFullYear();
+  form.addEventListener("input",calc);
+  form.addEventListener("change",calc);
+  calc();
+})();
+</script>
+</body>
+</html>

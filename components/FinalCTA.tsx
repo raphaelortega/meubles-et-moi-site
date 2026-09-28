@@ -22,12 +22,12 @@ export const FinalCTA: React.FC<FinalCTAProps> = ({ onOpenEstimate }) => {
     if (onOpenEstimate) {
       onOpenEstimate();
     } else {
-      scrollTo('devis');
+      scrollTo('estimation');
     }
   };
 
   return (
-    <section className="py-20 md:py-28 relative">
+    <section id="estimation" className="py-20 md:py-28 relative scroll-mt-20">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Grand bloc vert sombre #063B39 */}

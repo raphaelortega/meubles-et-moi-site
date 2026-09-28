@@ -102,7 +102,7 @@ export const Footer: React.FC = () => {
               <li>
                 <button
                   type="button"
-                  onClick={() => scrollTo('devis')}
+                  onClick={() => scrollTo('estimation')}
                   className="bg-transparent border-none p-0 text-left text-[#C55D45] hover:underline font-semibold transition-colors cursor-pointer"
                 >
                   Estimer mon projet (devis)

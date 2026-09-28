@@ -77,11 +77,42 @@ export const FORMSPREE_ENDPOINTS: string[] = envEndpoints && envEndpoints.length
 
 export const FORMSPREE_ENDPOINT = FORMSPREE_ENDPOINTS[0];
 
+export interface SimulatorData {
+  type?: string;
+  surface?: number;
+  cp?: string;
+  loyerNu?: string | number;
+  loyerMeuble?: string | number;
+  utmSource?: string;
+  prenom?: string;
+}
+
+export const mapSimulatorType = (type?: string, surface?: number): string => {
+  if (!type) return 'T2';
+  const t = type.trim().toUpperCase();
+  if (t === 'STUDIO') return 'Studio';
+  if (t === 'T1') {
+    if (surface && surface < 20) return 'Studio';
+    return 'Studio / T1';
+  }
+  if (t === 'T2') {
+    if (surface && surface > 50) return 'T2 bis / T3';
+    return 'T2';
+  }
+  if (t === 'T3') return 'T3 / T3 bis';
+  if (t === 'T4') return 'T4';
+  if (t === 'T5') return 'T4 bis / T5';
+  
+  const found = PROPERTY_OPTIONS.find((opt) => opt.value.toLowerCase().includes(type.toLowerCase()));
+  return found ? found.value : 'T2';
+};
+
 interface QuoteModalProps {
   isOpen: boolean;
   onClose: () => void;
   defaultSurface?: number;
   defaultType?: string;
+  simulatorData?: SimulatorData | null;
 }
 
 export const QuoteModal: React.FC<QuoteModalProps> = ({
@@ -89,6 +120,7 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
   onClose,
   defaultSurface = 42,
   defaultType = 'T2',
+  simulatorData = null,
 }) => {
   const [surface, setSurface] = useState<number>(defaultSurface);
   const [propertyType, setPropertyType] = useState<string>(defaultType);
@@ -113,9 +145,29 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
   const currentTier = getBudgetTier(surface);
 
   useEffect(() => {
-    if (defaultSurface) setSurface(defaultSurface);
-    if (defaultType) setPropertyType(defaultType);
-  }, [defaultSurface, defaultType]);
+    if (simulatorData) {
+      if (simulatorData.surface && !isNaN(Number(simulatorData.surface))) {
+        setSurface(Number(simulatorData.surface));
+      } else if (simulatorData.type) {
+        const mapped = mapSimulatorType(simulatorData.type);
+        const opt = PROPERTY_OPTIONS.find((o) => o.value === mapped);
+        if (opt) setSurface(opt.defaultM2);
+      }
+
+      if (simulatorData.type) {
+        setPropertyType(mapSimulatorType(simulatorData.type, simulatorData.surface));
+      }
+
+      setFormData((prev) => ({
+        ...prev,
+        ville: simulatorData.cp ? simulatorData.cp : prev.ville,
+        prenom: simulatorData.prenom ? simulatorData.prenom : prev.prenom,
+      }));
+    } else {
+      if (defaultSurface) setSurface(defaultSurface);
+      if (defaultType) setPropertyType(defaultType);
+    }
+  }, [simulatorData, defaultSurface, defaultType]);
 
   // Handle escape key
   useEffect(() => {
@@ -180,6 +232,22 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
     const nomComplet = `${payload.prenom} ${formData.nom?.trim() || ''}`.trim();
     const dateSouhaitee = formData.date_souhaitee || 'Dans le mois';
 
+    const hasSimulatorData = Boolean(
+      simulatorData &&
+        (simulatorData.loyerNu ||
+          simulatorData.loyerMeuble ||
+          simulatorData.cp ||
+          simulatorData.utmSource)
+    );
+
+    const simulatorSection = hasSimulatorData
+      ? `\n\n📊 DONNÉES DU SIMULATEUR FISCAL (LMNP)
+• Code postal renseigné : ${simulatorData?.cp || payload.quartier_ville}
+• Loyer estimé en nu    : ${simulatorData?.loyerNu ? `${simulatorData.loyerNu} € / mois` : 'Non renseigné'}
+• Loyer estimé en meublé: ${simulatorData?.loyerMeuble ? `${simulatorData.loyerMeuble} € / mois` : 'Non renseigné'}
+• Source de provenance  : ${simulatorData?.utmSource || 'simulateur'}`
+      : '';
+
     // Synthèse soignée et chaleureuse pour le corps de l'e-mail Formspree
     const messageBriefing = `🌿 NOUVELLE ESTIMATION DE PROJET — MEUBLES&MOI LYON
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -200,7 +268,7 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
 ${payload.ambiance_souhaitee}
 
 🍳 ÉQUIPEMENTS DÉJÀ EN PLACE (À DÉDUIRE DU DEVIS)
-${payload.equipement_existant_detail}
+${payload.equipement_existant_detail}${simulatorSection}
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 💡 Action recommandée : Recontacter ${payload.prenom} au ${payload.telephone} sous 24h à 48h.
@@ -213,7 +281,7 @@ ${payload.equipement_existant_detail}
       };
 
       const requestBody = JSON.stringify({
-        _subject: `🌿 Meubles&moi • Nouveau devis : ${nomComplet} — ${payload.type_bien} (${payload.surface_m2})`,
+        _subject: `🌿 Meubles&moi • Nouveau devis : ${nomComplet} — ${payload.type_bien} (${payload.surface_m2})${hasSimulatorData ? ' [Simulateur]' : ''}`,
         _replyto: payload.email,
         message: messageBriefing,
         "👤 Prospect": nomComplet,
@@ -226,6 +294,17 @@ ${payload.equipement_existant_detail}
         "✨ Ambiance souhaitée": payload.ambiance_souhaitee,
         "🍳 Équipements en place": payload.equipement_existant_detail,
         "📅 Date souhaitée": dateSouhaitee,
+        ...(hasSimulatorData
+          ? {
+              "📊 Loyer nu estimé": simulatorData?.loyerNu ? `${simulatorData.loyerNu} € / mois` : 'Non renseigné',
+              "📊 Loyer meublé estimé": simulatorData?.loyerMeuble ? `${simulatorData.loyerMeuble} € / mois` : 'Non renseigné',
+              "🏷️ Source": simulatorData?.utmSource || 'simulateur',
+              code_postal: simulatorData?.cp || '',
+              loyer_nu: simulatorData?.loyerNu || '',
+              loyer_meuble: simulatorData?.loyerMeuble || '',
+              utm_source: simulatorData?.utmSource || 'simulateur',
+            }
+          : {}),
         // Variables pour template HTML Formspree
         prenom: payload.prenom,
         nom: formData.nom?.trim() || '',
@@ -269,7 +348,7 @@ ${payload.equipement_existant_detail}
             surface_m2: surface,
             date_souhaitee: formData.date_souhaitee,
             pack_selectionne: `${payload.type_bien} • ${payload.budget_calcule}`,
-            message: `Ambiance: ${payload.ambiance_souhaitee} | Équipements: ${payload.equipement_existant_detail}`,
+            message: `Ambiance: ${payload.ambiance_souhaitee} | Équipements: ${payload.equipement_existant_detail}${hasSimulatorData ? ` | Simulateur (CP: ${simulatorData?.cp || 'N/A'}, Loyer nu: ${simulatorData?.loyerNu || 'N/A'}€, Meublé: ${simulatorData?.loyerMeuble || 'N/A'}€, Source: ${simulatorData?.utmSource || 'simulateur'})` : ''}`,
           }, { skipEmailNotification: true }).catch(() => {});
         } catch {
           // ignore
@@ -376,6 +455,30 @@ ${payload.equipement_existant_detail}
                     Calculez votre budget clé en main selon la surface de votre logement.
                   </p>
                 </div>
+
+                {simulatorData && (
+                  <div className="p-3.5 rounded-2xl bg-emerald-50 border border-emerald-200/80 flex items-start gap-3 text-[#063B39]">
+                    <div className="w-7 h-7 rounded-xl bg-emerald-600/10 text-emerald-700 flex items-center justify-center shrink-0 mt-0.5">
+                      <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+                    </div>
+                    <div className="text-xs">
+                      <p className="font-bold text-emerald-900">
+                        Données de votre simulation importées
+                      </p>
+                      <p className="text-emerald-800/90 mt-0.5 leading-relaxed">
+                        Logement : <span className="font-semibold">{simulatorData.type || currentTier.typeLabel} ({surface} m²)</span>
+                        {simulatorData.cp && <span> • Secteur : <span className="font-semibold">{simulatorData.cp}</span></span>}
+                        {(simulatorData.loyerNu || simulatorData.loyerMeuble) && (
+                          <span>
+                            {' '}• Loyers : {simulatorData.loyerNu ? <span className="font-semibold">{simulatorData.loyerNu} € (nu)</span> : null}
+                            {simulatorData.loyerNu && simulatorData.loyerMeuble ? ' / ' : ''}
+                            {simulatorData.loyerMeuble ? <span className="font-semibold">{simulatorData.loyerMeuble} € (meublé)</span> : null}
+                          </span>
+                        )}
+                      </p>
+                    </div>
+                  </div>
+                )}
 
                 <form onSubmit={handleSubmit} className="space-y-5">
                   {/* 1. Sélecteur Type de bien & Surface synchronisés */}
