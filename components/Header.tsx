@@ -104,12 +104,6 @@ export const Header: React.FC<HeaderProps> = ({ onOpenEstimate }) => {
             >
               FAQ
             </button>
-            <a
-              href="/blog"
-              className="hover:text-[#C55D45] transition-colors duration-200 cursor-pointer font-semibold text-[#C55D45]"
-            >
-              Blog
-            </a>
           </nav>
 
           {/* CTA & Téléphones */}
@@ -182,13 +176,6 @@ export const Header: React.FC<HeaderProps> = ({ onOpenEstimate }) => {
               >
                 Questions fréquentes (FAQ)
               </button>
-              <a
-                href="/blog"
-                onClick={() => setMobileMenuOpen(false)}
-                className="py-2.5 font-display font-bold text-[#C55D45] hover:text-[#B04F38] text-base"
-              >
-                Blog & Guides LMNP
-              </a>
               
               <div className="pt-2 border-t border-[#063B39]/10 flex flex-col gap-3">
                 <button
@@ -222,6 +209,15 @@ export const Header: React.FC<HeaderProps> = ({ onOpenEstimate }) => {
                     </a>
                     <a href="mailto:m.aucourt@meubles-et-moi.fr" className="hover:text-[#C55D45] transition-colors">
                       m.aucourt@meubles-et-moi.fr
+                    </a>
+                  </div>
+                  <div className="pt-2">
+                    <a
+                      href="/blog"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="text-[11px] text-[#063B39]/50 hover:text-[#C55D45] transition-colors underline underline-offset-2"
+                    >
+                      Guides & Blog
                     </a>
                   </div>
                 </div>

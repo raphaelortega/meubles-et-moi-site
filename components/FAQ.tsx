@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronDown, HelpCircle, Phone, Mail } from 'lucide-react';
+import { ChevronDown, HelpCircle, Phone, Mail, ArrowRight } from 'lucide-react';
 
 export interface FAQItem {
   question: string;
@@ -150,6 +150,17 @@ export const FAQ: React.FC = () => {
               <span>Nous écrire</span>
             </a>
           </div>
+        </div>
+
+        {/* Lien discret vers les guides du blog */}
+        <div className="mt-8 text-center">
+          <a
+            href="/blog"
+            className="inline-flex items-center gap-1.5 text-xs text-[#063B39]/60 hover:text-[#C55D45] transition-colors underline underline-offset-4 decoration-stone-300 hover:decoration-[#C55D45]"
+          >
+            <span>Consulter nos guides pratiques et articles sur la location meublée & le LMNP</span>
+            <ArrowRight className="w-3.5 h-3.5" />
+          </a>
         </div>
 
       </div>
