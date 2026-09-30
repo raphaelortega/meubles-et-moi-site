@@ -47,17 +47,17 @@ export const Header: React.FC<HeaderProps> = ({ onOpenEstimate }) => {
         initial={{ y: -20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-        className={`w-full max-w-5xl pointer-events-auto rounded-full transition-all duration-300 ${
+        className={`w-full max-w-6xl pointer-events-auto rounded-full transition-all duration-300 ${
           isScrolled
             ? 'bg-white/95 backdrop-blur-md py-2.5 px-5 sm:px-6 shadow-[0_12px_32px_-6px_rgba(35,25,20,0.07),_0_1px_4px_rgba(0,0,0,0.03)] border border-stone-200'
             : 'bg-white/90 backdrop-blur-md py-3 px-6 sm:px-7 shadow-[0_8px_25px_-5px_rgba(35,25,20,0.04),_0_1px_3px_rgba(0,0,0,0.02)] border border-stone-200/80'
         }`}
       >
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between gap-3 lg:gap-4">
           {/* Logo épuré */}
           <a
             href="/"
-            className="group flex items-center gap-2.5 transition-transform duration-200 active:scale-95"
+            className="group flex items-center gap-2.5 transition-transform duration-200 active:scale-95 shrink-0"
           >
             <div className="w-8 h-8 rounded-full overflow-hidden shadow-sm transition-transform duration-300 group-hover:scale-105 group-hover:rotate-6 shrink-0 bg-[#063B39]">
               <img
@@ -79,7 +79,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenEstimate }) => {
           </a>
 
           {/* Navigation Desktop */}
-          <nav className="hidden md:flex items-center gap-7 text-[13px] font-medium text-[#063B39]">
+          <nav className="hidden md:flex items-center gap-5 lg:gap-6 text-[13px] font-medium text-[#063B39] shrink-0">
             <button
               onClick={() => scrollTo('promesse')}
               className="hover:text-[#C55D45] transition-colors duration-200 cursor-pointer"
@@ -104,11 +104,17 @@ export const Header: React.FC<HeaderProps> = ({ onOpenEstimate }) => {
             >
               FAQ
             </button>
+            <a
+              href="/blog"
+              className="hover:text-[#C55D45] transition-colors duration-200 cursor-pointer"
+            >
+              Blog
+            </a>
           </nav>
 
           {/* CTA & Téléphones */}
-          <div className="hidden sm:flex items-center gap-4">
-            <div className="hidden lg:flex items-center gap-2 text-xs font-semibold text-[#063B39]/80">
+          <div className="hidden sm:flex items-center gap-3 lg:gap-4 shrink-0">
+            <div className="hidden lg:flex items-center gap-1.5 xl:gap-2 text-xs font-semibold text-[#063B39]/80 whitespace-nowrap">
               <Phone className="w-3.5 h-3.5 text-[#063B39]" />
               <a href="tel:0783276352" className="hover:text-[#C55D45] transition-colors">
                 07 83 27 63 52
@@ -123,7 +129,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenEstimate }) => {
               whileHover={{ scale: 1.03, y: -1 }}
               whileTap={{ scale: 0.97 }}
               onClick={handleEstimateClick}
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-bold text-white bg-[#C55D45] hover:bg-[#B04F38] shadow-glow-terracotta transition-all cursor-pointer"
+              className="inline-flex items-center gap-2 px-4 lg:px-5 py-2.5 rounded-full text-xs font-bold text-white bg-[#C55D45] hover:bg-[#B04F38] shadow-glow-terracotta transition-all cursor-pointer whitespace-nowrap"
             >
               <Sparkles className="w-3.5 h-3.5" />
               <span>Estimer mon projet</span>
@@ -176,6 +182,13 @@ export const Header: React.FC<HeaderProps> = ({ onOpenEstimate }) => {
               >
                 Questions fréquentes (FAQ)
               </button>
+              <a
+                href="/blog"
+                onClick={() => setMobileMenuOpen(false)}
+                className="py-2.5 font-display font-bold text-[#063B39] hover:text-[#C55D45] text-base"
+              >
+                Blog
+              </a>
               
               <div className="pt-2 border-t border-[#063B39]/10 flex flex-col gap-3">
                 <button
@@ -209,15 +222,6 @@ export const Header: React.FC<HeaderProps> = ({ onOpenEstimate }) => {
                     </a>
                     <a href="mailto:m.aucourt@meubles-et-moi.fr" className="hover:text-[#C55D45] transition-colors">
                       m.aucourt@meubles-et-moi.fr
-                    </a>
-                  </div>
-                  <div className="pt-2">
-                    <a
-                      href="/blog"
-                      onClick={() => setMobileMenuOpen(false)}
-                      className="text-[11px] text-[#063B39]/50 hover:text-[#C55D45] transition-colors underline underline-offset-2"
-                    >
-                      Guides & Blog
                     </a>
                   </div>
                 </div>

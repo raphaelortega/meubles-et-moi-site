@@ -7,7 +7,6 @@ import { Pillars } from '@/components/Pillars';
 import { Method } from '@/components/Method';
 import { Gallery } from '@/components/Gallery';
 import { FAQ } from '@/components/FAQ';
-import { BlogPreview } from '@/components/BlogPreview';
 import { FinalCTA } from '@/components/FinalCTA';
 import { Footer } from '@/components/Footer';
 import { QuoteModal, SimulatorData } from '@/components/QuoteModal';
@@ -103,13 +102,10 @@ export default function Home() {
         {/* SECTION 5 : GALERIE / AVANT-APRÈS */}
         <Gallery />
 
-        {/* SECTION 6 : GUIDES & EXPERTISE BLOG */}
-        <BlogPreview />
-
-        {/* SECTION 7 : QUESTIONS FRÉQUENTES (FAQ) */}
+        {/* SECTION 6 : QUESTIONS FRÉQUENTES (FAQ) */}
         <FAQ />
 
-        {/* SECTION 8 : CALL-TO-ACTION FINAL */}
+        {/* SECTION 7 : CALL-TO-ACTION FINAL */}
         <FinalCTA onOpenEstimate={handleOpenEstimate} />
       </main>
 

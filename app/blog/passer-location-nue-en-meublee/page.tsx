@@ -657,21 +657,14 @@ export default function ArticlePasserLocationNueEnMeublee() {
                     </div>
                   </div>
 
-                  {/* Boutons d'action : simulateur & devis */}
-                  <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-3">
-                    <Link
-                      href="/simulateur"
-                      className="px-6 py-3.5 rounded-full font-display font-bold text-xs uppercase tracking-wider text-white bg-[#C55D45] hover:bg-[#B04F38] shadow-glow-terracotta flex items-center justify-center gap-2 transition-all"
-                    >
-                      <Calculator className="w-4 h-4" />
-                      <span>Simuler mon gain meublé vs nu</span>
-                    </Link>
-
+                  {/* Bouton d'action devis */}
+                  <div className="pt-3">
                     <Link
                       href="/#estimation"
-                      className="px-6 py-3.5 rounded-full font-display font-bold text-xs uppercase tracking-wider text-white bg-white/10 hover:bg-white/15 border border-white/20 flex items-center justify-center gap-2 transition-all"
+                      className="inline-flex items-center gap-2 px-7 py-4 rounded-full font-display font-bold text-xs uppercase tracking-wider text-white bg-[#C55D45] hover:bg-[#B04F38] shadow-glow-terracotta transition-all"
                     >
-                      <span>Obtenir un devis clé en main</span>
+                      <Sparkles className="w-4 h-4" />
+                      <span>Recevoir mon estimation & devis gratuit</span>
                       <ArrowRight className="w-3.5 h-3.5" />
                     </Link>
                   </div>

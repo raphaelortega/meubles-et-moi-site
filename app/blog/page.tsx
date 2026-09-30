@@ -226,37 +226,29 @@ export default function BlogHubPage() {
             </div>
           </div>
 
-          {/* Bloc CTA Simulateur & Devis */}
+          {/* Bloc CTA Devis */}
           <div className="mt-16 rounded-3xl bg-[#063B39] text-white p-8 sm:p-12 border border-white/10 text-center relative overflow-hidden">
             <div className="max-w-2xl mx-auto space-y-4 relative z-10">
               <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 text-xs font-semibold text-stone-200">
                 <Sparkles className="w-3.5 h-3.5 text-[#C55D45]" />
-                <span>Simulateur & Chiffrage Gratuit</span>
+                <span>Accompagnement & Chiffrage Gratuit</span>
               </span>
 
               <h3 className="font-display text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
-                Envie d&apos;estimer vos gains en meublé ?
+                Prêt à meubler votre logement sans lever le petit doigt ?
               </h3>
 
               <p className="text-xs sm:text-sm text-stone-200 leading-relaxed">
-                Utilisez notre simulateur autonome pour comparer vos revenus en location nue et meublée, ou demandez votre sélection clé en main sous 24h.
+                Recevez une proposition d’aménagement sur-mesure sous 24h avec un devis transparent, incluant le mobilier reconditionné, la livraison et le montage complet.
               </p>
 
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-3">
-                <Link
-                  href="/simulateur"
-                  className="w-full sm:w-auto px-7 py-3.5 rounded-full text-xs font-display font-bold uppercase tracking-wider text-white bg-[#C55D45] hover:bg-[#B04F38] shadow-glow-terracotta transition-all flex items-center justify-center gap-2"
-                >
-                  <Calculator className="w-4 h-4" />
-                  <span>Accéder au simulateur LMNP</span>
-                </Link>
-
+              <div className="pt-3">
                 <Link
                   href="/#estimation"
-                  className="w-full sm:w-auto px-7 py-3.5 rounded-full text-xs font-display font-bold uppercase tracking-wider text-white bg-white/10 hover:bg-white/15 border border-white/20 transition-all flex items-center justify-center gap-2"
+                  className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full text-xs font-display font-bold uppercase tracking-wider text-white bg-[#C55D45] hover:bg-[#B04F38] shadow-glow-terracotta transition-all"
                 >
-                  <span>Estimer mon aménagement</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
+                  <span>Estimer mon aménagement clé en main</span>
+                  <ArrowRight className="w-4 h-4" />
                 </Link>
               </div>
             </div>
