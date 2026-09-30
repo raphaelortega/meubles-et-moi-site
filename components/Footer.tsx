@@ -13,6 +13,8 @@ export const Footer: React.FC = () => {
     if (el) {
       const y = el.getBoundingClientRect().top + window.pageYOffset - 80;
       window.scrollTo({ top: y, behavior: 'smooth' });
+    } else {
+      window.location.href = `/#${id}`;
     }
   };
 
@@ -98,6 +100,14 @@ export const Footer: React.FC = () => {
                 >
                   Questions fréquentes (FAQ)
                 </button>
+              </li>
+              <li>
+                <a
+                  href="/blog"
+                  className="text-left text-stone-300 hover:text-[#C55D45] transition-colors block"
+                >
+                  Blog & Guides LMNP
+                </a>
               </li>
               <li>
                 <button

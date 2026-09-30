@@ -27,6 +27,8 @@ export const Header: React.FC<HeaderProps> = ({ onOpenEstimate }) => {
       const yOffset = -90;
       const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
       window.scrollTo({ top: y, behavior: 'smooth' });
+    } else {
+      window.location.href = `/#${id}`;
     }
   };
 
@@ -35,7 +37,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenEstimate }) => {
     if (onOpenEstimate) {
       onOpenEstimate();
     } else {
-      scrollTo('devis');
+      scrollTo('estimation');
     }
   };
 
@@ -54,7 +56,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenEstimate }) => {
         <div className="flex items-center justify-between">
           {/* Logo épuré */}
           <a
-            href="#"
+            href="/"
             className="group flex items-center gap-2.5 transition-transform duration-200 active:scale-95"
           >
             <div className="w-8 h-8 rounded-full overflow-hidden shadow-sm transition-transform duration-300 group-hover:scale-105 group-hover:rotate-6 shrink-0 bg-[#063B39]">
@@ -102,6 +104,12 @@ export const Header: React.FC<HeaderProps> = ({ onOpenEstimate }) => {
             >
               FAQ
             </button>
+            <a
+              href="/blog"
+              className="hover:text-[#C55D45] transition-colors duration-200 cursor-pointer font-semibold text-[#C55D45]"
+            >
+              Blog
+            </a>
           </nav>
 
           {/* CTA & Téléphones */}
@@ -174,6 +182,13 @@ export const Header: React.FC<HeaderProps> = ({ onOpenEstimate }) => {
               >
                 Questions fréquentes (FAQ)
               </button>
+              <a
+                href="/blog"
+                onClick={() => setMobileMenuOpen(false)}
+                className="py-2.5 font-display font-bold text-[#C55D45] hover:text-[#B04F38] text-base"
+              >
+                Blog & Guides LMNP
+              </a>
               
               <div className="pt-2 border-t border-[#063B39]/10 flex flex-col gap-3">
                 <button
