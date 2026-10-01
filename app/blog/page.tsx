@@ -4,65 +4,59 @@ import {
   ArrowLeft, 
   Calendar, 
   Clock, 
-  CheckCircle2, 
-  AlertTriangle, 
   FileText, 
-  TrendingUp, 
   ShieldCheck, 
   Home, 
   Sparkles, 
-  HelpCircle, 
-  ExternalLink, 
-  Check, 
   ArrowRight,
-  Calculator,
-  Scale,
-  Sparkle
+  ExternalLink,
+  BookOpen
 } from 'lucide-react';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 
 export const metadata: Metadata = {
-  title: 'Passer sa location nue en meublée : conditions et étapes | Blog Meubles&Moi',
+  title: 'Passer sa location nue en meublée : conditions, fiscalité et démarches en 2026 | Blog Meubles&Moi',
   description:
-    'Bail en cours, meubles obligatoires, loyer, statut LMNP : les étapes pour passer votre location vide en meublée, simplement et sans erreur.',
+    'Bail en cours, liste des 11 meubles obligatoires, encadrement des loyers et fiscalité LMNP au régime réel : le guide éditorial complet pour réussir votre transition sans erreur.',
   keywords: [
     'passer location nue en meublée',
     'changer bail vide en meublé',
-    'louer en meublé',
-    'LMNP démarches',
-    'meubles obligatoires meublé',
-    'décret 2015-981',
+    'louer en meublé lyon',
+    'démarches LMNP régime réel',
+    'meubles obligatoires meublé décret 2015-981',
     'loyer encadré meublé lyon',
-    'fiscalité lmnp amortissement',
+    'fiscalité lmnp amortissement 2026',
+    'rentabilité location meublée'
   ],
   alternates: {
     canonical: 'https://www.meubles-et-moi.fr/blog',
   },
   openGraph: {
-    title: 'Passer sa location nue en meublée : conditions et étapes | Meubles&Moi',
+    title: 'Passer sa location nue en meublée : conditions, fiscalité et démarches en 2026 | Meubles&Moi',
     description:
-      'Bail en cours, meubles obligatoires, loyer, statut LMNP : les étapes pour passer votre location vide en meublée, simplement et sans erreur.',
+      'Bail en cours, liste des 11 meubles obligatoires, encadrement des loyers et fiscalité LMNP au régime réel : le guide éditorial complet pour réussir votre transition sans erreur.',
     url: 'https://www.meubles-et-moi.fr/blog',
     siteName: 'Meubles&Moi',
     locale: 'fr_FR',
     type: 'article',
     publishedTime: '2026-09-29T08:00:00+02:00',
+    modifiedTime: '2026-10-01T12:00:00+02:00',
     authors: ['Maxence'],
     images: [
       {
         url: 'https://www.meubles-et-moi.fr/images/hero-appartement.jpg',
         width: 1200,
         height: 630,
-        alt: 'Passer sa location nue en meublée : conditions et étapes',
+        alt: 'Passer sa location nue en meublée : conditions, fiscalité et démarches',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Passer sa location nue en meublée : conditions et étapes',
+    title: 'Passer sa location nue en meublée : conditions, fiscalité et démarches en 2026',
     description:
-      'Bail en cours, meubles obligatoires, loyer, statut LMNP : les étapes pour passer votre location vide en meublée, simplement et sans erreur.',
+      'Bail en cours, liste des 11 meubles obligatoires, encadrement des loyers et fiscalité LMNP au régime réel : le guide éditorial complet pour réussir votre transition sans erreur.',
     images: ['https://www.meubles-et-moi.fr/images/hero-appartement.jpg'],
   },
 };
@@ -79,12 +73,12 @@ const articleJsonLd = {
         name: 'Meubles&Moi',
         url: 'https://www.meubles-et-moi.fr',
       },
-      headline: 'Passer sa location nue en meublée : conditions et étapes',
+      headline: 'Passer sa location nue en meublée : conditions, fiscalité et démarches en 2026',
       description:
-        'Bail en cours, meubles obligatoires, loyer, statut LMNP : les étapes pour passer votre location vide en meublée, simplement et sans erreur.',
+        'Bail en cours, liste des 11 meubles obligatoires, encadrement des loyers et fiscalité LMNP au régime réel : le guide éditorial complet pour réussir votre transition sans erreur.',
       image: 'https://www.meubles-et-moi.fr/images/hero-appartement.jpg',
       datePublished: '2026-09-29T08:00:00+02:00',
-      dateModified: '2026-09-29T08:00:00+02:00',
+      dateModified: '2026-10-01T12:00:00+02:00',
       inLanguage: 'fr-FR',
       mainEntityOfPage: 'https://www.meubles-et-moi.fr/blog',
       author: {
@@ -105,7 +99,6 @@ const articleJsonLd = {
     },
     {
       '@type': 'BreadcrumbList',
-      '@id': 'https://www.meubles-et-moi.fr/blog#breadcrumb',
       itemListElement: [
         {
           '@type': 'ListItem',
@@ -119,18 +112,23 @@ const articleJsonLd = {
           name: 'Blog',
           item: 'https://www.meubles-et-moi.fr/blog',
         },
+        {
+          '@type': 'ListItem',
+          position: 3,
+          name: 'Passer sa location nue en meublée',
+          item: 'https://www.meubles-et-moi.fr/blog',
+        },
       ],
     },
     {
       '@type': 'FAQPage',
-      '@id': 'https://www.meubles-et-moi.fr/blog#faq',
       mainEntity: [
         {
           '@type': 'Question',
           name: 'Puis-je passer en meublé si mon locataire actuel est d’accord ?',
           acceptedAnswer: {
             '@type': 'Answer',
-            text: 'Oui, si vous mettez fin au bail vide d’un commun accord et signez un nouveau bail meublé. Faites-vous accompagner (agence, notaire ou juriste) pour sécuriser la démarche et formaliser la résiliation à l’amiable.',
+            text: 'Oui, à condition de résilier d’un commun accord le bail vide en cours et de signer un nouveau bail d’habitation meublé avec état des lieux et inventaire du mobilier. L’accompagnement par un professionnel (notaire ou juriste) est recommandé pour formaliser l’accord écrit.',
           },
         },
         {
@@ -138,7 +136,7 @@ const articleJsonLd = {
           name: 'Combien de temps faut-il pour meubler un logement ?',
           acceptedAnswer: {
             '@type': 'Answer',
-            text: 'Avec un service clé en main comme Meubles&Moi, quelques jours suffisent (sélection coordonnée, livraison et montage complets). Seul, comptez plutôt plusieurs semaines entre le sourcing des meubles, la coordination des livraisons multiples et le montage.',
+            text: 'En faisant appel à un service clé en main comme Meubles&Moi, quelques jours suffisent entre la commande et l’installation complète. En autonomie, comptez plutôt 3 à 6 semaines pour l’approvisionnement, la livraison fractionnée et le montage.',
           },
         },
         {
@@ -146,7 +144,7 @@ const articleJsonLd = {
           name: 'Est-ce que je paierai forcément moins d’impôts en meublé ?',
           acceptedAnswer: {
             '@type': 'Answer',
-            text: 'Pas forcément. Tout dépend de votre situation personnelle, de votre tranche marginale d’imposition (TMI), du régime choisi (micro-BIC ou réel) et du montant de vos charges. À noter : les prélèvements sociaux sont de 18,6 % en meublé contre 17,2 % en vide. Faites une simulation avant de vous lancer.',
+            text: 'Dans la grande majorité des cas oui, notamment grâce au régime réel simplifié et à l’amortissement du bien et des meubles qui efface la base imposable pendant plusieurs années, contre une fiscalité lourde au barème de l’IR en revenus fonciers.',
           },
         },
         {
@@ -154,7 +152,7 @@ const articleJsonLd = {
           name: 'Et si je revends mon logement plus tard ?',
           acceptedAnswer: {
             '@type': 'Answer',
-            text: 'Depuis 2025, les amortissements déduits en LMNP au régime réel sont réintégrés dans le calcul de la plus-value lors de la revente. Le meublé au régime réel reste surtout intéressant si vous conservez le bien sur le long terme (les abattements pour durée de détention s’appliquant au fil des années). Parlez-en à un expert-comptable.',
+            text: 'Depuis 2025, les amortissements déduits en LMNP au régime réel sont réintégrés dans le calcul de la plus-value lors de la revente. Le meublé au régime réel reste particulièrement avantageux dans le cadre d’une stratégie de détention long terme, les abattements pour durée de détention réduisant progressivement l’impôt sur la plus-value.',
           },
         },
       ],
@@ -162,23 +160,9 @@ const articleJsonLd = {
   ],
 };
 
-const MANDATORY_FURNITURE = [
-  { id: 1, title: 'Une literie complète', desc: 'Matelas de qualité avec couette ou couverture adaptée' },
-  { id: 2, title: 'Dispositif d’occultation', desc: 'Rideaux occultants ou volets dans les pièces destinées au sommeil' },
-  { id: 3, title: 'Plaques de cuisson', desc: 'Plaques vitrocéramiques, induction ou gaz fonctionnelles' },
-  { id: 4, title: 'Four ou micro-ondes', desc: 'Four traditionnel ou four à micro-ondes en bon état de marche' },
-  { id: 5, title: 'Réfrigérateur avec congélateur', desc: 'Comportant au minimum un compartiment congélation à -6 °C' },
-  { id: 6, title: 'Vaisselle pour les repas', desc: 'Assiettes, verres, couverts et bols en nombre suffisant pour les occupants' },
-  { id: 7, title: 'Ustensiles de cuisine', desc: 'Poêles, casseroles, spatules, couteaux de découpe, égouttoir' },
-  { id: 8, title: 'Table et sièges', desc: 'Table à manger et chaises proportionnées au nombre de locataires' },
-  { id: 9, title: 'Étagères et rangements', desc: 'Armoire, commode ou penderie adaptée au volume du logement' },
-  { id: 10, title: 'Luminaires', desc: 'Éclairage suffisant dans chaque pièce de vie et de nuit' },
-  { id: 11, title: 'Matériel d’entretien ménager', desc: 'Balai, pelle, balayette et aspirateur adaptés aux types de sols' },
-];
-
 export default function BlogPage() {
   return (
-    <div className="min-h-screen bg-[#F9F6F0] text-[#063B39] font-sans antialiased selection:bg-[#063B39] selection:text-white">
+    <div className="min-h-screen bg-[#FBF9F5] text-[#063B39] font-sans antialiased selection:bg-[#063B39] selection:text-white">
       {/* Script Schema.org SEO */}
       <script
         type="application/ld+json"
@@ -189,578 +173,677 @@ export default function BlogPage() {
       <Header />
 
       <main className="pt-28 pb-20 md:pt-36 md:pb-28">
-        <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <article className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           
-          {/* Fil d'Ariane */}
-          <nav aria-label="Fil d’Ariane" className="flex items-center gap-2 text-xs text-[#063B39]/70 mb-6">
+          {/* Fil d'Ariane épuré */}
+          <nav aria-label="Fil d’Ariane" className="flex items-center gap-2 text-xs text-[#063B39]/65 mb-6">
             <Link href="/" className="hover:text-[#C55D45] transition-colors flex items-center gap-1">
               <Home className="w-3.5 h-3.5" />
               <span>Accueil</span>
             </Link>
             <span>/</span>
-            <span className="text-[#063B39] font-medium">
-              Blog & Conseils
+            <Link href="/blog" className="hover:text-[#C55D45] transition-colors">
+              <span>Blog & Analyses</span>
+            </Link>
+            <span>/</span>
+            <span className="text-[#063B39] font-medium truncate max-w-[200px] sm:max-w-none">
+              Passer sa location nue en meublée
             </span>
           </nav>
 
-          {/* En-tête de l'article */}
+          {/* En-tête éditorial du billet de blog */}
           <header className="mb-10">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#C55D45]/10 text-[#C55D45] text-xs font-bold uppercase tracking-wider mb-4">
-              <Sparkle className="w-3 h-3" />
-              <span>Guide Investisseur & LMNP</span>
+            <div className="flex items-center gap-2.5 mb-4">
+              <span className="inline-block text-[11px] font-bold uppercase tracking-widest text-[#C55D45] bg-[#C55D45]/10 px-3 py-1 rounded-full">
+                Stratégie & Fiscalité Locative
+              </span>
+              <span className="text-stone-400 text-xs">•</span>
+              <span className="text-xs font-medium text-[#063B39]/65">
+                Guide pratique
+              </span>
             </div>
 
-            <h1 className="font-display text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#063B39] tracking-tight leading-[1.15] mb-6">
-              Passer sa location nue en meublée : conditions et étapes
+            <h1 className="font-display text-3xl sm:text-4xl md:text-[42px] font-extrabold text-[#063B39] tracking-tight leading-[1.2] mb-6">
+              Passer sa location nue en meublée : conditions, étapes et fiscalité LMNP
             </h1>
 
-            {/* Méta auteur, date, temps de lecture */}
-            <div className="flex flex-wrap items-center gap-4 sm:gap-6 text-xs sm:text-sm text-[#063B39]/75 pb-6 border-b border-[#063B39]/10">
-              <div className="flex items-center gap-2.5">
-                <div className="w-9 h-9 rounded-full bg-[#063B39] text-[#FAF8F5] flex items-center justify-center font-display font-bold text-xs shadow-xs">
+            {/* Châpo / Lead journalistique */}
+            <p className="text-lg sm:text-xl text-[#063B39]/80 font-normal leading-relaxed mb-8">
+              Bail en cours, liste des 11 meubles obligatoires, plafonds de loyer et statut LMNP au régime réel : découvrez la méthode complète pour basculer votre logement vide en meublé sans commettre d’erreur juridique ni fiscale.
+            </p>
+
+            {/* Barrette Auteur & Métadonnées d'article */}
+            <div className="flex flex-wrap items-center justify-between gap-4 py-4 border-y border-[#063B39]/10 text-xs sm:text-sm text-[#063B39]/70">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-[#063B39] text-stone-100 flex items-center justify-center font-display font-extrabold text-sm shadow-xs">
                   M
                 </div>
                 <div>
-                  <div className="font-bold text-[#063B39]">Par Maxence (@Maxence)</div>
+                  <div className="font-bold text-[#063B39]">Maxence</div>
                   <div className="text-[11px] text-[#063B39]/60">Co-fondateur Meubles&Moi</div>
                 </div>
               </div>
 
-              <div className="flex items-center gap-1.5 text-[#063B39]/70">
-                <Calendar className="w-4 h-4 text-[#C55D45]" />
-                <span>29 septembre 2026</span>
-              </div>
-
-              <div className="flex items-center gap-1.5 text-[#063B39]/70">
-                <Clock className="w-4 h-4 text-[#C55D45]" />
-                <span>6 min de lecture</span>
+              <div className="flex items-center gap-4 text-xs text-[#063B39]/70">
+                <div className="flex items-center gap-1.5">
+                  <Calendar className="w-3.5 h-3.5 text-[#C55D45]" />
+                  <span>29 septembre 2026</span>
+                </div>
+                <span className="text-stone-300">•</span>
+                <div className="flex items-center gap-1.5">
+                  <Clock className="w-3.5 h-3.5 text-[#C55D45]" />
+                  <span>7 min de lecture</span>
+                </div>
               </div>
             </div>
           </header>
 
-          {/* Sommaire interactif */}
-          <div className="p-6 rounded-3xl bg-white border border-[#063B39]/10 shadow-sm mb-12">
-            <h2 className="font-display text-sm uppercase tracking-wider font-extrabold text-[#063B39] mb-3 flex items-center gap-2">
-              <FileText className="w-4 h-4 text-[#C55D45]" />
-              <span>Sommaire du guide</span>
-            </h2>
-            <ol className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs sm:text-sm font-medium text-[#063B39]/80">
+          {/* Image de couverture éditoriale */}
+          <figure className="mb-12">
+            <div className="relative aspect-[16/10] w-full overflow-hidden rounded-3xl bg-stone-200 border border-stone-200/80 shadow-subtle">
+              <img
+                src="/images/hero-appartement.jpg"
+                alt="Appartement lyonnais aménagé avec goût en location meublée"
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <figcaption className="text-center text-xs text-[#063B39]/60 mt-3 italic">
+              Un aménagement meublé harmonieux et prêt à vivre permet d’optimiser le rendement locatif tout en réduisant la vacance au minimum.
+            </figcaption>
+          </figure>
+
+          {/* Sommaire éditorial discret */}
+          <div className="mb-12 p-6 rounded-2xl bg-white/80 border border-[#063B39]/10 shadow-xs">
+            <div className="font-display text-xs uppercase tracking-widest font-extrabold text-[#063B39] mb-3 flex items-center gap-2">
+              <BookOpen className="w-4 h-4 text-[#C55D45]" />
+              <span>Au sommaire de cet article</span>
+            </div>
+            <ul className="space-y-2 text-sm text-[#063B39]/80 font-medium">
               <li>
                 <a href="#pourquoi-passer-en-meuble" className="hover:text-[#C55D45] transition-colors flex items-center gap-2">
-                  <span className="text-[#C55D45] font-bold">1.</span> Pourquoi passer en meublé ?
+                  <span className="text-[#C55D45] font-bold">1.</span> Pourquoi tant de bailleurs franchissent-ils le pas du meublé ?
                 </a>
               </li>
               <li>
                 <a href="#condition-1-logement-libre" className="hover:text-[#C55D45] transition-colors flex items-center gap-2">
-                  <span className="text-[#C55D45] font-bold">2.</span> Condition 1 : Attendre que le bien soit libre
+                  <span className="text-[#C55D45] font-bold">2.</span> La condition préalable : attendre la libération des lieux
                 </a>
               </li>
               <li>
                 <a href="#condition-2-meubles-obligatoires" className="hover:text-[#C55D45] transition-colors flex items-center gap-2">
-                  <span className="text-[#C55D45] font-bold">3.</span> Condition 2 : Les 11 meubles obligatoires
+                  <span className="text-[#C55D45] font-bold">3.</span> L&apos;équipement légal : la liste des 11 meubles obligatoires
                 </a>
               </li>
               <li>
                 <a href="#condition-3-fixer-loyer" className="hover:text-[#C55D45] transition-colors flex items-center gap-2">
-                  <span className="text-[#C55D45] font-bold">4.</span> Condition 3 : Fixer le bon loyer (encadrement)
+                  <span className="text-[#C55D45] font-bold">4.</span> Encadrement des loyers : comment fixer le bon loyer ?
                 </a>
               </li>
               <li>
                 <a href="#6-etapes-pour-passer-en-meuble" className="hover:text-[#C55D45] transition-colors flex items-center gap-2">
-                  <span className="text-[#C55D45] font-bold">5.</span> Les 6 étapes pratiques
+                  <span className="text-[#C55D45] font-bold">5.</span> Les 6 étapes pratiques pour réussir sa transition
                 </a>
               </li>
               <li>
                 <a href="#qui-soccupe-des-meubles" className="hover:text-[#C55D45] transition-colors flex items-center gap-2">
-                  <span className="text-[#C55D45] font-bold">6.</span> Qui s’occupe des meubles ? Solution clé en main
+                  <span className="text-[#C55D45] font-bold">6.</span> Aménagement et logistique : comment s&apos;équiper sans stress ?
                 </a>
               </li>
               <li>
                 <a href="#questions-frequentes" className="hover:text-[#C55D45] transition-colors flex items-center gap-2">
-                  <span className="text-[#C55D45] font-bold">7.</span> Questions fréquentes (FAQ)
+                  <span className="text-[#C55D45] font-bold">7.</span> Foire aux questions (FAQ)
                 </a>
               </li>
               <li>
                 <a href="#sources-officielles" className="hover:text-[#C55D45] transition-colors flex items-center gap-2">
-                  <span className="text-[#C55D45] font-bold">8.</span> Sources officielles
+                  <span className="text-[#C55D45] font-bold">8.</span> Sources et références réglementaires
                 </a>
               </li>
-            </ol>
+            </ul>
           </div>
 
-          {/* Corps de l'article */}
-          <div className="prose prose-stone max-w-none text-[#063B39]/90 leading-relaxed space-y-10">
+          {/* CORPS DE L'ARTICLE (Vraie typographie et rédaction d'article) */}
+          <div className="space-y-12 text-[17px] leading-[1.8] text-[#063B39]/85">
             
-            {/* Introduction percutante */}
-            <div className="text-base sm:text-lg text-[#063B39] font-normal leading-relaxed bg-[#FAF8F5] p-6 sm:p-8 rounded-3xl border border-[#063B39]/10">
-              <p className="mb-3 font-semibold text-[#063B39]">
-                Vous louez votre appartement vide et vous vous demandez s&apos;il serait plus intéressant de le louer meublé ?
+            {/* Introduction rédigée */}
+            <div className="space-y-4">
+              <p>
+                Si vous êtes propriétaire d’un appartement actuellement loué vide, vous avez très probablement déjà ressenti la morsure de la fiscalité des revenus fonciers. Entre l’impôt sur le revenu calculé à votre tranche marginale (souvent 30 % ou 41 %) et les 17,2 % de prélèvements sociaux, plus de la moitié de vos bénéfices locatifs peuvent s’évaporer chaque année. Ajoutez à cela un encadrement des loyers de plus en plus contraignant dans les métropoles comme Lyon, Villeurbanne ou Paris, et le rendement net de la location nue s’érode inévitablement.
               </p>
-              <p className="text-[#063B39]/80">
-                Bonne nouvelle : <strong>c&apos;est possible</strong>, et les démarches sont plus simples qu&apos;on ne le pense.
-                Mais il y a quelques règles strictes à respecter : le bail en cours, les meubles obligatoires prévus par la loi, l’encadrement du loyer et la déclaration aux impôts. On vous explique tout, étape par étape, sans jargon.
+              <p>
+                Face à ce constat, le passage en location meublée (sous le statut <strong>LMNP – Loueur en Meublé Non Professionnel</strong>) s’impose comme une évidence pour de nombreux investisseurs. Pourtant, cette transition ne s’improvise pas. Peut-on changer de bail avec le locataire en place ? Quels sont exactement les meubles obligatoires exigés par la loi ? Comment optimiser son loyer tout en restant parfaitement dans les clous légaux ?
+              </p>
+              <p>
+                Dans ce guide complet, nous passons en revue l’ensemble des conditions réglementaires et les 6 étapes chronologiques pour transformer votre bien sereinement.
               </p>
             </div>
 
             {/* SECTION 1 */}
-            <section id="pourquoi-passer-en-meuble" className="scroll-mt-24 space-y-4">
-              <h2 className="font-display text-2xl sm:text-3xl font-extrabold text-[#063B39] tracking-tight flex items-center gap-3">
-                <span className="w-8 h-8 rounded-xl bg-[#C55D45]/15 text-[#C55D45] flex items-center justify-center text-sm font-bold">01</span>
-                <span>Pourquoi passer en meublé ?</span>
+            <section id="pourquoi-passer-en-meuble" className="scroll-mt-24 space-y-6 pt-4 border-t border-[#063B39]/10">
+              <h2 className="font-display text-2xl sm:text-3xl font-extrabold text-[#063B39] tracking-tight">
+                1. Pourquoi tant de bailleurs franchissent-ils le pas du meublé ?
               </h2>
 
-              <p className="text-base text-[#063B39]/85">
-                Louer meublé peut rapporter sensiblement plus qu’une location vide, pour <strong>trois raisons majeures</strong> :
+              <p>
+                Louer meublé n’est pas un simple effet de mode : c’est un choix de gestion patrimoniale qui répond à trois motivations économiques majeures.
               </p>
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
-                <div className="p-5 rounded-2xl bg-white border border-stone-200/90 shadow-xs flex flex-col justify-between">
-                  <div>
-                    <div className="w-9 h-9 rounded-xl bg-emerald-100 text-emerald-800 flex items-center justify-center mb-3">
-                      <TrendingUp className="w-5 h-5" />
-                    </div>
-                    <h3 className="font-display font-bold text-base text-[#063B39] mb-1.5">
-                      Un loyer souvent plus élevé
-                    </h3>
-                    <p className="text-xs text-[#063B39]/75 leading-relaxed">
-                      Dans les villes où les loyers sont encadrés comme à <strong>Lyon ou Villeurbanne</strong>, le plafond légal est plus élevé pour un logement meublé que pour un logement vide.
-                    </p>
-                  </div>
-                  <span className="inline-block mt-3 text-[11px] font-bold text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded-full w-fit">
-                    +15 % à +30 % de loyer
-                  </span>
-                </div>
+              <h3 className="font-display text-xl font-bold text-[#063B39] mt-6">
+                Un loyer déplafonné et légalement plus élevé
+              </h3>
+              <p>
+                Dans les agglomérations soumises à l’encadrement des loyers — à commencer par Lyon et Villeurbanne —, la loi fixe des loyers de référence au mètre carré. Mais ce que beaucoup de propriétaires ignorent, c’est que le plafond légal (le loyer de référence majoré) est systématiquement plus élevé pour un logement meublé que pour un logement vide. À typologie et quartier identiques, l’écart atteint couramment <strong>15 % à 25 % de loyer supplémentaire par mois</strong>. Ce différentiel permet d’amortir très rapidement le coût d’acquisition du mobilier tout en générant un surplus de trésorerie net appréciable.
+              </p>
 
-                <div className="p-5 rounded-2xl bg-white border border-stone-200/90 shadow-xs flex flex-col justify-between">
-                  <div>
-                    <div className="w-9 h-9 rounded-xl bg-sky-100 text-sky-800 flex items-center justify-center mb-3">
-                      <Home className="w-5 h-5" />
-                    </div>
-                    <h3 className="font-display font-bold text-base text-[#063B39] mb-1.5">
-                      Une relocation express
-                    </h3>
-                    <p className="text-xs text-[#063B39]/75 leading-relaxed">
-                      Étudiants, jeunes actifs, cadres en mutation professionnelle : la demande est très forte pour des logements soignés et <strong>immédiatement prêts à vivre</strong>.
-                    </p>
-                  </div>
-                  <span className="inline-block mt-3 text-[11px] font-bold text-sky-800 bg-sky-50 px-2.5 py-1 rounded-full w-fit">
-                    Vacance locative réduite
-                  </span>
-                </div>
+              <h3 className="font-display text-xl font-bold text-[#063B39] mt-6">
+                Une attractivité locative accrue et une vacance minimale
+              </h3>
+              <p>
+                La sociologie des locataires urbains a profondément évolué. Qu’il s’agisse d’étudiants de grandes écoles, de jeunes actifs en premier emploi, de consultants en mission ou de couples en transition de vie, la perspective de devoir acheter, transporter et monter des meubles rebute une proportion grandissante de candidats. Un appartement meublé avec soin, contemporain et prêt à vivre se loue en moyenne en moins de 48 heures à Lyon, ramenant la vacance locative entre deux locataires à une durée quasi inexistante.
+              </p>
 
-                <div className="p-5 rounded-2xl bg-white border border-stone-200/90 shadow-xs flex flex-col justify-between">
-                  <div>
-                    <div className="w-9 h-9 rounded-xl bg-amber-100 text-amber-900 flex items-center justify-center mb-3">
-                      <Calculator className="w-5 h-5" />
-                    </div>
-                    <h3 className="font-display font-bold text-base text-[#063B39] mb-1.5">
-                      Une fiscalité plus douce
-                    </h3>
-                    <p className="text-xs text-[#063B39]/75 leading-relaxed">
-                      En vide, vos loyers sont taxés en « revenus fonciers ». En meublé (statut <strong>LMNP</strong> au régime réel), vous pouvez déduire l’usure du logement et des meubles grâce à <strong>l’amortissement</strong>.
-                    </p>
-                  </div>
-                  <span className="inline-block mt-3 text-[11px] font-bold text-amber-900 bg-amber-50 px-2.5 py-1 rounded-full w-fit">
-                    Impôt proche de 0 €
-                  </span>
-                </div>
-              </div>
+              <h3 className="font-display text-xl font-bold text-[#063B39] mt-6">
+                Le bouclier fiscal de l’amortissement LMNP
+              </h3>
+              <p>
+                C’est le véritable levier de rentabilité de la location meublée. En location vide, vos loyers relèvent des revenus fonciers : vous ne pouvez déduire que certaines charges réelles ou bénéficier d’un abattement forfaitaire limité de 30 % en micro-foncier. Le reliquat est lourdement taxé.
+              </p>
+              <p>
+                En meublé, vos loyers relèvent des Bénéfices Industriels et Commerciaux (BIC). En optant pour le <strong>régime réel simplifié</strong>, vous pouvez non seulement déduire toutes vos charges réelles (intérêts d’emprunt, taxe foncière, charges de copropriété, prime d’assurance PNO, frais de gestion), mais surtout <strong>amortir comptablement</strong> la valeur du bâti (hors terrain) sur 25 à 30 ans ainsi que le mobilier sur 5 à 10 ans. 
+              </p>
+              <p>
+                Dans la pratique, cette charge d’amortissement fictive vient neutraliser comptablement le résultat imposable. Pour un grand nombre de propriétaires, l’impôt sur les loyers est tout simplement ramené à <strong>0 € pendant 8 à 12 ans</strong>.
+              </p>
 
-              <div className="p-4 rounded-2xl bg-emerald-50/70 border border-emerald-200/70 text-xs sm:text-sm text-emerald-950 flex items-start gap-3">
-                <CheckCircle2 className="w-5 h-5 text-emerald-700 shrink-0 mt-0.5" />
-                <div>
-                  <strong>À retenir pour vos impôts :</strong> Dans beaucoup de cas, l’amortissement comptable ramène le revenu imposable proche de zéro pendant plusieurs années. Chaque situation étant unique, un expert-comptable spécialisé pourra vous confirmer précisément le gain fiscal adapté à votre tranche.
-                </div>
-              </div>
+              {/* Citation éditoriale */}
+              <blockquote className="my-8 pl-6 border-l-4 border-[#C55D45] py-2 text-lg sm:text-xl font-display font-medium italic text-[#063B39] bg-[#FAF8F5] rounded-r-2xl">
+                « En location meublée, le mobilier n’est pas une simple dépense esthétique : c’est un investissement amortissable qui protège durablement vos loyers de l’impôt. »
+              </blockquote>
+
+              <p className="text-sm text-[#063B39]/70 bg-stone-100/80 p-4 rounded-xl border border-stone-200">
+                <strong>Point fiscal d’actualité :</strong> Concernant les prélèvements sociaux, ils s’élèvent à 18,6 % en meublé (contre 17,2 % en vide). Cependant, comme la base imposable nette est considérablement réduite par l’amortissement, le montant payé en euros reste très largement inférieur en meublé.
+              </p>
             </section>
 
             {/* SECTION 2 */}
-            <section id="condition-1-logement-libre" className="scroll-mt-24 space-y-4">
-              <h2 className="font-display text-2xl sm:text-3xl font-extrabold text-[#063B39] tracking-tight flex items-center gap-3">
-                <span className="w-8 h-8 rounded-xl bg-[#C55D45]/15 text-[#C55D45] flex items-center justify-center text-sm font-bold">02</span>
-                <span>Condition n°1 : attendre que le logement soit libre</span>
+            <section id="condition-1-logement-libre" className="scroll-mt-24 space-y-6 pt-4 border-t border-[#063B39]/10">
+              <h2 className="font-display text-2xl sm:text-3xl font-extrabold text-[#063B39] tracking-tight">
+                2. La condition préalable : attendre la libération des lieux
               </h2>
 
-              <p className="text-base text-[#063B39]/85">
-                C&apos;est la règle la plus importante : <strong>on ne transforme pas un bail vide en bail meublé en cours de location</strong>. Tant que votre locataire actuel est en place, son bail vide continue obligatoirement selon ses termes initiaux.
+              <p>
+                C’est la règle juridique fondamentale que tout bailleur doit impérativement respecter : <strong>on ne peut pas transformer unilatéralement un bail de location nue en bail meublé en cours d’exécution</strong>. Tant qu’un locataire est sous contrat de location vide, ses droits sont protégés par la loi du 6 juillet 1989.
               </p>
 
-              <div className="p-5 rounded-2xl bg-amber-50/80 border border-amber-200 text-amber-950 text-xs sm:text-sm space-y-2">
-                <div className="flex items-center gap-2 font-bold text-amber-900">
-                  <AlertTriangle className="w-4 h-4 text-amber-700 shrink-0" />
-                  <span>Rappel légal sur la fin de bail</span>
-                </div>
-                <p>
-                  Un bail vide dure <strong>3 ans</strong> lorsque le propriétaire bailleur est un particulier. Vouloir passer en meublé <strong>n&apos;est pas un motif légal pour donner congé</strong> à son locataire. La loi n&apos;en prévoit que trois :
-                </p>
-                <ul className="list-disc pl-5 space-y-1 text-xs">
-                  <li>Vendre le logement (congé pour vente) ;</li>
-                  <li>Le reprendre pour y habiter ou y loger un proche direct (congé pour reprise) ;</li>
-                  <li>Un motif « légitime et sérieux » (par exemple des impayés répétés).</li>
-                </ul>
-                <p className="text-[11px] text-amber-800/80 pt-1">
-                  Dans tous les cas, le congé doit être notifié au moins 6 mois avant la date d&apos;échéance du bail (source : ANIL).
-                </p>
-              </div>
+              <p>
+                Un bail d’habitation nue est conclu pour une durée minimale de <strong>3 ans</strong> (lorsque le propriétaire bailleur est un particulier). Durant cette période, vouloir passer son logement en meublé <strong>ne constitue en aucun cas un motif légal pour donner congé</strong> à son locataire. La loi n’autorise en effet que trois motifs stricts pour résilier un bail à l’échéance triennale :
+              </p>
 
-              <h3 className="font-display font-bold text-lg text-[#063B39] pt-2">
-                Concrètement, vous pouvez passer en meublé dans trois situations :
+              <ul className="list-disc pl-6 space-y-2">
+                <li>
+                  <strong>Le congé pour vente :</strong> si vous décidez d’arbitrer votre patrimoine et de céder le bien (le locataire bénéficiant alors d’un droit de préemption prioritaire).
+                </li>
+                <li>
+                  <strong>Le congé pour reprise :</strong> pour habiter le logement vous-même à titre de résidence principale ou y loger un membre de votre famille proche (conjoint, ascendant ou descendant direct).
+                </li>
+                <li>
+                  <strong>Le congé pour motif légitime et sérieux :</strong> par exemple en cas de manquements graves et répétés du locataire à ses obligations contractuelles (impayés avérés, troubles anormaux de voisinage).
+                </li>
+              </ul>
+
+              <p>
+                Dans tous les cas, ce congé doit être notifié par lettre recommandée avec accusé de réception ou par acte d’huissier de justice au moins <strong>6 mois avant la date d’anniversaire du bail</strong> (source : ANIL).
+              </p>
+
+              <h3 className="font-display text-xl font-bold text-[#063B39] mt-6">
+                Dans quelles situations concrètes pouvez-vous alors basculer ?
               </h3>
 
-              <div className="space-y-3">
-                <div className="p-4 rounded-2xl bg-white border border-stone-200/90 flex items-start gap-3.5">
-                  <span className="w-6 h-6 rounded-full bg-[#063B39] text-white flex items-center justify-center font-bold text-xs shrink-0 mt-0.5">
-                    A
-                  </span>
-                  <div>
-                    <h4 className="font-bold text-sm text-[#063B39]">Votre logement est déjà vide</h4>
-                    <p className="text-xs text-[#063B39]/75 mt-0.5">
-                      C’est le cas idéal : vous avez carte blanche pour meubler l&apos;appartement immédiatement et rédiger un bail meublé pour le prochain occupant.
-                    </p>
-                  </div>
+              <div className="space-y-4">
+                <div className="p-5 rounded-2xl bg-white border border-stone-200/90 shadow-xs">
+                  <h4 className="font-bold text-base text-[#063B39] mb-1">
+                    Situation 1 : Le logement est actuellement vacant
+                  </h4>
+                  <p className="text-sm text-[#063B39]/80 leading-relaxed">
+                    C’est la configuration la plus simple et la plus confortable. Entre deux locations, vous profitez de la période de vacance pour concevoir l’aménagement, équiper l’appartement de A à Z et signer d’emblée un contrat de location meublée d’un an avec le futur occupant.
+                  </p>
                 </div>
 
-                <div className="p-4 rounded-2xl bg-white border border-stone-200/90 flex items-start gap-3.5">
-                  <span className="w-6 h-6 rounded-full bg-[#063B39] text-white flex items-center justify-center font-bold text-xs shrink-0 mt-0.5">
-                    B
-                  </span>
-                  <div>
-                    <h4 className="font-bold text-sm text-[#063B39]">Votre locataire donne son préavis</h4>
-                    <p className="text-xs text-[#063B39]/75 mt-0.5">
-                      C&apos;est le moment parfait pour préparer la suite. En zone tendue (notamment à Lyon et Villeurbanne), son préavis de départ n&apos;est souvent que d&apos;<strong>un mois seulement</strong>.
-                    </p>
-                  </div>
+                <div className="p-5 rounded-2xl bg-white border border-stone-200/90 shadow-xs">
+                  <h4 className="font-bold text-base text-[#063B39] mb-1">
+                    Situation 2 : Votre locataire vous donne congé
+                  </h4>
+                  <p className="text-sm text-[#063B39]/80 leading-relaxed">
+                    Lorsque le locataire en place décide de quitter les lieux, il vous notifie son départ. En zone tendue (Lyon, Villeurbanne et première couronne), son préavis n’est que d’<strong>un mois seulement</strong>. C’est le signal idéal pour anticiper sans tarder l’achat et la livraison du mobilier afin d’enchaîner sans interruption sur le nouveau bail meublé.
+                  </p>
                 </div>
 
-                <div className="p-4 rounded-2xl bg-white border border-stone-200/90 flex items-start gap-3.5">
-                  <span className="w-6 h-6 rounded-full bg-[#063B39] text-white flex items-center justify-center font-bold text-xs shrink-0 mt-0.5">
-                    C
-                  </span>
-                  <div>
-                    <h4 className="font-bold text-sm text-[#063B39]">Vous vous mettez d&apos;accord à l&apos;amiable avec votre locataire</h4>
-                    <p className="text-xs text-[#063B39]/75 mt-0.5">
-                      Vous convenez d’arrêter le bail vide et de signer un nouveau bail meublé (souvent avec son plein accord s&apos;il souhaite que vous lui fournissiez les meubles). Faites-vous accompagner par une agence, un notaire ou un juriste pour formaliser les actes.
-                    </p>
-                  </div>
+                <div className="p-5 rounded-2xl bg-white border border-stone-200/90 shadow-xs">
+                  <h4 className="font-bold text-base text-[#063B39] mb-1">
+                    Situation 3 : La négociation d’un accord amiable tripartite
+                  </h4>
+                  <p className="text-sm text-[#063B39]/80 leading-relaxed">
+                    Si votre locataire actuel souhaite rester dans les lieux tout en appréciant que vous équipiez le logement d’un mobilier neuf et de qualité, vous pouvez convenir ensemble d’arrêter d’un commun accord le bail vide et de signer immédiatement un nouveau contrat de location meublée. Attention : cette démarche doit être rigoureusement formalisée par écrit pour éviter tout risque de contestation ultérieure.
+                  </p>
                 </div>
               </div>
             </section>
 
             {/* SECTION 3 */}
-            <section id="condition-2-meubles-obligatoires" className="scroll-mt-24 space-y-4">
-              <h2 className="font-display text-2xl sm:text-3xl font-extrabold text-[#063B39] tracking-tight flex items-center gap-3">
-                <span className="w-8 h-8 rounded-xl bg-[#C55D45]/15 text-[#C55D45] flex items-center justify-center text-sm font-bold">03</span>
-                <span>Condition n°2 : équiper le logement avec les meubles obligatoires</span>
+            <section id="condition-2-meubles-obligatoires" className="scroll-mt-24 space-y-6 pt-4 border-t border-[#063B39]/10">
+              <h2 className="font-display text-2xl sm:text-3xl font-extrabold text-[#063B39] tracking-tight">
+                3. L&apos;équipement légal : la liste des 11 meubles obligatoires
               </h2>
 
-              <p className="text-base text-[#063B39]/85">
-                Un logement meublé n&apos;est pas un logement « avec quelques meubles récupérés ». La réglementation française (<strong>décret n° 2015-981 du 31 juillet 2015</strong>) fixe une liste obligatoire de <strong>11 éléments indispensables</strong> pour que le locataire puisse y dormir, manger et vivre convenablement dès son arrivée :
+              <p>
+                Un logement meublé ne se résume pas à un canapé et deux tabourets dépareillés. La réglementation française est d’une précision chirurgicale : le <strong>décret n° 2015-981 du 31 juillet 2015</strong> (issu de la loi ALUR) fixe un inventaire exhaustif de <strong>11 catégories d’équipements indispensables</strong>. Le locataire doit pouvoir y dormir, cuisiner, prendre ses repas et entretenir le logement dès le premier jour, sans avoir à apporter d’autre effet que ses valises personnelles.
               </p>
 
-              {/* Grille des 11 meubles */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
-                {MANDATORY_FURNITURE.map((item) => (
-                  <div key={item.id} className="p-4 rounded-2xl bg-white border border-stone-200/90 shadow-xs flex items-start gap-3">
-                    <div className="w-6 h-6 rounded-full bg-emerald-100 text-emerald-800 flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">
-                      {item.id}
-                    </div>
-                    <div>
-                      <div className="font-bold text-xs sm:text-sm text-[#063B39]">
-                        {item.title}
-                      </div>
-                      <div className="text-[11px] text-[#063B39]/70 mt-0.5">
-                        {item.desc}
-                      </div>
-                    </div>
-                  </div>
-                ))}
+              <div className="space-y-4 pt-2">
+                <div className="border-l-2 border-[#063B39] pl-4 space-y-1">
+                  <h4 className="font-bold text-base text-[#063B39]">1. Une literie complète avec couette ou couverture</h4>
+                  <p className="text-sm text-[#063B39]/80">
+                    Comprend un sommier et un matelas de bonne qualité, une alèse propre ainsi qu’une couette ou des couvertures adaptées à la saison et aux dimensions du lit.
+                  </p>
+                </div>
+
+                <div className="border-l-2 border-[#063B39] pl-4 space-y-1">
+                  <h4 className="font-bold text-base text-[#063B39]">2. Un dispositif d’occultation des fenêtres dans les chambres</h4>
+                  <p className="text-sm text-[#063B39]/80">
+                    Volets extérieurs, persiennes ou, à défaut, rideaux occultants doublés garantissant l’obscurité complète dans chaque pièce servant au sommeil.
+                  </p>
+                </div>
+
+                <div className="border-l-2 border-[#063B39] pl-4 space-y-1">
+                  <h4 className="font-bold text-base text-[#063B39]">3. Des plaques de cuisson fonctionnelles</h4>
+                  <p className="text-sm text-[#063B39]/80">
+                    Plaques vitrocéramiques, induction ou feux gaz en parfait état d’usage et correctement raccordées.
+                  </p>
+                </div>
+
+                <div className="border-l-2 border-[#063B39] pl-4 space-y-1">
+                  <h4 className="font-bold text-base text-[#063B39]">4. Un four ou un four à micro-ondes</h4>
+                  <p className="text-sm text-[#063B39]/80">
+                    La présence de l’un des deux appareils est obligatoire au minimum (un micro-ondes combiné grill est souvent un compromis optimal dans les petites surfaces).
+                  </p>
+                </div>
+
+                <div className="border-l-2 border-[#063B39] pl-4 space-y-1">
+                  <h4 className="font-bold text-base text-[#063B39]">5. Un réfrigérateur avec compartiment congélation</h4>
+                  <p className="text-sm text-[#063B39]/80">
+                    Un réfrigérateur classique doté obligatoirement d’un compartiment congélateur ou d’un conservateur assurant une température inférieure ou égale à <strong>-6 °C</strong>.
+                  </p>
+                </div>
+
+                <div className="border-l-2 border-[#063B39] pl-4 space-y-1">
+                  <h4 className="font-bold text-base text-[#063B39]">6. La vaisselle nécessaire à la prise des repas</h4>
+                  <p className="text-sm text-[#063B39]/80">
+                    Assiettes creuses, plates et à dessert, verres, tasses, bols et couverts complets (fourchettes, couteaux, cuillères) en quantité proportionnée au nombre maximal d’occupants.
+                  </p>
+                </div>
+
+                <div className="border-l-2 border-[#063B39] pl-4 space-y-1">
+                  <h4 className="font-bold text-base text-[#063B39]">7. Les ustensiles de cuisine indispensables</h4>
+                  <p className="text-sm text-[#063B39]/80">
+                    Poêles, casseroles de tailles variées, couvercles, égouttoir à pâtes, ouvre-boîte, économe, spatules et couteaux de préparation culinaire.
+                  </p>
+                </div>
+
+                <div className="border-l-2 border-[#063B39] pl-4 space-y-1">
+                  <h4 className="font-bold text-base text-[#063B39]">8. Une table et des sièges adaptés</h4>
+                  <p className="text-sm text-[#063B39]/80">
+                    Table de repas ou comptoir dînatoire accompagné de chaises ou tabourets en nombre cohérent avec la capacité d’accueil du bien.
+                  </p>
+                </div>
+
+                <div className="border-l-2 border-[#063B39] pl-4 space-y-1">
+                  <h4 className="font-bold text-base text-[#063B39]">9. Des étagères et espaces de rangement</h4>
+                  <p className="text-sm text-[#063B39]/80">
+                    Armoire avec penderie, commode ou placards intégrés permettant de ranger les vêtements et le linge de maison.
+                  </p>
+                </div>
+
+                <div className="border-l-2 border-[#063B39] pl-4 space-y-1">
+                  <h4 className="font-bold text-base text-[#063B39]">10. Des luminaires dans chaque pièce</h4>
+                  <p className="text-sm text-[#063B39]/80">
+                    Éclairages fonctionnels au plafond, lampes de chevet dans la chambre et lampadaires d’ambiance dans la pièce de vie.
+                  </p>
+                </div>
+
+                <div className="border-l-2 border-[#063B39] pl-4 space-y-1">
+                  <h4 className="font-bold text-base text-[#063B39]">11. Le matériel d’entretien ménager complet</h4>
+                  <p className="text-sm text-[#063B39]/80">
+                    Aspirateur adapté au sol (carrelage, parquet), balai, pelle, balayette, seau et serpillère pour l’entretien quotidien.
+                  </p>
+                </div>
               </div>
 
-              <div className="p-4 rounded-2xl bg-rose-50 border border-rose-200 text-rose-950 text-xs sm:text-sm flex items-start gap-3">
-                <AlertTriangle className="w-5 h-5 text-rose-600 shrink-0 mt-0.5" />
-                <div>
-                  <strong>Risque de requalification :</strong> Si un seul de ces 11 éléments obligatoires manque à l&apos;inventaire lors de l&apos;état des lieux, le logement peut être requalifié par le juge en logement vide. Vous perdriez alors l&apos;ensemble des avantages du meublé, y compris fiscaux (déductions LMNP annulées).
+              {/* Avertissement requalification */}
+              <div className="p-5 rounded-2xl bg-amber-50/90 border border-amber-200/90 text-[#063B39] text-sm space-y-2 mt-6">
+                <div className="font-bold text-amber-900 flex items-center gap-2">
+                  <span>Attention au risque de requalification judiciaire</span>
                 </div>
+                <p className="text-xs sm:text-sm text-[#063B39]/85 leading-relaxed">
+                  Si un seul de ces 11 éléments obligatoires fait défaut lors de l’état des lieux d’entrée ou n’est pas mentionné dans l’inventaire contradictoire annexé au bail, le locataire peut saisir le juge des contentieux de la protection. Le bail risque alors d’être requalifié rétroactivement en bail de location nue : le loyer sera ramené au plafond du vide, le dépôt de garantie amputé, et l’administration fiscale peut annuler l’ensemble de vos amortissements et déductions LMNP.
+                </p>
               </div>
             </section>
 
             {/* SECTION 4 */}
-            <section id="condition-3-fixer-loyer" className="scroll-mt-24 space-y-4">
-              <h2 className="font-display text-2xl sm:text-3xl font-extrabold text-[#063B39] tracking-tight flex items-center gap-3">
-                <span className="w-8 h-8 rounded-xl bg-[#C55D45]/15 text-[#C55D45] flex items-center justify-center text-sm font-bold">04</span>
-                <span>Condition n°3 : fixer le bon loyer</span>
+            <section id="condition-3-fixer-loyer" className="scroll-mt-24 space-y-6 pt-4 border-t border-[#063B39]/10">
+              <h2 className="font-display text-2xl sm:text-3xl font-extrabold text-[#063B39] tracking-tight">
+                4. Encadrement des loyers : comment fixer le bon loyer ?
               </h2>
 
-              <p className="text-base text-[#063B39]/85">
-                Dans les grandes agglomérations comme Lyon, Villeurbanne, Paris, Lille, Bordeaux ou Montpellier, les loyers sont encadrés, en location vide comme en meublé. Le loyer hors charges ne peut pas dépasser un <strong>plafond fixé au m²</strong> (loyer de référence majoré), calculé selon l’époque de construction, le quartier et le nombre de pièces.
+              <p>
+                Dans les grandes agglomérations sous forte tension locative — notamment Lyon, Villeurbanne, Paris, Lille, Bordeaux ou Montpellier —, l’encadrement des loyers s’applique avec rigueur. Le loyer hors charges ne peut pas excéder le <strong>loyer de référence majoré</strong> au mètre carré, déterminé chaque année par arrêté préfectoral selon l’époque de construction de l’immeuble, sa localisation précise et le nombre de pièces principales.
               </p>
 
-              <div className="p-5 rounded-2xl bg-white border border-stone-200/90 shadow-xs space-y-3">
-                <div className="flex items-center gap-2 text-[#063B39] font-bold text-sm">
-                  <Scale className="w-4 h-4 text-[#C55D45]" />
-                  <span>La bonne nouvelle de l&apos;encadrement en meublé</span>
+              <p>
+                Cependant, la grille officielle prévoit deux barèmes distincts : un barème pour les logements nus et un barème spécifique pour les meublés. Ce dernier accorde une majoration moyenne de <strong>10 % à 20 % au mètre carré</strong>.
+              </p>
+
+              <p>
+                Prenons un exemple concret sur un appartement T2 de 40 m² situé dans le 7ème arrondissement de Lyon :
+              </p>
+
+              <div className="p-6 rounded-2xl bg-white border border-stone-200/90 shadow-xs space-y-3">
+                <div className="font-bold text-[#063B39] text-base">
+                  Exemple comparatif : T2 de 40 m² à Lyon
                 </div>
-                <p className="text-xs sm:text-sm text-[#063B39]/80 leading-relaxed">
-                  Le plafond légal est systématiquement plus élevé pour un meublé que pour un logement vide (environ <strong>10 % à 20 % de plus au m²</strong> selon les zones). Passer en meublé vous permet donc d’augmenter votre loyer légalement tout en respectant scrupuleusement la loi.
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm text-[#063B39]/80 pt-1">
+                  <div className="p-4 rounded-xl bg-stone-50 border border-stone-200">
+                    <div className="font-semibold text-stone-600 mb-1">En location nue :</div>
+                    <div className="text-xl font-bold text-[#063B39]">640 € / mois</div>
+                    <div className="text-xs text-stone-500 mt-1">Plafond légal majoré (hors charges)</div>
+                  </div>
+                  <div className="p-4 rounded-xl bg-emerald-50/70 border border-emerald-200">
+                    <div className="font-semibold text-emerald-800 mb-1">En location meublée :</div>
+                    <div className="text-xl font-bold text-emerald-950">770 € / mois</div>
+                    <div className="text-xs text-emerald-700 mt-1">Plafond légal majoré (hors charges)</div>
+                  </div>
+                </div>
+                <p className="text-xs text-[#063B39]/70 pt-2">
+                  Gain brut direct : <strong>+130 € par mois</strong>, soit <strong>1 560 € de revenus supplémentaires par an</strong>, parfaitement conforme à l’encadrement préfectoral.
                 </p>
-                <div className="pt-2">
-                  <a
-                    href="https://www.service-public.fr/simulateur/calcul/zones-tendues"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 text-xs font-bold text-[#C55D45] hover:underline"
-                  >
-                    <span>Vérifier le simulateur officiel de Service-Public.fr</span>
-                    <ExternalLink className="w-3.5 h-3.5" />
-                  </a>
-                </div>
               </div>
+
+              <p className="text-sm">
+                Vous pouvez consulter directement la carte interactive des plafonds de votre commune sur le simulateur officiel du ministère :
+                {' '}
+                <a
+                  href="https://www.service-public.fr/simulateur/calcul/zones-tendues"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-bold text-[#C55D45] hover:underline inline-flex items-center gap-1"
+                >
+                  <span>Accéder au simulateur officiel de Service-Public.fr</span>
+                  <ExternalLink className="w-3.5 h-3.5" />
+                </a>.
+              </p>
             </section>
 
             {/* SECTION 5 */}
-            <section id="6-etapes-pour-passer-en-meuble" className="scroll-mt-24 space-y-6">
-              <h2 className="font-display text-2xl sm:text-3xl font-extrabold text-[#063B39] tracking-tight flex items-center gap-3">
-                <span className="w-8 h-8 rounded-xl bg-[#C55D45]/15 text-[#C55D45] flex items-center justify-center text-sm font-bold">05</span>
-                <span>Les 6 étapes pour passer en meublé</span>
+            <section id="6-etapes-pour-passer-en-meuble" className="scroll-mt-24 space-y-8 pt-4 border-t border-[#063B39]/10">
+              <h2 className="font-display text-2xl sm:text-3xl font-extrabold text-[#063B39] tracking-tight">
+                5. Les 6 étapes pratiques pour réussir sa transition
+              </h2>
+
+              <p>
+                Pour mener à bien votre projet sans commettre d’impair, voici la chronologie opérationnelle à respecter de la première réflexion jusqu’à l’encaissement de vos premiers loyers meublés.
+              </p>
+
+              {/* Étape 1 */}
+              <div className="space-y-2">
+                <h3 className="font-display text-xl font-bold text-[#063B39]">
+                  Étape 1 : Valider la rentabilité nette prévisionnelle
+                </h3>
+                <p>
+                  Ne vous contentez pas d’une estimation superficielle. Prenez en compte le montant prévisionnel du nouveau loyer meublé, l’estimation du budget mobilier, les frais annexes (assurance PNO, honoraires comptables déductibles) et comparez la fiscalité nette du régime réel LMNP avec votre imposition actuelle en revenus fonciers.
+                </p>
+              </div>
+
+              {/* Étape 2 */}
+              <div className="space-y-2">
+                <h3 className="font-display text-xl font-bold text-[#063B39]">
+                  Étape 2 : Équiper et soigner l’agencement intérieur
+                </h3>
+                <p>
+                  Fournissez scrupuleusement les 11 meubles obligatoires, mais ne négligez pas l’aspect esthétique et la robustesse. Un logement meublé avec harmonie, des tonalités chaleureuses et des matériaux durables attire immédiatement des locataires plus respectueux et préserve la valeur de votre capital mobilier sur le long terme.
+                </p>
+              </div>
+
+              {/* Étape 3 */}
+              <div className="space-y-2">
+                <h3 className="font-display text-xl font-bold text-[#063B39]">
+                  Étape 3 : Rédiger le bail d’habitation meublé et l’inventaire
+                </h3>
+                <p>
+                  Le bail meublé conclu au titre de résidence principale a une durée d’<strong>un an renouvelable</strong> tacitement (ou <strong>9 mois non renouvelable</strong> si votre locataire est étudiant). Le dépôt de garantie légal peut s’élever jusqu’à <strong>2 mois de loyer hors charges</strong> (contre 1 mois seulement en location vide). Annexez impérativement à l’état des lieux d’entrée un <strong>inventaire contradictoire détaillé</strong> mentionnant l’état de chaque meuble et appareil.
+                </p>
+              </div>
+
+              {/* Étape 4 */}
+              <div className="space-y-2">
+                <h3 className="font-display text-xl font-bold text-[#063B39]">
+                  Étape 4 : Déclarer votre activité de loueur sur le Guichet Unique sous 15 jours
+                </h3>
+                <p>
+                  Dès le début de votre mise en location meublée, vous disposez d’un délai légal de <strong>15 jours</strong> pour immatriculer votre activité auprès de l’INPI sur le portail officiel du Guichet Unique (
+                  <a
+                    href="https://formalites.entreprises.gouv.fr"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[#C55D45] hover:underline font-semibold"
+                  >
+                    formalites.entreprises.gouv.fr
+                  </a>
+                  ). Cette démarche est 100 % gratuite et vous attribuera votre numéro de <strong>SIRET</strong> en tant que loueur en meublé non professionnel.
+                </p>
+              </div>
+
+              {/* Étape 5 */}
+              <div className="space-y-2">
+                <h3 className="font-display text-xl font-bold text-[#063B39]">
+                  Étape 5 : Choisir le bon régime fiscal (Micro-BIC ou Régime Réel)
+                </h3>
+                <p>
+                  Vous avez le choix entre le <strong>Micro-BIC</strong> (abattement forfaitaire automatique de 50 % sur vos recettes brutes, sans pouvoir déduire de charges réelles ni d’amortissements) et le <strong>Régime Réel Simplifié</strong>. Si vous avez acheté des meubles neufs ou si votre bien comporte encore un crédit immobilier, le régime réel est presque systématiquement le plus avantageux. L’adhésion à un centre de gestion agréé et le recours à un expert-comptable spécialisé LMNP vous permettent en outre de sécuriser vos déclarations fiscales.
+                </p>
+              </div>
+
+              {/* Étape 6 */}
+              <div className="space-y-2">
+                <h3 className="font-display text-xl font-bold text-[#063B39]">
+                  Étape 6 : Adapter votre assurance Propriétaire Non Occupant (PNO)
+                </h3>
+                <p>
+                  Contactez votre compagnie d’assurance pour basculer votre contrat PNO en formule meublée. Cette précaution garantit la couverture de vos meubles en cas de dégât des eaux, d’incendie ou de vandalisme, en complément de l’assurance multirisque habitation obligatoirement souscrite par le locataire.
+                </p>
+              </div>
+            </section>
+
+            {/* SECTION 6 : FOCUS MEUBLES&MOI */}
+            <section id="qui-soccupe-des-meubles" className="scroll-mt-24 space-y-6 pt-4 border-t border-[#063B39]/10">
+              <h2 className="font-display text-2xl sm:text-3xl font-extrabold text-[#063B39] tracking-tight">
+                6. Aménagement et logistique : comment s&apos;équiper sans stress ?
+              </h2>
+
+              <p>
+                Sur le papier, l’opération est très séduisante. Mais dans la réalité quotidienne d’un propriétaire bailleur qui travaille ou qui n’habite pas à proximité de son bien, la logistique de l’ameublement représente un véritable défi.
+              </p>
+
+              <p>
+                Choisir les références aux bonnes dimensions, synchroniser trois livraisons étalées sur dix jours, monter des armoires à deux et évacuer des dizaines de cartons vers la déchetterie représente en moyenne <strong>30 à 50 heures de logistique lourde</strong>.
+              </p>
+
+              {/* Encadré éditorial de service */}
+              <div className="my-8 p-7 sm:p-9 rounded-3xl bg-white border border-[#063B39]/15 shadow-sm space-y-4">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#063B39]/5 text-[#063B39] text-xs font-bold uppercase tracking-wider">
+                  <Sparkles className="w-3.5 h-3.5 text-[#C55D45]" />
+                  <span>La solution clé en main Meubles&Moi</span>
+                </div>
+
+                <h3 className="font-display text-xl sm:text-2xl font-bold text-[#063B39]">
+                  Et si vous déléguiez l’intégralité de l’ameublement ?
+                </h3>
+
+                <p className="text-sm sm:text-base text-[#063B39]/80 leading-relaxed">
+                  Basée au cœur de la Métropole de Lyon, <strong>Meubles&Moi</strong> prend en charge l’ensemble de la chaîne : sélection d’un mobilier chaleureux et robuste (alliant pièces circulaires reconditionnées de qualité et mobilier durable), livraison groupée en un seul passage, montage complet par nos équipes et remise de l’inventaire clé en main 100 % conforme au décret 2015-981.
+                </p>
+
+                <div className="pt-2">
+                  <Link
+                    href="/#estimation"
+                    className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full text-xs font-display font-bold uppercase tracking-wider text-white bg-[#C55D45] hover:bg-[#B04F38] shadow-glow-terracotta transition-all"
+                  >
+                    <span>Estimer mon projet d’aménagement en 2 minutes</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </Link>
+                </div>
+              </div>
+            </section>
+
+            {/* SECTION 7 : FAQ */}
+            <section id="questions-frequentes" className="scroll-mt-24 space-y-6 pt-4 border-t border-[#063B39]/10">
+              <h2 className="font-display text-2xl sm:text-3xl font-extrabold text-[#063B39] tracking-tight">
+                7. Foire aux questions (FAQ)
               </h2>
 
               <div className="space-y-4">
-                {/* Étape 1 */}
-                <div className="p-5 rounded-3xl bg-white border border-stone-200/90 shadow-xs flex items-start gap-4">
-                  <span className="w-8 h-8 rounded-xl bg-[#063B39] text-white flex items-center justify-center font-display font-bold text-sm shrink-0">
-                    1
-                  </span>
-                  <div>
-                    <h3 className="font-display font-bold text-base text-[#063B39]">Faire le calcul de rentabilité</h3>
-                    <p className="text-xs sm:text-sm text-[#063B39]/80 mt-1 leading-relaxed">
-                      Comparez ce que vous rapporte votre logement aujourd’hui (loyer perçu et impôts fonciers) avec ce qu&apos;il rapporterait en meublé. Intégrez le coût d’acquisition du mobilier pour calculer votre retour sur investissement.
-                    </p>
-                  </div>
-                </div>
-
-                {/* Étape 2 */}
-                <div className="p-5 rounded-3xl bg-white border border-stone-200/90 shadow-xs flex items-start gap-4">
-                  <span className="w-8 h-8 rounded-xl bg-[#063B39] text-white flex items-center justify-center font-display font-bold text-sm shrink-0">
-                    2
-                  </span>
-                  <div>
-                    <h3 className="font-display font-bold text-base text-[#063B39]">Meubler le logement avec soin</h3>
-                    <p className="text-xs sm:text-sm text-[#063B39]/80 mt-1 leading-relaxed">
-                      Respectez scrupuleusement la liste des 11 équipements obligatoires. Pensez aussi au confort et à l’esthétique : un logement bien meublé, chaleureux et harmonieux se loue plus vite, plus cher et attire des locataires plus précautionneux.
-                    </p>
-                  </div>
-                </div>
-
-                {/* Étape 3 */}
-                <div className="p-5 rounded-3xl bg-white border border-stone-200/90 shadow-xs flex items-start gap-4">
-                  <span className="w-8 h-8 rounded-xl bg-[#063B39] text-white flex items-center justify-center font-display font-bold text-sm shrink-0">
-                    3
-                  </span>
-                  <div>
-                    <h3 className="font-display font-bold text-base text-[#063B39]">Signer un bail d&apos;habitation meublé</h3>
-                    <p className="text-xs sm:text-sm text-[#063B39]/80 mt-1 leading-relaxed">
-                      Le bail meublé dure <strong>1 an</strong> renouvelable (ou 9 mois pour un étudiant), contre 3 ans en vide. Le dépôt de garantie peut atteindre jusqu&apos;à <strong>2 mois de loyer hors charges</strong> (contre 1 mois en vide). N&apos;oubliez jamais de joindre l&apos;inventaire précis du mobilier à l&apos;état des lieux d&apos;entrée.
-                    </p>
-                  </div>
-                </div>
-
-                {/* Étape 4 */}
-                <div className="p-5 rounded-3xl bg-white border border-stone-200/90 shadow-xs flex items-start gap-4">
-                  <span className="w-8 h-8 rounded-xl bg-[#063B39] text-white flex items-center justify-center font-display font-bold text-sm shrink-0">
-                    4
-                  </span>
-                  <div>
-                    <h3 className="font-display font-bold text-base text-[#063B39]">Déclarer votre activité dans les 15 jours</h3>
-                    <p className="text-xs sm:text-sm text-[#063B39]/80 mt-1 leading-relaxed">
-                      Dès le premier jour de la mise en location, vous devez vous déclarer comme loueur en meublé non professionnel sur le guichet unique en ligne (
-                      <a href="https://formalites.entreprises.gouv.fr" target="_blank" rel="noopener noreferrer" className="text-[#C55D45] hover:underline font-semibold">
-                        formalites.entreprises.gouv.fr
-                      </a>
-                      ). Cette démarche est 100 % gratuite et vous permet d&apos;obtenir votre numéro SIRET.
-                    </p>
-                  </div>
-                </div>
-
-                {/* Étape 5 */}
-                <div className="p-5 rounded-3xl bg-white border border-stone-200/90 shadow-xs flex items-start gap-4">
-                  <span className="w-8 h-8 rounded-xl bg-[#063B39] text-white flex items-center justify-center font-display font-bold text-sm shrink-0">
-                    5
-                  </span>
-                  <div>
-                    <h3 className="font-display font-bold text-base text-[#063B39]">Choisir votre régime fiscal (micro-BIC ou réel)</h3>
-                    <p className="text-xs sm:text-sm text-[#063B39]/80 mt-1 leading-relaxed">
-                      Deux options : le <strong>micro-BIC</strong> (abattement forfaitaire de 50 %) ou le <strong>régime réel</strong> (déduction intégrale de toutes les charges et amortissement du bien et des meubles). Au réel, les honoraires d&apos;un expert-comptable spécialisé LMNP sont généralement déductibles de vos impôts.
-                    </p>
-                  </div>
-                </div>
-
-                {/* Étape 6 */}
-                <div className="p-5 rounded-3xl bg-white border border-stone-200/90 shadow-xs flex items-start gap-4">
-                  <span className="w-8 h-8 rounded-xl bg-[#063B39] text-white flex items-center justify-center font-display font-bold text-sm shrink-0">
-                    6
-                  </span>
-                  <div>
-                    <h3 className="font-display font-bold text-base text-[#063B39]">Prévenir votre assurance (PNO)</h3>
-                    <p className="text-xs sm:text-sm text-[#063B39]/80 mt-1 leading-relaxed">
-                      Avertissez votre assureur afin d’adapter votre contrat d&apos;assurance Propriétaire Non Occupant (PNO) pour qu’il prenne en charge les risques locatifs et la valeur du mobilier installé.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </section>
-
-            {/* SECTION 6 : CALLOUT MEUBLES&MOI */}
-            <section id="qui-soccupe-des-meubles" className="scroll-mt-24 pt-4">
-              <div className="rounded-3xl bg-[#063B39] text-[#FAF8F5] p-7 sm:p-10 shadow-lift border border-[#063B39]/20 relative overflow-hidden">
-                <div className="absolute -top-24 -right-24 w-80 h-80 rounded-full bg-[#C55D45]/20 blur-3xl pointer-events-none" />
-                
-                <div className="relative z-10 space-y-5">
-                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-xs font-semibold text-stone-200">
-                    <Sparkles className="w-3.5 h-3.5 text-[#C55D45]" />
-                    <span>Aménagement clé en main à Lyon</span>
-                  </div>
-
-                  <h2 className="font-display text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
-                    Et concrètement, qui s&apos;occupe des meubles ?
-                  </h2>
-
-                  <p className="text-stone-200 text-sm sm:text-base leading-relaxed max-w-2xl">
-                    C&apos;est souvent l’étape qui fait peur : faire le tour des magasins, acheter les meubles, attendre les livreurs à des dates différentes, monter les penderies et évacuer les cartons. <strong>C&apos;est justement notre métier.</strong>
+                <div className="p-5 rounded-2xl bg-white border border-stone-200/90 shadow-xs">
+                  <h3 className="font-display font-bold text-base text-[#063B39] mb-2">
+                    Puis-je passer en meublé si mon locataire actuel est d’accord ?
+                  </h3>
+                  <p className="text-sm text-[#063B39]/80 leading-relaxed">
+                    Oui, c’est tout à fait possible à condition de résilier d’un commun accord le bail vide en cours et de signer un nouveau bail d’habitation meublé avec état des lieux et inventaire du mobilier. L’accompagnement par un professionnel (agence, notaire ou juriste) est fortement recommandé pour formaliser l’accord écrit.
                   </p>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 py-2">
-                    <div className="flex items-center gap-2.5 text-xs sm:text-sm text-stone-200">
-                      <Check className="w-4 h-4 text-[#C55D45] shrink-0" />
-                      <span>Conforme aux 11 éléments obligatoires de la loi</span>
-                    </div>
-                    <div className="flex items-center gap-2.5 text-xs sm:text-sm text-stone-200">
-                      <Check className="w-4 h-4 text-[#C55D45] shrink-0" />
-                      <span>Mobilier reconditionné et écoresponsable</span>
-                    </div>
-                    <div className="flex items-center gap-2.5 text-xs sm:text-sm text-stone-200">
-                      <Check className="w-4 h-4 text-[#C55D45] shrink-0" />
-                      <span>Livraison et montage complet en quelques jours</span>
-                    </div>
-                    <div className="flex items-center gap-2.5 text-xs sm:text-sm text-stone-200">
-                      <Check className="w-4 h-4 text-[#C55D45] shrink-0" />
-                      <span>Zéro logistique et zéro charge mentale pour vous</span>
-                    </div>
-                  </div>
-
-                  {/* Bouton d'action devis */}
-                  <div className="pt-3">
-                    <Link
-                      href="/#estimation"
-                      className="inline-flex items-center gap-2 px-7 py-4 rounded-full font-display font-bold text-xs uppercase tracking-wider text-white bg-[#C55D45] hover:bg-[#B04F38] shadow-glow-terracotta transition-all"
-                    >
-                      <Sparkles className="w-4 h-4" />
-                      <span>Recevoir mon estimation & devis gratuit</span>
-                      <ArrowRight className="w-3.5 h-3.5" />
-                    </Link>
-                  </div>
                 </div>
-              </div>
-            </section>
 
-            {/* SECTION 7 : QUESTIONS FRÉQUENTES (FAQ) */}
-            <section id="questions-frequentes" className="scroll-mt-24 space-y-4 pt-4">
-              <h2 className="font-display text-2xl sm:text-3xl font-extrabold text-[#063B39] tracking-tight flex items-center gap-3">
-                <HelpCircle className="w-6 h-6 text-[#C55D45]" />
-                <span>Questions fréquentes</span>
-              </h2>
-
-              <div className="space-y-3">
-                {/* FAQ 1 */}
-                <details className="group p-5 rounded-2xl bg-white border border-stone-200/90 shadow-xs cursor-pointer">
-                  <summary className="font-display font-bold text-sm sm:text-base text-[#063B39] flex items-center justify-between list-none">
-                    <span>Puis-je passer en meublé si mon locataire actuel est d&apos;accord ?</span>
-                    <span className="text-[#C55D45] text-xl font-bold transition-transform group-open:rotate-45 ml-2 shrink-0">
-                      +
-                    </span>
-                  </summary>
-                  <p className="text-xs sm:text-sm text-[#063B39]/80 mt-3 pt-3 border-t border-stone-100 leading-relaxed">
-                    <strong>Oui</strong>, si vous mettez fin au bail vide d&apos;un commun accord et signez un nouveau bail meublé. Faites-vous accompagner (agence, notaire ou juriste) pour sécuriser juridiquement la démarche et formaliser l&apos;accord écrit entre les deux parties.
+                <div className="p-5 rounded-2xl bg-white border border-stone-200/90 shadow-xs">
+                  <h3 className="font-display font-bold text-base text-[#063B39] mb-2">
+                    Combien de temps faut-il pour meubler un logement ?
+                  </h3>
+                  <p className="text-sm text-[#063B39]/80 leading-relaxed">
+                    En faisant appel à un service clé en main comme Meubles&Moi, quelques jours suffisent entre la validation de la proposition et l’installation terminée. En autonomie complète, comptez plutôt 3 à 6 semaines entre la commande, les aléas de livraison et le montage des meubles.
                   </p>
-                </details>
+                </div>
 
-                {/* FAQ 2 */}
-                <details className="group p-5 rounded-2xl bg-white border border-stone-200/90 shadow-xs cursor-pointer">
-                  <summary className="font-display font-bold text-sm sm:text-base text-[#063B39] flex items-center justify-between list-none">
-                    <span>Combien de temps faut-il pour meubler un logement ?</span>
-                    <span className="text-[#C55D45] text-xl font-bold transition-transform group-open:rotate-45 ml-2 shrink-0">
-                      +
-                    </span>
-                  </summary>
-                  <p className="text-xs sm:text-sm text-[#063B39]/80 mt-3 pt-3 border-t border-stone-100 leading-relaxed">
-                    Avec un service clé en main comme <strong>Meubles&Moi</strong>, <strong>quelques jours suffisent</strong> après validation du style. Seul, comptez plutôt plusieurs semaines entre le choix des meubles, la gestion des livraisons étalées et les heures de montage.
+                <div className="p-5 rounded-2xl bg-white border border-stone-200/90 shadow-xs">
+                  <h3 className="font-display font-bold text-base text-[#063B39] mb-2">
+                    Est-ce que je paierai forcément moins d’impôts en meublé ?
+                  </h3>
+                  <p className="text-sm text-[#063B39]/80 leading-relaxed">
+                    Dans une très large majorité des cas, oui. Grâce au régime réel et à l’amortissement du bien et des meubles, la base imposable nette est souvent ramenée proche de zéro pendant plusieurs années, contre une imposition au barème de l’IR en revenus fonciers. Chaque situation patrimoniale étant spécifique, un bilan personnalisé avec un expert-comptable est préconisé.
                   </p>
-                </details>
+                </div>
 
-                {/* FAQ 3 */}
-                <details className="group p-5 rounded-2xl bg-white border border-stone-200/90 shadow-xs cursor-pointer">
-                  <summary className="font-display font-bold text-sm sm:text-base text-[#063B39] flex items-center justify-between list-none">
-                    <span>Est-ce que je paierai forcément moins d&apos;impôts en meublé ?</span>
-                    <span className="text-[#C55D45] text-xl font-bold transition-transform group-open:rotate-45 ml-2 shrink-0">
-                      +
-                    </span>
-                  </summary>
-                  <p className="text-xs sm:text-sm text-[#063B39]/80 mt-3 pt-3 border-t border-stone-100 leading-relaxed">
-                    Pas forcément dans 100 % des cas. Tout dépend de votre tranche marginale d&apos;imposition, du régime choisi (micro-BIC ou réel) et du montant de vos charges déductibles. À noter : les prélèvements sociaux sont de <strong>18,6 % en meublé</strong> contre <strong>17,2 % en vide</strong> (source : impots.gouv.fr). Faites une simulation comparative avant de vous lancer.
+                <div className="p-5 rounded-2xl bg-white border border-stone-200/90 shadow-xs">
+                  <h3 className="font-display font-bold text-base text-[#063B39] mb-2">
+                    Et si je revends mon logement meublé plus tard ?
+                  </h3>
+                  <p className="text-sm text-[#063B39]/80 leading-relaxed">
+                    Depuis 2025, les amortissements déduits en LMNP au régime réel sont réintégrés dans l’assiette taxable de la plus-value lors de la cession. Cela incite à conserver le bien sur un horizon moyen à long terme, les abattements fiscaux pour durée de détention réduisant progressivement l’impôt exigible avec les années.
                   </p>
-                </details>
-
-                {/* FAQ 4 */}
-                <details className="group p-5 rounded-2xl bg-white border border-stone-200/90 shadow-xs cursor-pointer">
-                  <summary className="font-display font-bold text-sm sm:text-base text-[#063B39] flex items-center justify-between list-none">
-                    <span>Et si je revends mon logement plus tard ?</span>
-                    <span className="text-[#C55D45] text-xl font-bold transition-transform group-open:rotate-45 ml-2 shrink-0">
-                      +
-                    </span>
-                  </summary>
-                  <p className="text-xs sm:text-sm text-[#063B39]/80 mt-3 pt-3 border-t border-stone-100 leading-relaxed">
-                    Depuis 2025, les amortissements déduits en LMNP au régime réel sont réintégrés dans le calcul de la plus-value lors de la revente. Le meublé au régime réel est donc surtout avantageux si vous conservez votre bien sur le long terme (les abattements pour durée de détention s&apos;appliquant progressivement). N&apos;hésitez pas à en parler à votre expert-comptable.
-                  </p>
-                </details>
+                </div>
               </div>
             </section>
 
             {/* SECTION 8 : SOURCES OFFICIELLES */}
             <section id="sources-officielles" className="scroll-mt-24 pt-4 border-t border-[#063B39]/10 space-y-4">
-              <h2 className="font-display text-xl font-extrabold text-[#063B39] flex items-center gap-2">
-                <ShieldCheck className="w-5 h-5 text-[#C55D45]" />
-                <span>Sources officielles et réglementaires</span>
+              <h2 className="font-display text-lg font-bold text-[#063B39] flex items-center gap-2">
+                <ShieldCheck className="w-4 h-4 text-[#C55D45]" />
+                <span>Sources officielles et textes de loi</span>
               </h2>
 
-              <ul className="space-y-2 text-xs sm:text-sm text-[#063B39]/75">
+              <ul className="space-y-1.5 text-xs text-[#063B39]/70 leading-relaxed">
                 <li>
                   • <a href="https://www.legifrance.gouv.fr/loda/id/JORFTEXT000030967884/" target="_blank" rel="noopener noreferrer" className="text-[#C55D45] hover:underline font-semibold">Décret n° 2015-981 du 31 juillet 2015</a> fixant la liste des éléments de mobilier d’un logement meublé — Légifrance
                 </li>
                 <li>
-                  • <a href="https://www.service-public.fr/particuliers/vosdroits/F32744" target="_blank" rel="noopener noreferrer" className="text-[#C55D45] hover:underline font-semibold">Impôt sur le revenu : revenus d&apos;une location meublée</a> — Service-Public.fr
+                  • <a href="https://www.service-public.fr/particuliers/vosdroits/F32744" target="_blank" rel="noopener noreferrer" className="text-[#C55D45] hover:underline font-semibold">Impôt sur le revenu : revenus d&apos;une location meublée (LMNP)</a> — Service-Public.fr
                 </li>
                 <li>
-                  • <a href="https://www.impots.gouv.fr" target="_blank" rel="noopener noreferrer" className="text-[#C55D45] hover:underline font-semibold">Régime des locations meublées : foire aux questions (mars 2026)</a> — impots.gouv.fr
+                  • <a href="https://www.anil.org" target="_blank" rel="noopener noreferrer" className="text-[#C55D45] hover:underline font-semibold">Location nue : congé délivré par le bailleur et fin du bail</a> — Agence Nationale pour l&apos;Information sur le Logement (ANIL)
                 </li>
                 <li>
-                  • <a href="https://www.impots.gouv.fr" target="_blank" rel="noopener noreferrer" className="text-[#C55D45] hover:underline font-semibold">Je donne un bien en location : dois-je payer des prélèvements sociaux ?</a> — impots.gouv.fr
+                  • <a href="https://www.service-public.fr/particuliers/vosdroits/F13723" target="_blank" rel="noopener noreferrer" className="text-[#C55D45] hover:underline font-semibold">Encadrement des loyers en zone tendue</a> — Ministère du Logement
                 </li>
                 <li>
-                  • <a href="https://www.anil.org" target="_blank" rel="noopener noreferrer" className="text-[#C55D45] hover:underline font-semibold">Location vide : fin du bail et congé du bailleur</a> — ANIL
-                </li>
-                <li>
-                  • <a href="https://www.service-public.fr/particuliers/vosdroits/F13723" target="_blank" rel="noopener noreferrer" className="text-[#C55D45] hover:underline font-semibold">Encadrement des loyers en zone tendue</a> — Service-Public.fr
-                </li>
-                <li>
-                  • <a href="https://formalites.entreprises.gouv.fr" target="_blank" rel="noopener noreferrer" className="text-[#C55D45] hover:underline font-semibold">Guichet unique des formalités d&apos;entreprises (immatriculation LMNP)</a> — INPI
+                  • <a href="https://formalites.entreprises.gouv.fr" target="_blank" rel="noopener noreferrer" className="text-[#C55D45] hover:underline font-semibold">Portail du Guichet Unique des formalités d&apos;entreprises (INPI)</a>
                 </li>
               </ul>
 
-              {/* Avertissement légal */}
-              <div className="p-4 rounded-2xl bg-stone-100/90 text-stone-600 text-[11px] leading-relaxed border border-stone-200">
-                <strong>Avertissement :</strong> Cet article est purement informatif. Il ne constitue ni un conseil en investissement immobilier, ni un conseil juridique ou fiscal. Chaque situation étant unique, faites-vous accompagner par un professionnel habilité (expert-comptable, notaire, conseiller patrimonial) avant toute décision. Informations à jour en septembre 2026.
+              <div className="p-4 rounded-xl bg-stone-100 text-stone-600 text-[11px] leading-relaxed border border-stone-200 mt-4">
+                <strong>Avertissement :</strong> Cet article est publié à des fins strictement informatives. Il ne se substitue pas à une consultation auprès d’un professionnel du droit immobilier, d’un notaire ou d’un expert-comptable habilité. Informations valables au regard du cadre légal en vigueur en 2026.
               </div>
             </section>
 
+          </div>
+
+          {/* SIGNATURE AUTEUR ÉDITORIALE */}
+          <div className="my-14 p-6 sm:p-8 rounded-3xl bg-white border border-[#063B39]/10 shadow-xs flex flex-col sm:flex-row items-center sm:items-start gap-5 text-center sm:text-left">
+            <div className="w-16 h-16 rounded-full bg-[#063B39] text-[#FAF8F5] flex items-center justify-center font-display font-extrabold text-2xl shrink-0 shadow-sm">
+              M
+            </div>
+            <div className="space-y-2">
+              <div className="font-display font-bold text-base text-[#063B39]">
+                À propos de l&apos;auteur : Maxence
+              </div>
+              <p className="text-xs sm:text-sm text-[#063B39]/75 leading-relaxed">
+                Co-fondateur de <strong>Meubles&Moi</strong> et passionné d’aménagement durable, Maxence accompagne au quotidien les propriétaires et investisseurs de la Métropole de Lyon dans l’optimisation de leur patrimoine locatif à travers un aménagement clé en main, élégant et écoresponsable.
+              </p>
+            </div>
+          </div>
+
+          {/* SECTION ARTICLES RECOMMANDÉS (Look vrai média / blog) */}
+          <div className="my-12 pt-8 border-t border-[#063B39]/10">
+            <div className="flex items-center justify-between mb-6">
+              <h3 className="font-display font-extrabold text-lg text-[#063B39]">
+                Sur le même sujet
+              </h3>
+              <span className="text-xs text-[#063B39]/60 font-medium">
+                Guides & Dossiers
+              </span>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <div className="p-5 rounded-2xl bg-white border border-stone-200/90 shadow-xs flex flex-col justify-between hover:border-[#C55D45]/40 transition-colors">
+                <div>
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-[#C55D45] bg-[#C55D45]/10 px-2 py-0.5 rounded-full">
+                    Réglementation
+                  </span>
+                  <h4 className="font-display font-bold text-sm text-[#063B39] mt-2 mb-1.5">
+                    Les 11 meubles obligatoires du décret de 2015 : la checklist complète
+                  </h4>
+                  <p className="text-xs text-[#063B39]/70 leading-relaxed">
+                    Tout le détail des équipements pièce par pièce pour éviter tout litige lors de l’état des lieux d’entrée.
+                  </p>
+                </div>
+                <div className="mt-4 pt-3 border-t border-stone-100 flex items-center justify-between text-[11px] text-[#063B39]/60">
+                  <span>5 min de lecture</span>
+                  <span className="text-[#C55D45] font-bold">Lire l’article →</span>
+                </div>
+              </div>
+
+              <div className="p-5 rounded-2xl bg-white border border-stone-200/90 shadow-xs flex flex-col justify-between hover:border-[#C55D45]/40 transition-colors">
+                <div>
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-[#C55D45] bg-[#C55D45]/10 px-2 py-0.5 rounded-full">
+                    Fiscalité LMNP
+                  </span>
+                  <h4 className="font-display font-bold text-sm text-[#063B39] mt-2 mb-1.5">
+                    LMNP au régime réel vs Micro-BIC : calcul comparatif et amortissement
+                  </h4>
+                  <p className="text-xs text-[#063B39]/70 leading-relaxed">
+                    Comment effacer l’impôt sur vos loyers grâce à l’amortissement du mobilier et des murs.
+                  </p>
+                </div>
+                <div className="mt-4 pt-3 border-t border-stone-100 flex items-center justify-between text-[11px] text-[#063B39]/60">
+                  <span>8 min de lecture</span>
+                  <span className="text-[#C55D45] font-bold">Lire l’article →</span>
+                </div>
+              </div>
+            </div>
           </div>
 
           {/* Navigation bas de page & retour accueil */}
