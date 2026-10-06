@@ -67,6 +67,12 @@ export const QuoteForm: React.FC<QuoteFormProps> = ({
       const result = await submitLead(formData);
       if (result.success) {
         setSuccess(true);
+        if (typeof window !== 'undefined' && window.fbq) {
+          window.fbq('track', 'Lead', {
+            content_name: 'Demande de devis ameublement',
+            currency: 'EUR'
+          });
+        }
       } else {
         setErrorMessage(result.error || 'Erreur lors de l’envoi de votre demande.');
       }

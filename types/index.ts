@@ -32,3 +32,10 @@ export interface FaqItem {
   answer: string;
   category: 'lmnp' | 'seconde-main' | 'livraison' | 'amenagement';
 }
+
+declare global {
+  interface Window {
+    fbq?: (...args: any[]) => void;
+    _fbq?: any;
+  }
+}

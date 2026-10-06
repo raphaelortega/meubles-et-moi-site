@@ -337,6 +337,12 @@ ${payload.equipement_existant_detail}${simulatorSection}
 
       if (hasSuccess) {
         setSuccess(true);
+        if (typeof window !== 'undefined' && window.fbq) {
+          window.fbq('track', 'Lead', {
+            content_name: 'Demande de devis ameublement',
+            currency: 'EUR'
+          });
+        }
         try {
           submitLead({
             prenom: payload.prenom,
