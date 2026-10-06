@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   X, 
@@ -141,6 +141,21 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const leadTrackedRef = useRef(false);
+
+  // Déclenchement garanti de l'événement Lead après confirmation d'envoi
+  useEffect(() => {
+    if (success) {
+      if (!leadTrackedRef.current) {
+        leadTrackedRef.current = true;
+        if (typeof window !== 'undefined' && window.fbq) {
+          window.fbq('track', 'Lead');
+        }
+      }
+    } else {
+      leadTrackedRef.current = false;
+    }
+  }, [success]);
 
   const currentTier = getBudgetTier(surface);
 
@@ -338,10 +353,8 @@ ${payload.equipement_existant_detail}${simulatorSection}
       if (hasSuccess) {
         setSuccess(true);
         if (typeof window !== 'undefined' && window.fbq) {
-          window.fbq('track', 'Lead', {
-            content_name: 'Demande de devis ameublement',
-            currency: 'EUR'
-          });
+          leadTrackedRef.current = true;
+          window.fbq('track', 'Lead');
         }
         try {
           submitLead({

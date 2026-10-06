@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Send, CheckCircle2, AlertCircle, Loader2 } from 'lucide-react';
 import { LeadFormData } from '@/types';
 import { submitLead } from '@/lib/supabase';
@@ -29,6 +29,8 @@ export const QuoteForm: React.FC<QuoteFormProps> = ({
     message: '',
   });
 
+  const leadTrackedRef = useRef(false);
+
   useEffect(() => {
     if (initialPropertyType) {
       setFormData((prev) => ({ ...prev, type_bien: initialPropertyType }));
@@ -44,6 +46,20 @@ export const QuoteForm: React.FC<QuoteFormProps> = ({
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  // Déclenchement garanti de l'événement Lead après confirmation d'envoi
+  useEffect(() => {
+    if (success) {
+      if (!leadTrackedRef.current) {
+        leadTrackedRef.current = true;
+        if (typeof window !== 'undefined' && window.fbq) {
+          window.fbq('track', 'Lead');
+        }
+      }
+    } else {
+      leadTrackedRef.current = false;
+    }
+  }, [success]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
@@ -68,10 +84,8 @@ export const QuoteForm: React.FC<QuoteFormProps> = ({
       if (result.success) {
         setSuccess(true);
         if (typeof window !== 'undefined' && window.fbq) {
-          window.fbq('track', 'Lead', {
-            content_name: 'Demande de devis ameublement',
-            currency: 'EUR'
-          });
+          leadTrackedRef.current = true;
+          window.fbq('track', 'Lead');
         }
       } else {
         setErrorMessage(result.error || 'Erreur lors de l’envoi de votre demande.');
