@@ -67,7 +67,7 @@ Pour savoir si la session tourne en local ou dans le cloud : la variable d'envir
 2. Lancer le serveur de dev en arrière-plan, avec `npm run dev` ou `./start-server.sh`, et vérifier que http://localhost:3000 répond.
 3. Ouvrir l'aperçu pour le propriétaire (`open http://localhost:3000` sur macOS) et **laisser le serveur tourner** pour qu'il voie les changements en direct (rechargement automatique).
 4. Faire les modifications, puis indiquer quelle page ou section regarder.
-5. Committer sur la branche au fil de l'eau, mais **ne pousser que lorsque le propriétaire dit que c'est validé**.
+5. Committer sur la branche au fil de l'eau, mais **ne pousser que lorsque le propriétaire dit que c'est validé**. Ce même message déclenche ensuite la PR et la mise en ligne (section 4).
 
 ### 3. Dans le cloud (claude.ai/code)
 
@@ -79,15 +79,24 @@ Le propriétaire ne peut pas accéder au localhost du conteneur. Après chaque s
    - URL de branche, stable et mise à jour à chaque push : `https://meubles-et-moi-site-git-<branche>-meublesetmoi.vercel.app`. Dans `<branche>`, remplacer `/` et les caractères spéciaux par `-`. Exemple : `content/realisation-paris` devient `meubles-et-moi-site-git-content-realisation-paris-meublesetmoi.vercel.app`. Vercel raccourcit les noms trop longs : en cas de doute, prendre l'URL exacte dans le déploiement.
    - Pour obtenir l'URL exacte et vérifier que le déploiement est en état `READY`, utiliser les outils Vercel (`list_deployments` filtré sur la branche, puis `get_deployment`). Si l'accès à l'équipe `meublesetmoi` est refusé, lancer `authorize_team_access` et donner le lien au propriétaire. Sinon, prendre l'URL dans le commentaire ou le statut que Vercel ajoute sur GitHub (`gh api repos/raphaelortega/meubles-et-moi-site/commits/<sha>/statuses`).
    - Si le déploiement échoue, lire les logs de build Vercel, corriger, pousser à nouveau et redonner l'URL.
-4. Ne pas présenter le travail comme terminé tant que l'URL de preview n'a pas été donnée.
+4. Ne pas présenter le travail comme terminé tant que l'URL de preview n'a pas été donnée. Terminer en rappelant que rien n'est en ligne et qu'il suffit d'un message du type « on envoie » pour publier.
 
-### 4. Validation, pull request et fusion
+### 4. Validation, pull request et mise en ligne
 
-- Quand le propriétaire valide, ouvrir une pull request de la branche vers `main` (`gh pr create --base main`) avec :
-  - un titre clair en français ;
-  - un résumé des changements visibles sur le site, puis des détails techniques (fichiers touchés) ;
-  - l'URL de preview Vercel ;
-  - les points restant à confirmer (valeurs provisoires, textes à valider).
-- Donner le lien de la PR au propriétaire.
-- **Ne jamais fusionner la PR sans son accord explicite** (« tu peux fusionner », « merge », etc.). La fusion sur `main` met le site en production.
+Le propriétaire valide en un seul message, par exemple « Ok, les modifications me plaisent, on envoie », « c'est validé, on publie » ou « tu peux mettre en ligne ». Ce message vaut accord pour **ouvrir la pull request et la fusionner**, donc pour mettre en production. Il ne faut pas lui redemander de confirmer.
+
+À la réception de ce message, pour la branche dont il vient de voir l'aperçu :
+1. Ouvrir une pull request de la branche vers `main` (`gh pr create --base main` ; dans le cloud, où GraphQL est bloqué, utiliser `gh api repos/raphaelortega/meubles-et-moi-site/pulls --method POST`). Elle contient :
+   - un titre clair en français ;
+   - un résumé des changements visibles sur le site, puis des détails techniques (fichiers touchés) ;
+   - l'URL de preview Vercel ;
+   - les points restant à confirmer (valeurs provisoires, textes à valider).
+2. Vérifier que la PR peut être fusionnée sans conflit, puis la fusionner (`gh api repos/raphaelortega/meubles-et-moi-site/pulls/<n>/merge --method PUT`).
+3. Attendre que le déploiement de production Vercel soit terminé (statut du commit de fusion sur GitHub, ou outils Vercel), puis confirmer au propriétaire que c'est en ligne, avec le lien de la PR.
+4. Si la PR contient encore des valeurs provisoires, le rappeler en une ligne **avant** de fusionner. S'il maintient sa validation, fusionner.
+
+Règles strictes :
+- **Pas de mise en ligne sans ce message de validation**, donné après qu'il a vu l'aperçu de ces changements. Une demande de modification (« change ça », « ajoute ça ») n'est jamais une validation.
+- Une validation porte sur les changements qu'il vient de voir. Si d'autres modifications sont faites ensuite, il faut un nouvel aperçu et une nouvelle validation.
+- En cas de doute sur la branche visée, ou si son message est ambigu, demander avant de fusionner.
 - Après la fusion, toute nouvelle demande repart d'un `main` à jour, sur une nouvelle branche.
