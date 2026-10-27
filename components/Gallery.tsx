@@ -46,12 +46,22 @@ const PROJECTS: Project[] = [
     highlights: ['Table en bois massif', 'Chaises rétro confortables', 'Meuble TV en bois', 'Table basse en verre'],
     co2: '1 420 kg CO₂ évités',
   },
+  {
+    id: 'haussmannien-contemporain',
+    title: 'Haussmannien & Contemporain',
+    location: 'Paris',
+    style: 'Moulures, parquet en chevrons et lignes contemporaines',
+    image: '/images/realisations/realisation-4.jpg',
+    description: 'Un séjour haussmannien lumineux avec un canapé en velours bleu nuit, une table ronde en bois, des chaises enveloppantes et une table basse bois et métal.',
+    highlights: ['Canapé velours bleu nuit', 'Table ronde en bois', 'Chaises enveloppantes', 'Table basse bois & métal'],
+    co2: '1 180 kg CO₂ évités',
+  },
 ];
 
 export const Gallery: React.FC = () => {
   return (
     <section id="galerie" className="py-20 md:py-32 relative">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* En-tête de section simplifié */}
         <motion.div
@@ -72,8 +82,8 @@ export const Gallery: React.FC = () => {
           </p>
         </motion.div>
 
-        {/* Grille des 3 réalisations */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-8">
+        {/* Grille des 4 réalisations */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-6">
           {PROJECTS.map((project, idx) => (
             <motion.div
               key={project.id}
