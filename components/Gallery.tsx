@@ -212,41 +212,54 @@ export const Gallery: React.FC = () => {
                   {/* Impact CO2 (seulement si l'installation a des données) & réassurance */}
                   <div className="pt-5 border-t border-[#063B39]/8 flex flex-wrap items-end justify-between gap-x-4 gap-y-3 text-[#063B39]">
                     {co2 && (
-                      <div className="flex items-start gap-2.5">
+                      <a
+                        href="/methode-co2"
+                        onPointerDownCapture={(e) => e.stopPropagation()}
+                        className="group/co2 flex items-start gap-2.5 rounded-xl -m-1.5 p-1.5 transition-colors hover:bg-[#FAF8F5]"
+                      >
                         <span className="mt-0.5 w-8 h-8 shrink-0 rounded-full bg-emerald-50 border border-emerald-200/60 flex items-center justify-center">
                           <Sparkles className="w-4 h-4 text-emerald-600" />
                         </span>
-                        <div>
-                          <p className="text-sm sm:text-base font-bold text-[#063B39] leading-snug">{co2}</p>
-                          <a
-                            href="/methode-co2"
-                            onPointerDownCapture={(e) => e.stopPropagation()}
-                            className="mt-0.5 inline-flex items-center gap-1 text-xs sm:text-sm font-semibold text-[#C55D45] hover:text-[#063B39] transition-colors"
-                          >
+                        <span className="block">
+                          <span className="block text-sm sm:text-base font-bold text-[#063B39] leading-snug underline decoration-[#063B39]/20 underline-offset-4 group-hover/co2:decoration-[#C55D45]">
+                            {co2}
+                          </span>
+                          <span className="mt-0.5 inline-flex items-center gap-1 text-xs sm:text-sm font-semibold text-[#C55D45] group-hover/co2:text-[#063B39] transition-colors">
                             Voir comment on calcule
-                            <ArrowRight className="w-3.5 h-3.5" aria-hidden="true" />
-                          </a>
-                        </div>
-                      </div>
+                            <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover/co2:translate-x-0.5" aria-hidden="true" />
+                          </span>
+                        </span>
+                      </a>
                     )}
                     <span className="ml-auto text-xs text-[#063B39]/60 font-medium">Installé en 48h</span>
                   </div>
                 </div>
               </motion.article>
             </AnimatePresence>
+
+            {/* Flèches posées sur la photo (zone photo : pleine largeur sur mobile, colonne de gauche dès md) */}
+            <div className="absolute inset-x-0 top-0 aspect-[3/4] md:aspect-auto md:bottom-0 md:right-auto md:w-[51.2%] flex items-center justify-between px-3 sm:px-4 pointer-events-none z-20">
+              <button
+                type="button"
+                onClick={() => paginate(-1)}
+                aria-label="Réalisation précédente"
+                className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/90 backdrop-blur-md shadow-float border border-black/5 text-[#063B39] flex items-center justify-center pointer-events-auto transition-all duration-200 hover:bg-[#063B39] hover:text-white active:scale-95"
+              >
+                <ChevronLeft className="w-5 h-5" />
+              </button>
+              <button
+                type="button"
+                onClick={() => paginate(1)}
+                aria-label="Réalisation suivante"
+                className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/90 backdrop-blur-md shadow-float border border-black/5 text-[#063B39] flex items-center justify-center pointer-events-auto transition-all duration-200 hover:bg-[#063B39] hover:text-white active:scale-95"
+              >
+                <ChevronRight className="w-5 h-5" />
+              </button>
+            </div>
           </div>
 
-          {/* Navigation : flèches, points et compteur */}
-          <div className="mt-6 flex items-center justify-center gap-4 sm:gap-6">
-            <button
-              type="button"
-              onClick={() => paginate(-1)}
-              aria-label="Réalisation précédente"
-              className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-white border border-stone-200/80 shadow-sm text-[#063B39] flex items-center justify-center transition-all duration-200 hover:bg-[#063B39] hover:text-white hover:border-[#063B39] active:scale-95"
-            >
-              <ChevronLeft className="w-5 h-5" />
-            </button>
-
+          {/* Navigation : points et compteur */}
+          <div className="mt-6 flex items-center justify-center">
             <div className="flex items-center gap-2">
               {PROJECTS.map((p, i) => (
                 <button
@@ -261,15 +274,6 @@ export const Gallery: React.FC = () => {
                 />
               ))}
             </div>
-
-            <button
-              type="button"
-              onClick={() => paginate(1)}
-              aria-label="Réalisation suivante"
-              className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-white border border-stone-200/80 shadow-sm text-[#063B39] flex items-center justify-center transition-all duration-200 hover:bg-[#063B39] hover:text-white hover:border-[#063B39] active:scale-95"
-            >
-              <ChevronRight className="w-5 h-5" />
-            </button>
           </div>
 
           <p className="mt-3 text-center text-xs font-semibold text-[#063B39]/50 tabular-nums" aria-live="polite">
