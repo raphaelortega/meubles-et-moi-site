@@ -1,21 +1,33 @@
 'use client';
 
-import React from 'react';
-import { motion } from 'framer-motion';
-import { Sparkles, MapPin } from 'lucide-react';
+import React, { useCallback, useState } from 'react';
+import { motion, AnimatePresence, PanInfo } from 'framer-motion';
+import { Sparkles, MapPin, ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface Project {
   id: string;
   title: string;
   location: string;
+  surface?: string;
   style: string;
   image: string;
   description: string;
   highlights: string[];
-  co2: string;
+  co2?: string;
 }
 
+// L'ordre du tableau est l'ordre d'affichage dans le carrousel
 const PROJECTS: Project[] = [
+  {
+    id: 'haussmannien-contemporain',
+    title: 'Haussmannien & Contemporain',
+    location: 'Paris',
+    style: 'Moulures, parquet en chevrons et lignes contemporaines',
+    image: '/images/realisations/realisation-4.jpg',
+    description: 'Un séjour haussmannien lumineux avec un canapé en velours bleu nuit, une table ronde en bois, des chaises enveloppantes et une table basse bois et métal.',
+    highlights: ['Canapé velours bleu nuit', 'Table ronde en bois', 'Chaises enveloppantes', 'Table basse bois & métal'],
+    co2: '1 180 kg CO₂ évités',
+  },
   {
     id: 'verriere-atelier',
     title: 'Moderne & Esprit Loft',
@@ -47,22 +59,50 @@ const PROJECTS: Project[] = [
     co2: '1 420 kg CO₂ évités',
   },
   {
-    id: 'haussmannien-contemporain',
-    title: 'Haussmannien & Contemporain',
-    location: 'Paris',
-    style: 'Moulures, parquet en chevrons et lignes contemporaines',
-    image: '/images/realisations/realisation-4.jpg',
-    description: 'Un séjour haussmannien lumineux avec un canapé en velours bleu nuit, une table ronde en bois, des chaises enveloppantes et une table basse bois et métal.',
-    highlights: ['Canapé velours bleu nuit', 'Table ronde en bois', 'Chaises enveloppantes', 'Table basse bois & métal'],
-    co2: '1 180 kg CO₂ évités',
+    id: 'nordique-convivial',
+    title: 'Nordique & Convivial',
+    location: 'Villeurbanne',
+    surface: '42 m²',
+    style: 'Chaises coque, contrastes noir et blanc et touches de rouge',
+    image: '/images/realisations/realisation-5.jpg',
+    description: 'Un séjour clair et fonctionnel avec un canapé gris confortable, une table noire, des chaises coque d’inspiration scandinave et des coussins colorés.',
+    highlights: ['Canapé gris confortable', 'Table noire', 'Chaises coque scandinaves', 'Coussins vichy rouges'],
   },
 ];
 
+const slideVariants = {
+  enter: (direction: number) => ({ x: direction > 0 ? 60 : -60, opacity: 0 }),
+  center: { x: 0, opacity: 1 },
+  exit: (direction: number) => ({ x: direction > 0 ? -60 : 60, opacity: 0 }),
+};
+
 export const Gallery: React.FC = () => {
+  const [[index, direction], setSlide] = useState<[number, number]>([0, 0]);
+  const project = PROJECTS[index];
+  const total = PROJECTS.length;
+
+  const paginate = useCallback((step: number) => {
+    setSlide(([current]) => [(current + step + total) % total, step]);
+  }, [total]);
+
+  const goTo = (target: number) => {
+    setSlide(([current]) => [target, target > current ? 1 : -1]);
+  };
+
+  const handleDragEnd = (_: unknown, info: PanInfo) => {
+    if (info.offset.x < -60 || info.velocity.x < -400) paginate(1);
+    else if (info.offset.x > 60 || info.velocity.x > 400) paginate(-1);
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'ArrowRight') paginate(1);
+    if (e.key === 'ArrowLeft') paginate(-1);
+  };
+
   return (
     <section id="galerie" className="py-20 md:py-32 relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+
         {/* En-tête de section simplifié */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -82,88 +122,152 @@ export const Gallery: React.FC = () => {
           </p>
         </motion.div>
 
-        {/* Grille des 4 réalisations */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-6">
-          {PROJECTS.map((project, idx) => (
-            <motion.div
-              key={project.id}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-60px' }}
-              transition={{ duration: 0.6, delay: idx * 0.12, ease: [0.16, 1, 0.3, 1] }}
-              whileHover={{ y: -4 }}
-              className="group bg-white rounded-3xl overflow-hidden border border-stone-200/80 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col"
-            >
-              {/* Conteneur Image au format portrait adapté aux photos */}
-              <div className="relative aspect-[3/4] overflow-hidden bg-stone-100">
-                <img
-                  src={project.image}
-                  alt={`Projet d’aménagement intérieur Meubles&Moi : ${project.title} (${project.style})`}
-                  className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
+        {/* Carrousel des réalisations : une grande carte à la fois */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-60px' }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          role="region"
+          aria-roledescription="carrousel"
+          aria-label="Nos réalisations"
+          tabIndex={0}
+          onKeyDown={handleKeyDown}
+          className="outline-none focus-visible:ring-2 focus-visible:ring-[#C55D45]/40 rounded-3xl"
+        >
+          <div className="relative overflow-hidden rounded-3xl">
+            <AnimatePresence initial={false} custom={direction} mode="wait">
+              <motion.article
+                key={project.id}
+                custom={direction}
+                variants={slideVariants}
+                initial="enter"
+                animate="center"
+                exit="exit"
+                transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+                drag="x"
+                dragConstraints={{ left: 0, right: 0 }}
+                dragElastic={0.15}
+                onDragEnd={handleDragEnd}
+                aria-roledescription="diapositive"
+                aria-label={`${index + 1} sur ${total} : ${project.title}`}
+                className="bg-white rounded-3xl overflow-hidden border border-stone-200/80 shadow-sm grid grid-cols-1 md:grid-cols-[1.05fr_1fr] cursor-grab active:cursor-grabbing select-none"
+              >
+                {/* Grande photo au format portrait */}
+                <div className="relative aspect-[3/4] md:aspect-auto md:min-h-[520px] lg:min-h-[580px] overflow-hidden bg-stone-100">
+                  <img
+                    src={project.image}
+                    alt={`Projet d’aménagement intérieur Meubles&Moi : ${project.title} (${project.style})`}
+                    draggable={false}
+                    className="absolute inset-0 w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
 
-                {/* Badge en haut à droite */}
-                <div className="absolute top-4 right-4 z-10">
-                  <span className="px-3 py-1.5 rounded-full text-[11px] font-extrabold tracking-wide uppercase shadow-float bg-white/95 backdrop-blur-md text-[#063B39] flex items-center gap-1.5 border border-black/5">
-                    <span className="w-2 h-2 rounded-full bg-emerald-500" />
-                    <span>Projet Réalisé</span>
-                  </span>
-                </div>
-
-                {/* Localisation et titre sur l'image */}
-                <div className="absolute bottom-4 left-4 right-4 text-white pointer-events-none">
-                  <div className="flex items-center gap-1.5 text-xs text-[#FAF8F5]/90 font-medium mb-1">
-                    <MapPin className="w-3.5 h-3.5 text-[#C55D45]" />
-                    <span>{project.location}</span>
-                  </div>
-                  <h3 className="font-display text-xl font-extrabold text-white">
-                    {project.title}
-                  </h3>
-                </div>
-              </div>
-
-              {/* Détails : Direction artistique & pièces phares */}
-              <div className="p-6 flex-grow flex flex-col justify-between space-y-4">
-                <div className="space-y-3">
-                  <span className="text-[#C55D45] font-bold uppercase tracking-wider text-[11px] block">
-                    {project.style}
-                  </span>
-                  <p className="text-xs text-[#063B39]/75 leading-relaxed">
-                    {project.description}
-                  </p>
-
-                  {/* Mobilier revalorisé */}
-                  <div className="pt-2">
-                    <span className="text-[11px] uppercase font-bold text-[#063B39]/50 block mb-2">
-                      Mobilier chiné & soigné :
+                  {/* Badge en haut à droite */}
+                  <div className="absolute top-4 right-4 z-10">
+                    <span className="px-3 py-1.5 rounded-full text-[11px] font-extrabold tracking-wide uppercase shadow-float bg-white/95 backdrop-blur-md text-[#063B39] flex items-center gap-1.5 border border-black/5">
+                      <span className="w-2 h-2 rounded-full bg-emerald-500" />
+                      <span>Projet Réalisé</span>
                     </span>
-                    <div className="flex flex-wrap gap-1.5">
-                      {project.highlights.map((h, i) => (
-                        <span
-                          key={i}
-                          className="px-2.5 py-1 rounded-lg bg-[#FAF8F5] text-[#063B39] text-xs font-medium border border-stone-200/80"
-                        >
-                          {h}
-                        </span>
-                      ))}
+                  </div>
+
+                  {/* Localisation et titre sur l'image */}
+                  <div className="absolute bottom-5 left-5 right-5 text-white pointer-events-none">
+                    <div className="flex items-center gap-1.5 text-xs sm:text-sm text-[#FAF8F5]/90 font-medium mb-1">
+                      <MapPin className="w-3.5 h-3.5 text-[#C55D45]" />
+                      <span>{project.location}{project.surface ? ` • ${project.surface}` : ''}</span>
+                    </div>
+                    <h3 className="font-display text-2xl sm:text-3xl font-extrabold text-white">
+                      {project.title}
+                    </h3>
+                  </div>
+                </div>
+
+                {/* Détails : Direction artistique & pièces phares */}
+                <div className="p-6 sm:p-8 lg:p-12 flex flex-col justify-center gap-6 md:gap-8">
+                  <div className="space-y-4">
+                    <span className="text-[#C55D45] font-bold uppercase tracking-wider text-xs block">
+                      {project.style}
+                    </span>
+                    <p className="text-sm sm:text-base text-[#063B39]/75 leading-relaxed">
+                      {project.description}
+                    </p>
+
+                    {/* Mobilier revalorisé */}
+                    <div className="pt-2">
+                      <span className="text-[11px] uppercase font-bold text-[#063B39]/50 block mb-2.5">
+                        Mobilier chiné & soigné :
+                      </span>
+                      <div className="flex flex-wrap gap-2">
+                        {project.highlights.map((h, i) => (
+                          <span
+                            key={i}
+                            className="px-3 py-1.5 rounded-lg bg-[#FAF8F5] text-[#063B39] text-xs sm:text-sm font-medium border border-stone-200/80"
+                          >
+                            {h}
+                          </span>
+                        ))}
+                      </div>
                     </div>
                   </div>
-                </div>
 
-                {/* Impact CO2 & Réassurance en bas de carte */}
-                <div className="pt-4 border-t border-[#063B39]/8 flex items-center justify-between text-xs font-semibold text-[#063B39]">
-                  <div className="flex items-center gap-1.5 text-emerald-800 font-bold bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200/60">
-                    <Sparkles className="w-3.5 h-3.5 text-emerald-600" />
-                    <span>{project.co2}</span>
+                  {/* Impact CO2 & Réassurance en bas de carte */}
+                  <div className="pt-5 border-t border-[#063B39]/8 flex items-center justify-between gap-3 text-xs font-semibold text-[#063B39]">
+                    {project.co2 ? (
+                      <div className="flex items-center gap-1.5 text-emerald-800 font-bold bg-emerald-50 px-3 py-1.5 rounded-full border border-emerald-200/60">
+                        <Sparkles className="w-3.5 h-3.5 text-emerald-600" />
+                        <span>{project.co2}</span>
+                      </div>
+                    ) : (
+                      <span />
+                    )}
+                    <span className="text-xs text-[#063B39]/60 font-medium">Installé en 48h</span>
                   </div>
-                  <span className="text-[11px] text-[#063B39]/60 font-medium">Installé en 48h</span>
                 </div>
-              </div>
+              </motion.article>
+            </AnimatePresence>
+          </div>
 
-            </motion.div>
-          ))}
-        </div>
+          {/* Navigation : flèches, points et compteur */}
+          <div className="mt-6 flex items-center justify-center gap-4 sm:gap-6">
+            <button
+              type="button"
+              onClick={() => paginate(-1)}
+              aria-label="Réalisation précédente"
+              className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-white border border-stone-200/80 shadow-sm text-[#063B39] flex items-center justify-center transition-all duration-200 hover:bg-[#063B39] hover:text-white hover:border-[#063B39] active:scale-95"
+            >
+              <ChevronLeft className="w-5 h-5" />
+            </button>
+
+            <div className="flex items-center gap-2">
+              {PROJECTS.map((p, i) => (
+                <button
+                  key={p.id}
+                  type="button"
+                  onClick={() => goTo(i)}
+                  aria-label={`Voir la réalisation ${i + 1} : ${p.title}`}
+                  aria-current={i === index}
+                  className={`h-2 rounded-full transition-all duration-300 ${
+                    i === index ? 'w-7 bg-[#C55D45]' : 'w-2 bg-[#063B39]/20 hover:bg-[#063B39]/40'
+                  }`}
+                />
+              ))}
+            </div>
+
+            <button
+              type="button"
+              onClick={() => paginate(1)}
+              aria-label="Réalisation suivante"
+              className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-white border border-stone-200/80 shadow-sm text-[#063B39] flex items-center justify-center transition-all duration-200 hover:bg-[#063B39] hover:text-white hover:border-[#063B39] active:scale-95"
+            >
+              <ChevronRight className="w-5 h-5" />
+            </button>
+          </div>
+
+          <p className="mt-3 text-center text-xs font-semibold text-[#063B39]/50 tabular-nums" aria-live="polite">
+            {String(index + 1).padStart(2, '0')} / {String(total).padStart(2, '0')}
+          </p>
+        </motion.div>
 
       </div>
     </section>
