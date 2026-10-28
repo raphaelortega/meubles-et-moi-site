@@ -1,144 +1,150 @@
-// Données CO2 des installations Meubles&moi.
-// Source des facteurs : ADEME, Impact CO2 (https://impactco2.fr/outils/mobilier).
-// Pour ajouter une installation : ajouter une entrée dans INSTALLATIONS_CO2 avec
-// l'id de la réalisation (voir components/Gallery.tsx) et la liste des meubles
-// de SECONDE MAIN posés. Ne jamais ajouter de facteur qui ne vient pas de l'ADEME.
+// CO2e évité par le mobilier de seconde main, réalisation par réalisation.
+// Source des facteurs : ADEME, Impact CO2 / Base Empreinte (https://impactco2.fr/outils/mobilier).
+//
+// Pour ajouter une réalisation : ajouter une entrée dans CO2_REALISATIONS avec l'id
+// de la réalisation (voir data/realisations.ts) et la liste des meubles de SECONDE MAIN
+// réellement posés. Ne jamais ajouter de facteur qui ne vient pas de l'ADEME, ni compter
+// un meuble acheté neuf ou de déstockage.
 
-/** Empreinte de fabrication d'un meuble neuf, en kg CO2e (ADEME, Impact CO2). */
+/** Empreinte de fabrication d'un meuble neuf, en kg CO2e (ADEME). */
 export const FACTEURS_ADEME = {
-  chaise_bois: 18.6,
-  table_bois: 80.2,
-  canape_textile: 179,
-  canape_convertible: 198,
-  lit_complet: 444,
-  armoire: 907,
+  chaise_bois: { kg: 18.6, label: 'Chaise en bois' },
+  table_bois: { kg: 80.2, label: 'Table en bois' },
+  canape_textile: { kg: 179, label: 'Canapé en textile' },
+  canape_convertible: { kg: 198, label: 'Canapé convertible' },
+  lit_complet: { kg: 444, label: 'Lit complet', detail: 'cadre + sommier + matelas' },
+  armoire: { kg: 907, label: 'Armoire' },
 } as const;
 
 export type FacteurId = keyof typeof FACTEURS_ADEME;
 
-export const LIBELLES_FACTEURS: Record<FacteurId, { nom: string; detail?: string }> = {
-  chaise_bois: { nom: 'Chaise en bois' },
-  table_bois: { nom: 'Table en bois' },
-  canape_textile: { nom: 'Canapé en textile' },
-  canape_convertible: { nom: 'Canapé convertible' },
-  lit_complet: { nom: 'Lit', detail: 'cadre + sommier + matelas' },
-  armoire: { nom: 'Armoire' },
-};
-
-export interface MeublePose {
-  facteur: FacteurId;
-  quantite: number;
-  /** Nom affiché dans le tableau de la page méthode */
+export interface MeubleCompte {
+  /** Nom du meuble affiché dans le tableau */
   libelle: string;
+  quantite: number;
+  /** Facteur ADEME appliqué */
+  facteur: FacteurId;
+  /** true si le meuble apparaît sur la photo du carrousel, false s'il est ailleurs (chambre, coin repas…) */
+  visible: boolean;
 }
 
-export interface InstallationCo2 {
-  titre: string;
-  sousTitre: string;
-  meubles: MeublePose[];
+export interface Co2Realisation {
+  meubles: MeubleCompte[];
+  /** Ce qui a été posé mais n'est pas compté, et pourquoi */
+  nonComptes: string[];
 }
 
-/**
- * Meubles de seconde main posés, par installation.
- * La clé est l'id de la réalisation dans components/Gallery.tsx.
- * Une réalisation absente d'ici n'affiche aucun chiffre CO2.
- */
-export const INSTALLATIONS_CO2: Record<string, InstallationCo2> = {
+const NON_COMPTES_LYON = ['Matelas (neuf, par hygiène)', 'Luminaires', 'Linge', 'Décoration'];
+
+/** Une réalisation absente d'ici n'affiche aucun chiffre CO2. */
+export const CO2_REALISATIONS: Record<string, Co2Realisation> = {
   'nordique-convivial': {
-    titre: 'T3 de 42 m², meublé pour la location',
-    sousTitre: '100 % mobilier de seconde main',
     meubles: [
-      { facteur: 'lit_complet', quantite: 2, libelle: 'Lit complet' },
-      { facteur: 'canape_textile', quantite: 1, libelle: 'Canapé' },
-      { facteur: 'table_bois', quantite: 1, libelle: 'Table à manger' },
-      { facteur: 'chaise_bois', quantite: 4, libelle: 'Chaises' },
+      { libelle: 'Lit complet d’occasion (cadre, sommier et matelas)', quantite: 2, facteur: 'lit_complet', visible: false },
+      { libelle: 'Canapé gris', quantite: 1, facteur: 'canape_textile', visible: true },
+      { libelle: 'Table noire', quantite: 1, facteur: 'table_bois', visible: true },
+      { libelle: 'Chaises coque', quantite: 4, facteur: 'chaise_bois', visible: true },
     ],
+    nonComptes: ['Luminaires', 'Rideaux', 'Vaisselle', 'Linge', 'Petit électroménager', 'Décoration'],
   },
-  // Listes relevées sur les photos des réalisations (meubles visibles uniquement),
-  // à confirmer par Meubles&moi. Chaises rembourrées et tabourets : facteur
-  // « chaise en bois », le plus proche et le plus bas.
   'haussmannien-contemporain': {
-    titre: 'Appartement haussmannien à Paris',
-    sousTitre: 'Mobilier de seconde main posé',
     meubles: [
-      { facteur: 'canape_textile', quantite: 1, libelle: 'Canapé' },
-      { facteur: 'table_bois', quantite: 1, libelle: 'Table à manger' },
-      { facteur: 'chaise_bois', quantite: 4, libelle: 'Chaises' },
+      { libelle: 'Canapé velours bleu nuit', quantite: 1, facteur: 'canape_textile', visible: true },
+      { libelle: 'Banquette', quantite: 1, facteur: 'canape_textile', visible: false },
+      { libelle: 'Table basse bois & métal', quantite: 1, facteur: 'chaise_bois', visible: true },
+      { libelle: 'Bureau', quantite: 1, facteur: 'table_bois', visible: false },
+      { libelle: 'Fauteuils', quantite: 4, facteur: 'chaise_bois', visible: false },
+      { libelle: 'Chaise de bureau', quantite: 1, facteur: 'chaise_bois', visible: false },
+      { libelle: 'Tables de chevet', quantite: 2, facteur: 'chaise_bois', visible: false },
+      { libelle: 'Guéridon', quantite: 1, facteur: 'chaise_bois', visible: false },
+      { libelle: 'Meuble TV', quantite: 1, facteur: 'chaise_bois', visible: false },
+    ],
+    nonComptes: [
+      'Table ronde, chaises enveloppantes, lit et fauteuil du séjour (mobilier de déstockage, neuf jamais utilisé, donc non compté)',
+      'Matelas (neuf)',
+      'Luminaires',
+      'Linge',
+      'Décoration',
     ],
   },
   'verriere-atelier': {
-    titre: 'Appartement avec cuisine bar et verrière à Lyon',
-    sousTitre: 'Mobilier de seconde main posé',
     meubles: [
-      { facteur: 'canape_textile', quantite: 1, libelle: 'Canapé' },
-      { facteur: 'table_bois', quantite: 1, libelle: 'Table de bar' },
-      { facteur: 'chaise_bois', quantite: 4, libelle: 'Tabourets' },
+      { libelle: 'Canapé', quantite: 1, facteur: 'canape_textile', visible: true },
+      { libelle: 'Table basse', quantite: 1, facteur: 'chaise_bois', visible: true },
+      { libelle: 'Meuble TV en bois', quantite: 1, facteur: 'chaise_bois', visible: true },
+      { libelle: 'Table', quantite: 1, facteur: 'table_bois', visible: false },
+      { libelle: 'Chaises', quantite: 2, facteur: 'chaise_bois', visible: false },
+      { libelle: 'Cadre de lit et sommier', quantite: 1, facteur: 'table_bois', visible: false },
     ],
+    nonComptes: NON_COMPTES_LYON,
   },
   'scandinave-lumineux': {
-    titre: 'Appartement au salon scandinave à Lyon',
-    sousTitre: 'Mobilier de seconde main posé',
     meubles: [
-      { facteur: 'canape_textile', quantite: 1, libelle: 'Canapé' },
-      { facteur: 'table_bois', quantite: 1, libelle: 'Table à manger' },
+      { libelle: 'Canapé gris', quantite: 1, facteur: 'canape_textile', visible: true },
+      { libelle: 'Table', quantite: 1, facteur: 'table_bois', visible: true },
+      { libelle: 'Table basse', quantite: 1, facteur: 'chaise_bois', visible: true },
+      { libelle: 'Meuble TV', quantite: 1, facteur: 'chaise_bois', visible: true },
+      { libelle: 'Grande étagère en bois', quantite: 1, facteur: 'chaise_bois', visible: true },
+      { libelle: 'Chaises', quantite: 2, facteur: 'chaise_bois', visible: false },
+      { libelle: 'Cadre de lit et sommier', quantite: 1, facteur: 'table_bois', visible: false },
     ],
+    nonComptes: NON_COMPTES_LYON,
   },
   'retro-chic': {
-    titre: 'Appartement au séjour vintage à Lyon',
-    sousTitre: 'Mobilier de seconde main posé',
     meubles: [
-      { facteur: 'canape_textile', quantite: 1, libelle: 'Canapé' },
-      { facteur: 'table_bois', quantite: 1, libelle: 'Table en bois massif' },
-      { facteur: 'chaise_bois', quantite: 4, libelle: 'Chaises' },
+      { libelle: 'Canapé', quantite: 1, facteur: 'canape_textile', visible: true },
+      { libelle: 'Table en bois massif', quantite: 1, facteur: 'table_bois', visible: true },
+      { libelle: 'Chaises rétro', quantite: 4, facteur: 'chaise_bois', visible: true },
+      { libelle: 'Table basse en verre', quantite: 1, facteur: 'chaise_bois', visible: true },
+      { libelle: 'Meuble TV', quantite: 1, facteur: 'chaise_bois', visible: true },
+      { libelle: 'Étagères', quantite: 2, facteur: 'chaise_bois', visible: true },
+      { libelle: 'Cadre de lit et sommier', quantite: 1, facteur: 'table_bois', visible: false },
     ],
+    nonComptes: NON_COMPTES_LYON,
   },
 };
 
-/** Installation présentée en exemple sur la page /methode-co2 */
-export const INSTALLATION_EXEMPLE_ID = 'nordique-convivial';
-
-/** CO2e évité par une ligne (facteur × quantité), en kg */
-export function co2Ligne(meuble: MeublePose): number {
-  return arrondiTechnique(FACTEURS_ADEME[meuble.facteur] * meuble.quantite);
+/** CO2e évité par une ligne (quantité × facteur), en kg */
+export function totalLigne(meuble: MeubleCompte): number {
+  return arrondiTechnique(meuble.quantite * FACTEURS_ADEME[meuble.facteur].kg);
 }
 
-/** Total du CO2e évité par une installation, en kg (somme facteur × quantité) */
-export function co2Total(installation: InstallationCo2): number {
-  return arrondiTechnique(
-    installation.meubles.reduce((total, m) => total + FACTEURS_ADEME[m.facteur] * m.quantite, 0)
-  );
+/** CO2e évité par une réalisation (somme quantité × facteur), en kg, ou null sans données */
+export function total(id: string): number | null {
+  const donnees = CO2_REALISATIONS[id];
+  if (!donnees) return null;
+  return arrondiTechnique(donnees.meubles.reduce((somme, m) => somme + m.quantite * FACTEURS_ADEME[m.facteur].kg, 0));
 }
 
 /**
- * Texte affiché sous une installation, toujours arrondi vers le bas :
- * - moins de 1 000 kg : « Près de X kg de CO2e évités » (centaine inférieure)
- * - 1 000 kg et plus : « Plus de X,X t de CO2e évitées » (dixième inférieur)
+ * Texte affiché, toujours arrondi vers le bas :
+ * - moins de 1 000 kg : « Près de X kg de CO₂e évités » (centaine inférieure)
+ * - 1 000 kg et plus : « Plus de X,X t de CO₂e évitées » (dixième inférieur)
  */
-export function formatCo2(totalKg: number): string {
-  if (totalKg < 1000) {
-    const kg = Math.floor(totalKg / 100) * 100;
-    return `Près de ${formatNombre(kg)} kg de CO2e évités`;
+export function format(kg: number): string {
+  if (kg < 1000) {
+    return `Près de ${formatNombre(Math.floor(kg / 100) * 100)} kg de CO₂e évités`;
   }
-  const tonnes = Math.floor(arrondiTechnique(totalKg / 100)) / 10;
-  return `Plus de ${formatNombre(tonnes, 1)} t de CO2e évitées`;
+  const tonnes = Math.floor(arrondiTechnique(kg / 100)) / 10;
+  return `Plus de ${formatNombre(tonnes, 1)} t de CO₂e évitées`;
 }
 
 /** Texte CO2 d'une réalisation, ou null si elle n'a pas de données */
 export function co2PourRealisation(id: string): string | null {
-  const installation = INSTALLATIONS_CO2[id];
-  return installation ? formatCo2(co2Total(installation)) : null;
+  const kg = total(id);
+  return kg === null ? null : format(kg);
 }
 
-/** Ancre de l'installation sur la page /methode-co2 (ex. #co2-nordique-convivial) */
-export function co2Ancre(id: string): string {
-  return `co2-${id}`;
-}
-
-/** Nombre au format français : espace pour les milliers, virgule décimale */
+/** Nombre au format français : espace insécable pour les milliers, virgule décimale */
 export function formatNombre(valeur: number, decimales = 0): string {
   return valeur
     .toLocaleString('fr-FR', { minimumFractionDigits: decimales, maximumFractionDigits: decimales })
     .replace(/ /g, ' ');
+}
+
+/** Valeur en kg pour les tableaux : « 18,6 kg », « 179 kg », « 1 221,6 kg » */
+export function formatKg(valeur: number): string {
+  return `${formatNombre(valeur, Number.isInteger(valeur) ? 0 : 1)} kg`;
 }
 
 // Supprime le bruit des calculs en virgule flottante (ex. 1221.6000000000001)

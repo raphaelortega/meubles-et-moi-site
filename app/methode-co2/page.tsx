@@ -1,34 +1,31 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { Home } from 'lucide-react';
+import { Home, Eye, EyeOff } from 'lucide-react';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
+import { REALISATIONS, Realisation } from '@/data/realisations';
 import {
   FACTEURS_ADEME,
-  LIBELLES_FACTEURS,
-  INSTALLATIONS_CO2,
-  INSTALLATION_EXEMPLE_ID,
-  InstallationCo2,
   FacteurId,
-  co2Ancre,
-  co2Ligne,
-  co2Total,
-  formatCo2,
-  formatNombre,
+  CO2_REALISATIONS,
+  Co2Realisation,
+  total,
+  totalLigne,
+  format,
+  formatKg,
 } from '@/data/co2';
 
 export const metadata: Metadata = {
-  title: 'Notre méthode CO2 | Meubles&Moi',
+  title: 'Notre méthode CO₂e | Meubles&Moi',
   description:
-    "Comment Meubles&moi calcule le CO2 évité grâce au mobilier de seconde main, à partir des données de l'ADEME.",
+    "Comment Meubles&moi estime le CO₂e évité grâce au mobilier de seconde main, réalisation par réalisation et meuble par meuble, à partir des facteurs de l'ADEME.",
   alternates: {
     canonical: 'https://www.meubles-et-moi.fr/methode-co2',
   },
 };
 
-// Facteurs présentés sur la page, dans l'ordre d'affichage
-const FACTEURS_AFFICHES: FacteurId[] = ['chaise_bois', 'table_bois', 'canape_textile', 'canape_convertible', 'lit_complet'];
-const FACTEUR_MAX = Math.max(...FACTEURS_AFFICHES.map((id) => FACTEURS_ADEME[id]));
+const FACTEURS = Object.entries(FACTEURS_ADEME) as [FacteurId, (typeof FACTEURS_ADEME)[FacteurId]][];
+const FACTEUR_MAX = Math.max(...FACTEURS.map(([, f]) => f.kg));
 
 const ETAPES = [
   { titre: 'Matières premières', texte: 'Production du bois, de la mousse, du métal, du textile.' },
@@ -37,61 +34,141 @@ const ETAPES = [
   { titre: 'Assemblage et distribution', texte: 'Montage, emballage, livraison en magasin.' },
 ];
 
+const REGLES = [
+  <>On ne compte que le mobilier de <strong>seconde main réellement installé</strong>.</>,
+  <>Les matelas neufs (achetés neufs par hygiène) et le mobilier de déstockage (neuf, jamais utilisé) ne sont pas comptés.</>,
+  <>Quand un lit est posé sans matelas d&apos;occasion, on ne compte que le cadre et le sommier, avec le facteur « table en bois » (80,2 kg), plus bas que celui d&apos;un lit complet.</>,
+  <>Quand l&apos;ADEME n&apos;a pas de facteur exact (table basse, meuble TV, étagère, chevet, fauteuil…), on applique le facteur le plus bas disponible : <strong>la chaise en bois (18,6 kg)</strong>.</>,
+  <>Luminaires, linge, vaisselle et décoration ne sont jamais comptés.</>,
+  <>Le transport de collecte n&apos;est pas déduit (trajets courts en agglomération).</>,
+  <>Les résultats sont <strong>toujours arrondis vers le bas</strong>.</>,
+];
+
 const SOURCES = [
   { href: 'https://impactco2.fr/outils/mobilier', texte: "Impact CO2 (ADEME) : l'impact carbone du mobilier" },
   { href: 'https://impactco2.fr/outils/mobilier/lit', texte: 'Détail du calcul : lit' },
   { href: 'https://impactco2.fr/outils/mobilier/canapetextile', texte: 'Détail du calcul : canapé en textile' },
   { href: 'https://impactco2.fr/outils/mobilier/tableenbois', texte: 'Détail du calcul : table en bois' },
   { href: 'https://impactco2.fr/outils/mobilier/chaiseenbois', texte: 'Détail du calcul : chaise en bois' },
+  { href: 'https://base-empreinte.ademe.fr', texte: "Base Empreinte (ADEME) : la base de données officielle des facteurs d'émission" },
 ];
-
-const formatKg = (valeur: number) => `${formatNombre(valeur, Number.isInteger(valeur) ? 0 : 1)} kg`;
 
 const sectionClass = 'py-12 md:py-14 border-b border-[#e3dfbd] last:border-b-0';
 const h2Class = 'font-display text-2xl sm:text-[30px] font-bold text-[#063B39] leading-tight mb-4';
 const introClass = 'text-base sm:text-[17px] text-[#5b6b69] max-w-[680px] mb-7 leading-relaxed';
 
-// Tableau de calcul d'une installation, généré depuis data/co2.ts
-function DetailInstallation({ id, installation }: { id: string; installation: InstallationCo2 }) {
-  const total = co2Total(installation);
+const libelleFacteur = (id: FacteurId) => `${FACTEURS_ADEME[id].label} · ${formatKg(FACTEURS_ADEME[id].kg)}`;
+
+function SurLaPhoto({ visible }: { visible: boolean }) {
+  return visible ? (
+    <span className="inline-flex items-center gap-1 text-emerald-800 bg-emerald-50 border border-emerald-200/70 rounded-full px-2 py-0.5 text-xs font-semibold whitespace-nowrap">
+      <Eye className="w-3 h-3" aria-hidden="true" /> Visible
+    </span>
+  ) : (
+    <span className="inline-flex items-center gap-1 text-[#5b6b69] bg-[#f4f0c9]/60 border border-[#e3dfbd] rounded-full px-2 py-0.5 text-xs font-semibold whitespace-nowrap">
+      <EyeOff className="w-3 h-3" aria-hidden="true" /> Hors photo
+    </span>
+  );
+}
+
+// Détail du calcul d'une réalisation, généré depuis data/co2.ts.
+// L'id HTML est l'id du carrousel : les liens /methode-co2#<id> tombent dessus.
+function DetailRealisation({ realisation, donnees }: { realisation: Realisation; donnees: Co2Realisation }) {
+  const kg = total(realisation.id) ?? 0;
   return (
-    <div id={co2Ancre(id)} className="scroll-mt-28 bg-[#063B39] text-[#f4f0c9] rounded-[20px] p-5 sm:p-8">
-      <h3 className="font-display text-xl font-bold text-white mb-1">{installation.titre}</h3>
-      <p className="text-[15px] opacity-85 mb-5">{installation.sousTitre}</p>
-      <table className="w-full border-collapse text-sm sm:text-[15px]">
-        <thead>
-          <tr className="text-xs font-semibold uppercase tracking-[0.06em] opacity-75">
-            <th className="text-left py-2">Meuble</th>
-            <th className="text-right py-2">Qté</th>
-            <th className="text-right py-2">Facteur</th>
-            <th className="text-right py-2">CO2e évité</th>
-          </tr>
-        </thead>
-        <tbody>
-          {installation.meubles.map((meuble) => (
-            <tr key={meuble.libelle} className="border-t border-[#f4f0c9]/20">
-              <td className="py-2.5 pr-2">{meuble.libelle}</td>
-              <td className="py-2.5 text-right">{meuble.quantite}</td>
-              <td className="py-2.5 text-right whitespace-nowrap pl-2">{formatKg(FACTEURS_ADEME[meuble.facteur])}</td>
-              <td className="py-2.5 text-right whitespace-nowrap pl-2">{formatKg(Math.floor(co2Ligne(meuble)))}</td>
-            </tr>
-          ))}
-          <tr className="border-t-2 border-[#f4f0c9] font-display font-extrabold text-lg text-white">
-            <td colSpan={3} className="pt-3.5">Total</td>
-            <td className="pt-3.5 text-right whitespace-nowrap">≈ {formatKg(Math.floor(total / 10) * 10)}</td>
-          </tr>
-        </tbody>
-      </table>
-      <div className="mt-6 bg-[#C55D45] text-white rounded-[14px] px-5 py-4 font-display font-bold text-lg sm:text-xl text-center">
-        {formatCo2(total)}
+    <article id={realisation.id} className="scroll-mt-28 bg-white border border-[#e3dfbd] rounded-[20px] overflow-hidden">
+      {/* En-tête : miniature, titre et lieu */}
+      <div className="flex items-center gap-4 p-4 sm:p-5 border-b border-[#e3dfbd]">
+        <img
+          src={realisation.imageLarge}
+          alt={realisation.alt}
+          loading="lazy"
+          className="w-24 h-16 sm:w-32 sm:h-20 rounded-xl object-cover shrink-0"
+        />
+        <div>
+          <h3 className="font-display text-lg sm:text-xl font-bold text-[#063B39] leading-tight">{realisation.nom}</h3>
+          <p className="text-sm text-[#5b6b69] mt-0.5">
+            {realisation.location}
+            {realisation.surface ? ` • ${realisation.surface}` : ''}
+          </p>
+        </div>
       </div>
-    </div>
+
+      <div className="p-4 sm:p-6">
+        {/* Tableau (tablette et ordinateur) */}
+        <table className="hidden sm:table w-full border-collapse text-[15px]">
+          <thead>
+            <tr className="text-xs font-semibold uppercase tracking-[0.06em] text-[#5b6b69]">
+              <th className="text-left py-2 pr-3">Meuble</th>
+              <th className="text-right py-2 px-3">Quantité</th>
+              <th className="text-left py-2 px-3">Facteur ADEME retenu</th>
+              <th className="text-right py-2 px-3">Total (kg CO₂e)</th>
+              <th className="text-left py-2 pl-3">Sur la photo</th>
+            </tr>
+          </thead>
+          <tbody>
+            {donnees.meubles.map((m) => (
+              <tr key={m.libelle} className="border-t border-[#e3dfbd]">
+                <td className="py-2.5 pr-3 font-medium">{m.libelle}</td>
+                <td className="py-2.5 px-3 text-right tabular-nums">{m.quantite}</td>
+                <td className="py-2.5 px-3 text-[#5b6b69]">{libelleFacteur(m.facteur)}</td>
+                <td className="py-2.5 px-3 text-right tabular-nums whitespace-nowrap">{formatKg(totalLigne(m))}</td>
+                <td className="py-2.5 pl-3"><SurLaPhoto visible={m.visible} /></td>
+              </tr>
+            ))}
+            <tr className="border-t-2 border-[#063B39] font-display font-extrabold text-[#063B39]">
+              <td colSpan={3} className="pt-3">Total</td>
+              <td className="pt-3 px-3 text-right tabular-nums whitespace-nowrap">{formatKg(kg)}</td>
+              <td />
+            </tr>
+          </tbody>
+        </table>
+
+        {/* Liste (mobile) */}
+        <ul className="sm:hidden divide-y divide-[#e3dfbd]">
+          {donnees.meubles.map((m) => (
+            <li key={m.libelle} className="py-3">
+              <div className="flex items-start justify-between gap-3">
+                <span className="font-medium">
+                  {m.libelle} <span className="text-[#5b6b69]">× {m.quantite}</span>
+                </span>
+                <span className="font-semibold tabular-nums whitespace-nowrap">{formatKg(totalLigne(m))}</span>
+              </div>
+              <div className="mt-1.5 flex items-center justify-between gap-3 text-xs text-[#5b6b69]">
+                <span>{libelleFacteur(m.facteur)}</span>
+                <SurLaPhoto visible={m.visible} />
+              </div>
+            </li>
+          ))}
+          <li className="pt-3 flex justify-between font-display font-extrabold text-[#063B39]">
+            <span>Total</span>
+            <span className="tabular-nums">{formatKg(kg)}</span>
+          </li>
+        </ul>
+
+        <div className="mt-5 bg-[#063B39] text-white rounded-[14px] px-5 py-4 font-display font-bold text-lg sm:text-xl text-center">
+          {format(kg)}
+        </div>
+
+        <p className="mt-4 text-sm text-[#5b6b69]">
+          Certains meubles comptés n&apos;apparaissent pas sur la photo (chambre, coin repas…) : ils font bien partie de l&apos;installation.
+        </p>
+
+        <div className="mt-4 rounded-xl bg-[#faf8e8] border border-[#e3dfbd] px-4 py-3">
+          <p className="text-xs font-bold uppercase tracking-[0.06em] text-[#C55D45] mb-1.5">Non comptés</p>
+          <ul className="text-sm text-[#5b6b69] list-disc pl-5 space-y-0.5">
+            {donnees.nonComptes.map((n) => (
+              <li key={n}>{n}</li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </article>
   );
 }
 
 export default function MethodeCo2Page() {
-  const exemple = INSTALLATIONS_CO2[INSTALLATION_EXEMPLE_ID];
-  const autres = Object.entries(INSTALLATIONS_CO2).filter(([id]) => id !== INSTALLATION_EXEMPLE_ID);
+  const realisationsAvecDonnees = REALISATIONS.filter((r) => CO2_REALISATIONS[r.id]);
 
   return (
     <div className="min-h-screen bg-[#faf8e8] text-[#1d2b2a]">
@@ -106,33 +183,33 @@ export default function MethodeCo2Page() {
               <span>Accueil</span>
             </Link>
             <span>/</span>
-            <span className="text-[#f4f0c9]">Notre méthode CO2</span>
+            <span className="text-[#f4f0c9]">Notre méthode CO₂e</span>
           </nav>
           <span className="inline-block text-[13px] font-semibold tracking-[0.08em] uppercase text-[#063B39] bg-[#f4f0c9] px-3 py-1.5 rounded-full mb-5">
             Transparence
           </span>
           <h1 className="font-display text-[30px] sm:text-[38px] md:text-[46px] font-extrabold text-white leading-tight mb-4">
-            Comment nous calculons le CO2 évité
+            Comment nous estimons le CO₂e évité
           </h1>
           <p className="text-lg max-w-[620px] text-[#f4f0c9] leading-relaxed">
-            Chaque chiffre affiché sur nos installations repose sur les données publiques de l&apos;ADEME. Voici exactement comment nous les obtenons.
+            Chaque chiffre affiché sur nos réalisations repose sur les données publiques de l&apos;ADEME, appliquées meuble par meuble. Voici exactement comment nous les obtenons.
           </p>
         </div>
       </div>
 
       <main className="max-w-[860px] mx-auto px-5">
 
-        {/* Le principe */}
+        {/* a) Le principe */}
         <section className={sectionClass}>
           <h2 className={h2Class}>Le principe</h2>
           <p className={introClass}>
-            Un meuble de seconde main remplace l&apos;achat d&apos;un meuble neuf. Ce meuble neuf n&apos;a donc pas besoin d&apos;être fabriqué : les émissions liées à sa fabrication sont évitées.
+            Un meuble de seconde main existe déjà. En le réutilisant, on évite la fabrication d&apos;un meuble neuf équivalent et les émissions qui vont avec.
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-[1fr_auto_1fr_auto_1fr] gap-3 items-center">
             {[
               { titre: 'Meuble de seconde main', texte: 'sélectionné et installé chez vous' },
               { titre: 'Meuble neuf non fabriqué', texte: "pas de matières, d'usine ni de livraison" },
-              { titre: 'CO2e évité', texte: '= empreinte de fabrication du neuf (ADEME)' },
+              { titre: 'CO₂e évité', texte: '= empreinte de fabrication du neuf (ADEME)' },
             ].map((bloc, i) => (
               <div key={bloc.titre} className="contents">
                 {i > 0 && (
@@ -149,7 +226,7 @@ export default function MethodeCo2Page() {
           </div>
         </section>
 
-        {/* Ce que mesure l'ADEME */}
+        {/* b) Ce que mesure l'ADEME */}
         <section className={sectionClass}>
           <h2 className={h2Class}>Ce que mesure l&apos;ADEME</h2>
           <p className={introClass}>
@@ -166,65 +243,36 @@ export default function MethodeCo2Page() {
           </div>
         </section>
 
-        {/* Les facteurs */}
+        {/* c) Les facteurs utilisés : générés depuis data/co2.ts */}
         <section className={sectionClass}>
           <h2 className={h2Class}>Les facteurs que nous utilisons</h2>
-          <p className={introClass}>Empreinte de fabrication d&apos;un meuble neuf, selon l&apos;ADEME (Impact CO2).</p>
+          <p className={introClass}>
+            Empreinte de fabrication d&apos;un meuble neuf, en kg CO₂e, selon l&apos;ADEME (Impact CO2 / Base Empreinte). Nous n&apos;en utilisons aucun autre.
+          </p>
           <div className="bg-white rounded-2xl px-5 sm:px-6 py-2 border border-[#e3dfbd]">
-            {FACTEURS_AFFICHES.map((id) => {
-              const valeur = FACTEURS_ADEME[id];
-              const { nom, detail } = LIBELLES_FACTEURS[id];
-              return (
-                <div
-                  key={id}
-                  className="grid grid-cols-[1fr_auto] sm:grid-cols-[200px_1fr_110px] gap-x-4 gap-y-2 items-center py-3.5 border-b border-[#e3dfbd] last:border-b-0"
-                >
-                  <div className="font-semibold">
-                    {nom}
-                    {detail && <small className="block font-normal text-[#5b6b69] text-xs">{detail}</small>}
-                  </div>
-                  <div className="h-3 bg-[#f4f0c9] rounded-full overflow-hidden col-span-2 row-start-2 sm:col-span-1 sm:col-start-2 sm:row-start-1">
-                    <i className="block h-full bg-[#063B39] rounded-full" style={{ width: `${Math.round((valeur / FACTEUR_MAX) * 100)}%` }} />
-                  </div>
-                  <div className="text-right font-display font-bold text-[#063B39] sm:col-start-3 sm:row-start-1">{formatKg(valeur)}</div>
+            {FACTEURS.map(([id, f]) => (
+              <div
+                key={id}
+                className="grid grid-cols-[1fr_auto] sm:grid-cols-[200px_1fr_110px] gap-x-4 gap-y-2 items-center py-3.5 border-b border-[#e3dfbd] last:border-b-0"
+              >
+                <div className="font-semibold">
+                  {f.label}
+                  {'detail' in f && <small className="block font-normal text-[#5b6b69] text-xs">{f.detail}</small>}
                 </div>
-              );
-            })}
+                <div className="h-3 bg-[#f4f0c9] rounded-full overflow-hidden col-span-2 row-start-2 sm:col-span-1 sm:col-start-2 sm:row-start-1">
+                  <i className="block h-full bg-[#063B39] rounded-full" style={{ width: `${Math.max(2, Math.round((f.kg / FACTEUR_MAX) * 100))}%` }} />
+                </div>
+                <div className="text-right font-display font-bold text-[#063B39] sm:col-start-3 sm:row-start-1">{formatKg(f.kg)}</div>
+              </div>
+            ))}
           </div>
         </section>
 
-        {/* Un exemple concret : généré depuis data/co2.ts */}
-        <section className={sectionClass}>
-          <h2 className={h2Class}>Un exemple concret</h2>
-          <p className={introClass}>
-            Pour chaque installation, nous listons les meubles de seconde main posés et nous additionnons leur facteur ADEME.
-          </p>
-          <DetailInstallation id={INSTALLATION_EXEMPLE_ID} installation={exemple} />
-        </section>
-
-        {/* Détail des autres installations (lien direct depuis chaque carte de la galerie) */}
-        {autres.length > 0 && (
-          <section className={sectionClass}>
-            <h2 className={h2Class}>Le détail de nos installations</h2>
-            <p className={introClass}>Le calcul complet de chaque installation affichée sur notre site.</p>
-            <div className="grid gap-6">
-              {autres.map(([id, installation]) => (
-                <DetailInstallation key={id} id={id} installation={installation} />
-              ))}
-            </div>
-          </section>
-        )}
-
-        {/* Règles de prudence */}
+        {/* d) Règles de prudence */}
         <section className={sectionClass}>
           <h2 className={h2Class}>Nos règles de prudence</h2>
           <ul className="grid gap-3">
-            {[
-              <>Quand un meuble n&apos;a pas de facteur ADEME exact, nous prenons le facteur le plus proche <strong>et le plus bas</strong>.</>,
-              <>Les éléments achetés neufs (par exemple un matelas, pour des raisons d&apos;hygiène) ne sont jamais comptés.</>,
-              <>Les luminaires, la décoration, la vaisselle et les petits objets ne sont pas comptés.</>,
-              <>Nous arrondissons toujours vers le bas.</>,
-            ].map((regle, i) => (
+            {REGLES.map((regle, i) => (
               <li key={i} className="relative bg-white rounded-xl py-4 pr-[18px] pl-[52px] border border-[#e3dfbd]">
                 <span
                   aria-hidden="true"
@@ -237,14 +285,27 @@ export default function MethodeCo2Page() {
             ))}
           </ul>
           <p className="mt-5 text-[15px] text-[#5b6b69]">
-            Nos chiffres sont donc des <strong>estimations prudentes</strong> : le CO2 réellement évité est probablement plus élevé.
+            Nos chiffres sont donc des <strong>estimations prudentes</strong> : le CO₂e réellement évité est probablement plus élevé.
           </p>
         </section>
 
-        {/* Sources */}
+        {/* e) Le détail par réalisation */}
+        <section className={sectionClass}>
+          <h2 className={h2Class}>Le détail par réalisation</h2>
+          <p className={introClass}>
+            Pour chaque réalisation, nous listons les meubles de seconde main posés et nous additionnons leur facteur ADEME.
+          </p>
+          <div className="grid gap-6">
+            {realisationsAvecDonnees.map((r) => (
+              <DetailRealisation key={r.id} realisation={r} donnees={CO2_REALISATIONS[r.id]} />
+            ))}
+          </div>
+        </section>
+
+        {/* f) Sources */}
         <section className={sectionClass}>
           <h2 className={h2Class}>Vérifiez par vous-même</h2>
-          <p className={introClass}>Toutes nos données sont publiques et consultables sur le site de l&apos;ADEME.</p>
+          <p className={introClass}>Toutes nos données sont publiques et consultables sur les sites de l&apos;ADEME.</p>
           <div className="grid gap-3">
             {SOURCES.map((source) => (
               <a
@@ -260,6 +321,11 @@ export default function MethodeCo2Page() {
             ))}
           </div>
         </section>
+
+        {/* g) Mention */}
+        <p className="py-10 text-sm text-[#5b6b69] leading-relaxed border-t border-[#e3dfbd]">
+          Estimation Meubles&amp;moi basée sur les facteurs d&apos;émission de fabrication de l&apos;ADEME (Impact CO2 / Base Empreinte), appliqués meuble par meuble. Il s&apos;agit d&apos;émissions évitées estimées, pas d&apos;une neutralité carbone.
+        </p>
 
       </main>
 

@@ -5,8 +5,7 @@ import {
   Sparkles, 
   ArrowRight, 
   TrendingUp, 
-  ShieldCheck, 
-  Leaf 
+  ShieldCheck
 } from 'lucide-react';
 
 interface SimulatorProps {
@@ -25,7 +24,6 @@ export const Simulator: React.FC<SimulatorProps> = ({ onSelectPropertyType }) =>
   const annualUplift = monthlyGain * 12;
   const annualTaxSavings = propertyType === 'studio' ? 780 : propertyType === 't2' ? 1160 : 1580;
   const totalThreeYears = (annualUplift + annualTaxSavings) * 3;
-  const co2Saved = Math.round(surface * 14.5);
 
   const handleApply = () => {
     if (onSelectPropertyType) {
@@ -154,15 +152,8 @@ export const Simulator: React.FC<SimulatorProps> = ({ onSelectPropertyType }) =>
 
           </div>
 
-          {/* Ligne CO2 & Bouton de report */}
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4 border-t border-cream-200">
-            <div className="flex items-center gap-2 text-xs text-slate-600">
-              <Leaf className="w-4 h-4 text-sage-600 shrink-0" />
-              <span>
-                <strong>{co2Saved} kg de CO2 économisés</strong> grâce au réemploi de mobilier à Lyon.
-              </span>
-            </div>
-
+          {/* Bouton de report */}
+          <div className="flex flex-col sm:flex-row items-center justify-end gap-4 pt-4 border-t border-cream-200">
             <button
               type="button"
               onClick={handleApply}

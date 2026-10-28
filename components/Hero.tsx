@@ -96,7 +96,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenEstimate }) => {
             className="text-base sm:text-lg md:text-xl text-[#063B39]/80 font-normal leading-relaxed max-w-2xl mb-9"
           >
             Particuliers, locataires, propriétaires et professionnels : mobilier reconditionné et de seconde main soigné, livré et monté clé en main.{' '}
-            <span className="font-semibold text-[#063B39]">Zéro logistique, 100 % d'impact.</span>
+            <span className="font-semibold text-[#063B39]">Zéro logistique, un impact concret.</span>
           </motion.p>
 
           {/* 2 Boutons d'action (CTA) avec bouton secondaire blanc pur bien détaché */}
@@ -208,7 +208,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenEstimate }) => {
                     Installé en 48h
                   </span>
                   <span className="px-3.5 py-1.5 rounded-full bg-[#C55D45] font-bold text-white shadow-sm">
-                    100% chiné & valorisé
+                    Chiné & valorisé
                   </span>
                 </div>
               </div>

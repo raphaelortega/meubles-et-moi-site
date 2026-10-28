@@ -3,65 +3,8 @@
 import React, { useCallback, useState } from 'react';
 import { motion, AnimatePresence, PanInfo } from 'framer-motion';
 import { Leaf, ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react';
-import { co2PourRealisation, co2Ancre } from '@/data/co2';
-
-interface Project {
-  id: string;
-  /** Type d'appartement • pièces ou décoration phares */
-  title: string;
-  location: string;
-  /** Description de la photo pour l'accessibilité et le référencement */
-  alt: string;
-  /** Photo paysage 16:9 (tablette et ordinateur) */
-  imageLarge: string;
-  /** Photo portrait 4:5 (mobile) */
-  imageMobile: string;
-}
-
-// L'ordre du tableau est l'ordre d'affichage dans le carrousel.
-// Le CO2 évité vient de data/co2.ts (clé = id de la réalisation).
-const PROJECTS: Project[] = [
-  {
-    id: 'haussmannien-contemporain',
-    title: 'Appartement haussmannien meublé • Séjour, moulures & parquet en chevrons',
-    location: 'Paris',
-    alt: 'Séjour haussmannien à Paris : canapé en velours bleu nuit, table ronde en bois, cheminée en marbre et parquet en chevrons',
-    imageLarge: '/images/realisations/realisation-paris-large.jpg',
-    imageMobile: '/images/realisations/realisation-paris-mobile.jpg',
-  },
-  {
-    id: 'verriere-atelier',
-    title: 'Appartement meublé clé en main • Salon, cuisine bar & verrière',
-    location: 'Lyon',
-    alt: 'Appartement à Lyon : salon avec canapé gris, cuisine avec bar en bois, suspensions et verrière noire',
-    imageLarge: '/images/realisations/realisation-loft-large.jpg',
-    imageMobile: '/images/realisations/realisation-loft-mobile.jpg',
-  },
-  {
-    id: 'scandinave-lumineux',
-    title: 'Appartement lumineux • Salon scandinave & grande bibliothèque en bois',
-    location: 'Lyon',
-    alt: 'Salon scandinave à Lyon : canapé gris, grande bibliothèque en bois, meuble TV et table basse blancs',
-    imageLarge: '/images/realisations/realisation-scandinave-large.jpg',
-    imageMobile: '/images/realisations/realisation-scandinave-mobile.jpg',
-  },
-  {
-    id: 'retro-chic',
-    title: 'Appartement meublé • Séjour vintage & table en bois massif',
-    location: 'Lyon',
-    alt: 'Séjour vintage à Lyon : table en bois massif, chaises rétro, canapé gris et table basse en verre',
-    imageLarge: '/images/realisations/realisation-vintage-large.jpg',
-    imageMobile: '/images/realisations/realisation-vintage-mobile.jpg',
-  },
-  {
-    id: 'nordique-convivial',
-    title: 'Appartement de 42 m² • Séjour nordique, chaises coque & touches de rouge',
-    location: 'Villeurbanne',
-    alt: 'Séjour à Villeurbanne : canapé gris et coussins vichy rouges, table noire et chaises coque blanches',
-    imageLarge: '/images/realisations/realisation-villeurbanne-large.jpg',
-    imageMobile: '/images/realisations/realisation-villeurbanne-mobile.jpg',
-  },
-];
+import { co2PourRealisation } from '@/data/co2';
+import { REALISATIONS as PROJECTS } from '@/data/realisations';
 
 const slideVariants = {
   enter: (direction: number) => ({ x: direction > 0 ? 60 : -60, opacity: 0 }),
@@ -112,7 +55,7 @@ export const Gallery: React.FC = () => {
             La seconde main a du caractère. La preuve en images.
           </h2>
           <p className="text-base sm:text-lg text-[#063B39]/70 mt-4 leading-relaxed font-normal">
-            Chaque logement a sa personnalité. Nous chinons et composons des intérieurs harmonieux, chaleureux et prêts à vivre, sans acheter un seul meuble neuf en kit.
+            Chaque logement a sa personnalité. Nous chinons et composons des intérieurs harmonieux, chaleureux et prêts à vivre, avec du mobilier chiné, de seconde main ou de déstockage.
           </p>
         </motion.div>
 
@@ -172,19 +115,8 @@ export const Gallery: React.FC = () => {
                       Installé en 48h
                     </span>
                     <span className="px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full text-[13px] sm:text-base font-semibold bg-[#C55D45]">
-                      100% chiné & valorisé
+                      Chiné & valorisé
                     </span>
-                    {co2 && (
-                      <a
-                        href={`/methode-co2#${co2Ancre(project.id)}`}
-                        onPointerDownCapture={(e) => e.stopPropagation()}
-                        className="group/co2 inline-flex items-center gap-1.5 px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full text-[13px] sm:text-base font-semibold bg-white text-[#063B39] transition-colors hover:bg-[#FAF8F5]"
-                      >
-                        <Leaf className="w-4 h-4 text-emerald-600" aria-hidden="true" />
-                        {co2}
-                        <ArrowRight className="w-4 h-4 text-[#C55D45] transition-transform group-hover/co2:translate-x-0.5" aria-hidden="true" />
-                      </a>
-                    )}
                   </div>
                 </div>
               </motion.article>
@@ -211,27 +143,55 @@ export const Gallery: React.FC = () => {
             </div>
           </div>
 
-          {/* Navigation : points et compteur */}
-          <div className="mt-6 flex items-center justify-center">
-            <div className="flex items-center gap-2">
-              {PROJECTS.map((p, i) => (
-                <button
-                  key={p.id}
-                  type="button"
-                  onClick={() => goTo(i)}
-                  aria-label={`Voir la réalisation ${i + 1} : ${p.location}`}
-                  aria-current={i === index}
-                  className={`h-2 rounded-full transition-all duration-300 ${
-                    i === index ? 'w-7 bg-[#C55D45]' : 'w-2 bg-[#063B39]/20 hover:bg-[#063B39]/40'
-                  }`}
-                />
-              ))}
+          {/* Sous la photo : CO2e évité (si données) et navigation */}
+          <div className="mt-5 sm:mt-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-5">
+            <div className="min-h-[3.25rem]">
+              {co2 && (
+                <motion.div
+                  key={project.id}
+                  initial={{ opacity: 0, y: 6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.35 }}
+                  className="flex items-start gap-3"
+                >
+                  <span className="mt-0.5 w-9 h-9 shrink-0 rounded-full bg-emerald-50 border border-emerald-200/70 flex items-center justify-center">
+                    <Leaf className="w-4 h-4 text-emerald-700" aria-hidden="true" />
+                  </span>
+                  <div>
+                    <p className="font-display text-base sm:text-lg font-extrabold text-[#063B39] leading-snug">{co2}</p>
+                    <a
+                      href={`/methode-co2#${project.id}`}
+                      className="group/co2 mt-0.5 inline-flex items-center gap-1 text-sm font-semibold text-[#C55D45] hover:text-[#063B39] transition-colors"
+                    >
+                      Voir comment on l’a estimé
+                      <ArrowRight className="w-4 h-4 transition-transform group-hover/co2:translate-x-0.5" aria-hidden="true" />
+                    </a>
+                  </div>
+                </motion.div>
+              )}
+            </div>
+
+            {/* Navigation : points et compteur */}
+            <div className="flex items-center justify-center sm:justify-end gap-4">
+              <div className="flex items-center gap-2">
+                {PROJECTS.map((p, i) => (
+                  <button
+                    key={p.id}
+                    type="button"
+                    onClick={() => goTo(i)}
+                    aria-label={`Voir la réalisation ${i + 1} : ${p.location}`}
+                    aria-current={i === index}
+                    className={`h-2 rounded-full transition-all duration-300 ${
+                      i === index ? 'w-7 bg-[#C55D45]' : 'w-2 bg-[#063B39]/20 hover:bg-[#063B39]/40'
+                    }`}
+                  />
+                ))}
+              </div>
+              <p className="text-xs font-semibold text-[#063B39]/50 tabular-nums" aria-live="polite">
+                {String(index + 1).padStart(2, '0')} / {String(total).padStart(2, '0')}
+              </p>
             </div>
           </div>
-
-          <p className="mt-3 text-center text-xs font-semibold text-[#063B39]/50 tabular-nums" aria-live="polite">
-            {String(index + 1).padStart(2, '0')} / {String(total).padStart(2, '0')}
-          </p>
         </motion.div>
 
       </div>
