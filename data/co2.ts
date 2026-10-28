@@ -54,6 +54,44 @@ export const INSTALLATIONS_CO2: Record<string, InstallationCo2> = {
       { facteur: 'chaise_bois', quantite: 4, libelle: 'Chaises' },
     ],
   },
+  // Listes relevées sur les photos des réalisations (meubles visibles uniquement),
+  // à confirmer par Meubles&moi. Chaises rembourrées et tabourets : facteur
+  // « chaise en bois », le plus proche et le plus bas.
+  'haussmannien-contemporain': {
+    titre: 'Appartement haussmannien à Paris',
+    sousTitre: 'Mobilier de seconde main posé',
+    meubles: [
+      { facteur: 'canape_textile', quantite: 1, libelle: 'Canapé' },
+      { facteur: 'table_bois', quantite: 1, libelle: 'Table à manger' },
+      { facteur: 'chaise_bois', quantite: 4, libelle: 'Chaises' },
+    ],
+  },
+  'verriere-atelier': {
+    titre: 'Appartement avec cuisine bar et verrière à Lyon',
+    sousTitre: 'Mobilier de seconde main posé',
+    meubles: [
+      { facteur: 'canape_textile', quantite: 1, libelle: 'Canapé' },
+      { facteur: 'table_bois', quantite: 1, libelle: 'Table de bar' },
+      { facteur: 'chaise_bois', quantite: 4, libelle: 'Tabourets' },
+    ],
+  },
+  'scandinave-lumineux': {
+    titre: 'Appartement au salon scandinave à Lyon',
+    sousTitre: 'Mobilier de seconde main posé',
+    meubles: [
+      { facteur: 'canape_textile', quantite: 1, libelle: 'Canapé' },
+      { facteur: 'table_bois', quantite: 1, libelle: 'Table à manger' },
+    ],
+  },
+  'retro-chic': {
+    titre: 'Appartement au séjour vintage à Lyon',
+    sousTitre: 'Mobilier de seconde main posé',
+    meubles: [
+      { facteur: 'canape_textile', quantite: 1, libelle: 'Canapé' },
+      { facteur: 'table_bois', quantite: 1, libelle: 'Table en bois massif' },
+      { facteur: 'chaise_bois', quantite: 4, libelle: 'Chaises' },
+    ],
+  },
 };
 
 /** Installation présentée en exemple sur la page /methode-co2 */
