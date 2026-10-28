@@ -8,7 +8,9 @@ import {
   LIBELLES_FACTEURS,
   INSTALLATIONS_CO2,
   INSTALLATION_EXEMPLE_ID,
+  InstallationCo2,
   FacteurId,
+  co2Ancre,
   co2Ligne,
   co2Total,
   formatCo2,
@@ -49,9 +51,47 @@ const sectionClass = 'py-12 md:py-14 border-b border-[#e3dfbd] last:border-b-0';
 const h2Class = 'font-display text-2xl sm:text-[30px] font-bold text-[#063B39] leading-tight mb-4';
 const introClass = 'text-base sm:text-[17px] text-[#5b6b69] max-w-[680px] mb-7 leading-relaxed';
 
+// Tableau de calcul d'une installation, généré depuis data/co2.ts
+function DetailInstallation({ id, installation }: { id: string; installation: InstallationCo2 }) {
+  const total = co2Total(installation);
+  return (
+    <div id={co2Ancre(id)} className="scroll-mt-28 bg-[#063B39] text-[#f4f0c9] rounded-[20px] p-5 sm:p-8">
+      <h3 className="font-display text-xl font-bold text-white mb-1">{installation.titre}</h3>
+      <p className="text-[15px] opacity-85 mb-5">{installation.sousTitre}</p>
+      <table className="w-full border-collapse text-sm sm:text-[15px]">
+        <thead>
+          <tr className="text-xs font-semibold uppercase tracking-[0.06em] opacity-75">
+            <th className="text-left py-2">Meuble</th>
+            <th className="text-right py-2">Qté</th>
+            <th className="text-right py-2">Facteur</th>
+            <th className="text-right py-2">CO2e évité</th>
+          </tr>
+        </thead>
+        <tbody>
+          {installation.meubles.map((meuble) => (
+            <tr key={meuble.libelle} className="border-t border-[#f4f0c9]/20">
+              <td className="py-2.5 pr-2">{meuble.libelle}</td>
+              <td className="py-2.5 text-right">{meuble.quantite}</td>
+              <td className="py-2.5 text-right whitespace-nowrap pl-2">{formatKg(FACTEURS_ADEME[meuble.facteur])}</td>
+              <td className="py-2.5 text-right whitespace-nowrap pl-2">{formatKg(Math.floor(co2Ligne(meuble)))}</td>
+            </tr>
+          ))}
+          <tr className="border-t-2 border-[#f4f0c9] font-display font-extrabold text-lg text-white">
+            <td colSpan={3} className="pt-3.5">Total</td>
+            <td className="pt-3.5 text-right whitespace-nowrap">≈ {formatKg(Math.floor(total / 10) * 10)}</td>
+          </tr>
+        </tbody>
+      </table>
+      <div className="mt-6 bg-[#C55D45] text-white rounded-[14px] px-5 py-4 font-display font-bold text-lg sm:text-xl text-center">
+        {formatCo2(total)}
+      </div>
+    </div>
+  );
+}
+
 export default function MethodeCo2Page() {
   const exemple = INSTALLATIONS_CO2[INSTALLATION_EXEMPLE_ID];
-  const totalExemple = co2Total(exemple);
+  const autres = Object.entries(INSTALLATIONS_CO2).filter(([id]) => id !== INSTALLATION_EXEMPLE_ID);
 
   return (
     <div className="min-h-screen bg-[#faf8e8] text-[#1d2b2a]">
@@ -159,38 +199,21 @@ export default function MethodeCo2Page() {
           <p className={introClass}>
             Pour chaque installation, nous listons les meubles de seconde main posés et nous additionnons leur facteur ADEME.
           </p>
-          <div className="bg-[#063B39] text-[#f4f0c9] rounded-[20px] p-5 sm:p-8">
-            <h3 className="font-display text-xl font-bold text-white mb-1">{exemple.titre}</h3>
-            <p className="text-[15px] opacity-85 mb-5">{exemple.sousTitre}</p>
-            <table className="w-full border-collapse text-sm sm:text-[15px]">
-              <thead>
-                <tr className="text-xs font-semibold uppercase tracking-[0.06em] opacity-75">
-                  <th className="text-left py-2">Meuble</th>
-                  <th className="text-right py-2">Qté</th>
-                  <th className="text-right py-2">Facteur</th>
-                  <th className="text-right py-2">CO2e évité</th>
-                </tr>
-              </thead>
-              <tbody>
-                {exemple.meubles.map((meuble) => (
-                  <tr key={meuble.libelle} className="border-t border-[#f4f0c9]/20">
-                    <td className="py-2.5 pr-2">{meuble.libelle}</td>
-                    <td className="py-2.5 text-right">{meuble.quantite}</td>
-                    <td className="py-2.5 text-right whitespace-nowrap pl-2">{formatKg(FACTEURS_ADEME[meuble.facteur])}</td>
-                    <td className="py-2.5 text-right whitespace-nowrap pl-2">{formatKg(Math.floor(co2Ligne(meuble)))}</td>
-                  </tr>
-                ))}
-                <tr className="border-t-2 border-[#f4f0c9] font-display font-extrabold text-lg text-white">
-                  <td colSpan={3} className="pt-3.5">Total</td>
-                  <td className="pt-3.5 text-right whitespace-nowrap">≈ {formatKg(Math.floor(totalExemple / 10) * 10)}</td>
-                </tr>
-              </tbody>
-            </table>
-            <div className="mt-6 bg-[#C55D45] text-white rounded-[14px] px-5 py-4 font-display font-bold text-lg sm:text-xl text-center">
-              {formatCo2(totalExemple)}
-            </div>
-          </div>
+          <DetailInstallation id={INSTALLATION_EXEMPLE_ID} installation={exemple} />
         </section>
+
+        {/* Détail des autres installations (lien direct depuis chaque carte de la galerie) */}
+        {autres.length > 0 && (
+          <section className={sectionClass}>
+            <h2 className={h2Class}>Le détail de nos installations</h2>
+            <p className={introClass}>Le calcul complet de chaque installation affichée sur notre site.</p>
+            <div className="grid gap-6">
+              {autres.map(([id, installation]) => (
+                <DetailInstallation key={id} id={id} installation={installation} />
+              ))}
+            </div>
+          </section>
+        )}
 
         {/* Règles de prudence */}
         <section className={sectionClass}>

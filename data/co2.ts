@@ -91,6 +91,11 @@ export function co2PourRealisation(id: string): string | null {
   return installation ? formatCo2(co2Total(installation)) : null;
 }
 
+/** Ancre de l'installation sur la page /methode-co2 (ex. #co2-nordique-convivial) */
+export function co2Ancre(id: string): string {
+  return `co2-${id}`;
+}
+
 /** Nombre au format français : espace pour les milliers, virgule décimale */
 export function formatNombre(valeur: number, decimales = 0): string {
   return valeur

@@ -3,7 +3,7 @@
 import React, { useCallback, useState } from 'react';
 import { motion, AnimatePresence, PanInfo } from 'framer-motion';
 import { Sparkles, MapPin, ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react';
-import { co2PourRealisation } from '@/data/co2';
+import { co2PourRealisation, co2Ancre } from '@/data/co2';
 
 interface Project {
   id: string;
@@ -213,7 +213,7 @@ export const Gallery: React.FC = () => {
                   <div className="pt-5 border-t border-[#063B39]/8 flex flex-wrap items-end justify-between gap-x-4 gap-y-3 text-[#063B39]">
                     {co2 && (
                       <a
-                        href="/methode-co2"
+                        href={`/methode-co2#${co2Ancre(project.id)}`}
                         onPointerDownCapture={(e) => e.stopPropagation()}
                         className="group/co2 flex items-start gap-2.5 rounded-xl -m-1.5 p-1.5 transition-colors hover:bg-[#FAF8F5]"
                       >
