@@ -3,6 +3,7 @@
 import React from 'react';
 import { motion, type Variants } from 'framer-motion';
 import { PiggyBank, Leaf, KeyRound, CheckCircle2, ArrowRight } from 'lucide-react';
+import { maxTonnes } from '@/data/co2';
 
 interface PillarsProps {
   onOpenEstimate?: () => void;
@@ -29,7 +30,7 @@ export const Pillars: React.FC<PillarsProps> = ({ onOpenEstimate }) => {
       desc: 'Sourcing seconde main et déstockage pour réduire l\'empreinte carbone et revaloriser le mobilier.',
       details: 'Chaque pièce a déjà son histoire. Nous sélectionnons du mobilier directement en bon état d’usage pour éviter la surproduction.',
       statPrefix: 'Jusqu\'à',
-      stat: '1,2 t',
+      stat: maxTonnes(),
       statLabel: 'de CO₂e évitée par appartement',
       statHref: '/methode-co2',
       icon: Leaf,

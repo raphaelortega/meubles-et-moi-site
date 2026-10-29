@@ -9,10 +9,15 @@ import {
   FacteurId,
   CO2_REALISATIONS,
   Co2Realisation,
+  TRANSPORT_ADEME,
   total,
   totalLigne,
+  totalMobilier,
+  transportCollecte,
   format,
   formatKg,
+  formatNombre,
+  KM_COLLECTE_PAR_OPERATION,
 } from '@/data/co2';
 
 export const metadata: Metadata = {
@@ -34,13 +39,17 @@ const ETAPES = [
   { titre: 'Assemblage et distribution', texte: 'Montage, emballage, livraison en magasin.' },
 ];
 
+
+const KM = KM_COLLECTE_PAR_OPERATION;
+const FACTEUR_TRANSPORT = `${formatNombre(TRANSPORT_ADEME.kgParKm, 3)} kg CO₂e/km`;
+
 const REGLES = [
   <>On ne compte que le mobilier de <strong>seconde main réellement installé</strong>.</>,
   <>Les matelas neufs (achetés neufs par hygiène) et le mobilier de déstockage (neuf, jamais utilisé) ne sont pas comptés.</>,
   <>Quand un lit est posé sans matelas d&apos;occasion, on ne compte que le cadre et le sommier, avec le facteur « table en bois » (80,2 kg), plus bas que celui d&apos;un lit complet.</>,
   <>Quand l&apos;ADEME n&apos;a pas de facteur exact (table basse, meuble TV, étagère, chevet, fauteuil…), on applique le facteur le plus bas disponible : <strong>la chaise en bois (18,6 kg)</strong>.</>,
   <>Luminaires, linge, vaisselle et décoration ne sont jamais comptés.</>,
-  <>Le transport de collecte n&apos;est pas déduit (trajets courts en agglomération).</>,
+  <>Le transport de collecte est <strong>déduit</strong> : utilitaire diesel de 12 m³, {KM} km aller-retour par opération (estimation haute, les meubles étant collectés dans la ville de l&apos;installation), avec le facteur « van » d&apos;Impact CO2 ({FACTEUR_TRANSPORT}). C&apos;est la valeur ADEME la plus proche : un utilitaire de 12 m³ émet probablement un peu plus.</>,
   <>Les résultats sont <strong>toujours arrondis vers le bas</strong>.</>,
 ];
 
@@ -50,6 +59,7 @@ const SOURCES = [
   { href: 'https://impactco2.fr/outils/mobilier/canapetextile', texte: 'Détail du calcul : canapé en textile' },
   { href: 'https://impactco2.fr/outils/mobilier/tableenbois', texte: 'Détail du calcul : table en bois' },
   { href: 'https://impactco2.fr/outils/mobilier/chaiseenbois', texte: 'Détail du calcul : chaise en bois' },
+  { href: 'https://impactco2.fr/outils/transport', texte: 'Impact CO2 (ADEME) : l’impact carbone des transports (facteur « van »)' },
   { href: 'https://base-empreinte.ademe.fr', texte: "Base Empreinte (ADEME) : la base de données officielle des facteurs d'émission" },
 ];
 
@@ -57,6 +67,7 @@ const sectionClass = 'py-12 md:py-14 border-b border-[#e3dfbd] last:border-b-0';
 const h2Class = 'font-display text-2xl sm:text-[30px] font-bold text-[#063B39] leading-tight mb-4';
 const introClass = 'text-base sm:text-[17px] text-[#5b6b69] max-w-[680px] mb-7 leading-relaxed';
 
+const libelleTransport = `Facteur « van » · ${formatNombre(TRANSPORT_ADEME.kgParKm, 3)} kg/km`;
 const libelleFacteur = (id: FacteurId) => `${FACTEURS_ADEME[id].label} · ${formatKg(FACTEURS_ADEME[id].kg)}`;
 
 function SurLaPhoto({ visible }: { visible: boolean }) {
@@ -75,6 +86,8 @@ function SurLaPhoto({ visible }: { visible: boolean }) {
 // L'id HTML est l'id du carrousel : les liens /methode-co2#<id> tombent dessus.
 function DetailRealisation({ realisation, donnees }: { realisation: Realisation; donnees: Co2Realisation }) {
   const kg = total(realisation.id) ?? 0;
+  const mobilier = totalMobilier(donnees);
+  const transport = transportCollecte(donnees);
   return (
     <article id={realisation.id} className="scroll-mt-28 bg-white border border-[#e3dfbd] rounded-[20px] overflow-hidden">
       {/* En-tête : miniature, titre et lieu */}
@@ -101,7 +114,7 @@ function DetailRealisation({ realisation, donnees }: { realisation: Realisation;
             <tr className="text-xs font-semibold uppercase tracking-[0.06em] text-[#5b6b69]">
               <th className="text-left py-2 pr-3">Meuble</th>
               <th className="text-right py-2 px-3">Quantité</th>
-              <th className="text-left py-2 px-3">Facteur ADEME retenu</th>
+              <th className="text-left py-2 px-3 whitespace-nowrap">Facteur ADEME retenu</th>
               <th className="text-right py-2 px-3">Total (kg CO₂e)</th>
               <th className="text-left py-2 pl-3">Sur la photo</th>
             </tr>
@@ -111,13 +124,25 @@ function DetailRealisation({ realisation, donnees }: { realisation: Realisation;
               <tr key={m.libelle} className="border-t border-[#e3dfbd]">
                 <td className="py-2.5 pr-3 font-medium">{m.libelle}</td>
                 <td className="py-2.5 px-3 text-right tabular-nums">{m.quantite}</td>
-                <td className="py-2.5 px-3 text-[#5b6b69]">{libelleFacteur(m.facteur)}</td>
+                <td className="py-2.5 px-3 text-[#5b6b69] whitespace-nowrap">{libelleFacteur(m.facteur)}</td>
                 <td className="py-2.5 px-3 text-right tabular-nums whitespace-nowrap">{formatKg(totalLigne(m))}</td>
                 <td className="py-2.5 pl-3"><SurLaPhoto visible={m.visible} /></td>
               </tr>
             ))}
+            <tr className="border-t-2 border-[#063B39]/40 font-semibold text-[#063B39]">
+              <td colSpan={3} className="py-2.5 pr-3">Sous-total mobilier</td>
+              <td className="py-2.5 px-3 text-right tabular-nums whitespace-nowrap">{formatKg(mobilier)}</td>
+              <td />
+            </tr>
+            <tr className="border-t border-[#e3dfbd] text-[#063B39]">
+              <td className="py-2.5 pr-3 font-medium">Transport de collecte (aller-retour)</td>
+              <td className="py-2.5 px-3 text-right tabular-nums whitespace-nowrap">{donnees.kmCollecte} km</td>
+              <td className="py-2.5 px-3 text-[#5b6b69] whitespace-nowrap">{libelleTransport}</td>
+              <td className="py-2.5 px-3 text-right tabular-nums whitespace-nowrap text-[#C55D45]">− {formatKg(transport)}</td>
+              <td />
+            </tr>
             <tr className="border-t-2 border-[#063B39] font-display font-extrabold text-[#063B39]">
-              <td colSpan={3} className="pt-3">Total</td>
+              <td colSpan={3} className="pt-3">Total net</td>
               <td className="pt-3 px-3 text-right tabular-nums whitespace-nowrap">{formatKg(kg)}</td>
               <td />
             </tr>
@@ -140,8 +165,19 @@ function DetailRealisation({ realisation, donnees }: { realisation: Realisation;
               </div>
             </li>
           ))}
+          <li className="py-3 flex justify-between font-semibold text-[#063B39]">
+            <span>Sous-total mobilier</span>
+            <span className="tabular-nums">{formatKg(mobilier)}</span>
+          </li>
+          <li className="py-3">
+            <div className="flex items-start justify-between gap-3">
+              <span className="font-medium">Transport de collecte <span className="text-[#5b6b69]">× {donnees.kmCollecte} km</span></span>
+              <span className="font-semibold tabular-nums whitespace-nowrap text-[#C55D45]">− {formatKg(transport)}</span>
+            </div>
+            <p className="mt-1.5 text-xs text-[#5b6b69]">{libelleTransport} · aller-retour</p>
+          </li>
           <li className="pt-3 flex justify-between font-display font-extrabold text-[#063B39]">
-            <span>Total</span>
+            <span>Total net</span>
             <span className="tabular-nums">{formatKg(kg)}</span>
           </li>
         </ul>
@@ -209,7 +245,7 @@ export default function MethodeCo2Page() {
             {[
               { titre: 'Meuble de seconde main', texte: 'sélectionné et installé chez vous' },
               { titre: 'Meuble neuf non fabriqué', texte: "pas de matières, d'usine ni de livraison" },
-              { titre: 'CO₂e évité', texte: '= empreinte de fabrication du neuf (ADEME)' },
+              { titre: 'CO₂e évité', texte: '= empreinte de fabrication du neuf (ADEME), moins le transport de collecte' },
             ].map((bloc, i) => (
               <div key={bloc.titre} className="contents">
                 {i > 0 && (
@@ -247,7 +283,7 @@ export default function MethodeCo2Page() {
         <section className={sectionClass}>
           <h2 className={h2Class}>Les facteurs que nous utilisons</h2>
           <p className={introClass}>
-            Empreinte de fabrication d&apos;un meuble neuf, en kg CO₂e, selon l&apos;ADEME (Impact CO2 / Base Empreinte). Nous n&apos;en utilisons aucun autre.
+            Empreinte de fabrication d&apos;un meuble neuf, en kg CO₂e, selon l&apos;ADEME (Impact CO2 / Base Empreinte). Pour le transport de collecte, nous déduisons le facteur « van » d&apos;Impact CO2.
           </p>
           <div className="bg-white rounded-2xl px-5 sm:px-6 py-2 border border-[#e3dfbd]">
             {FACTEURS.map(([id, f]) => (
@@ -265,6 +301,13 @@ export default function MethodeCo2Page() {
                 <div className="text-right font-display font-bold text-[#063B39] sm:col-start-3 sm:row-start-1">{formatKg(f.kg)}</div>
               </div>
             ))}
+          </div>
+          <div className="mt-4 bg-white rounded-2xl px-5 sm:px-6 py-4 border border-[#e3dfbd] flex items-center justify-between gap-4">
+            <div className="font-semibold">
+              {TRANSPORT_ADEME.label}
+              <small className="block font-normal text-[#5b6b69] text-xs">{TRANSPORT_ADEME.detail}, déduit du total</small>
+            </div>
+            <div className="text-right font-display font-bold text-[#C55D45] whitespace-nowrap">{FACTEUR_TRANSPORT}</div>
           </div>
         </section>
 
@@ -293,7 +336,7 @@ export default function MethodeCo2Page() {
         <section className={sectionClass}>
           <h2 className={h2Class}>Le détail par réalisation</h2>
           <p className={introClass}>
-            Pour chaque réalisation, nous listons les meubles de seconde main posés et nous additionnons leur facteur ADEME.
+            Pour chaque réalisation, nous listons les meubles de seconde main posés, nous additionnons leur facteur ADEME, puis nous déduisons le transport de collecte.
           </p>
           <div className="grid gap-6">
             {realisationsAvecDonnees.map((r) => (
@@ -324,7 +367,7 @@ export default function MethodeCo2Page() {
 
         {/* g) Mention */}
         <p className="py-10 text-sm text-[#5b6b69] leading-relaxed border-t border-[#e3dfbd]">
-          Estimation Meubles&amp;moi basée sur les facteurs d&apos;émission de fabrication de l&apos;ADEME (Impact CO2 / Base Empreinte), appliqués meuble par meuble. Il s&apos;agit d&apos;émissions évitées estimées, pas d&apos;une neutralité carbone.
+          Estimation Meubles&amp;moi basée sur les facteurs d&apos;émission de fabrication de l&apos;ADEME (Impact CO2 / Base Empreinte), appliqués meuble par meuble, transport de collecte déduit. Il s&apos;agit d&apos;émissions évitées estimées, pas d&apos;une neutralité carbone.
         </p>
 
       </main>

@@ -3,8 +3,8 @@
 //
 // Pour ajouter une réalisation : ajouter une entrée dans CO2_REALISATIONS avec l'id
 // de la réalisation (voir data/realisations.ts) et la liste des meubles de SECONDE MAIN
-// réellement posés. Ne jamais ajouter de facteur qui ne vient pas de l'ADEME, ni compter
-// un meuble acheté neuf ou de déstockage.
+// réellement posés, et les km de collecte. Ne jamais ajouter de facteur qui ne vient pas
+// de l'ADEME, ni compter un meuble acheté neuf ou de déstockage.
 
 /** Empreinte de fabrication d'un meuble neuf, en kg CO2e (ADEME). */
 export const FACTEURS_ADEME = {
@@ -18,6 +18,21 @@ export const FACTEURS_ADEME = {
 
 export type FacteurId = keyof typeof FACTEURS_ADEME;
 
+/**
+ * Transport de collecte, déduit du total : utilitaire diesel de 12 m³ (Renault, Mercedes).
+ * Facteur « van » d'Impact CO2 (ADEME) : 0,2371 carburant + 0,0875 fabrication du véhicule
+ * = 0,3246 kg CO2e/km, arrondi au-dessus (0,325) puisqu'on le soustrait. Valeur ADEME la plus
+ * proche disponible : un utilitaire de 12 m³ émet probablement un peu plus.
+ */
+export const TRANSPORT_ADEME = {
+  kgParKm: 0.325,
+  label: 'Utilitaire diesel (facteur « van », ADEME)',
+  detail: 'carburant + fabrication du véhicule',
+} as const;
+
+/** Estimation haute par opération : meubles collectés dans la ville de l'installation, aller-retour compris */
+export const KM_COLLECTE_PAR_OPERATION = 100;
+
 export interface MeubleCompte {
   /** Nom du meuble affiché dans le tableau */
   libelle: string;
@@ -30,6 +45,8 @@ export interface MeubleCompte {
 
 export interface Co2Realisation {
   meubles: MeubleCompte[];
+  /** Kilomètres de collecte de l'opération, aller-retour compris */
+  kmCollecte: number;
   /** Ce qui a été posé mais n'est pas compté, et pourquoi */
   nonComptes: string[];
 }
@@ -45,6 +62,7 @@ export const CO2_REALISATIONS: Record<string, Co2Realisation> = {
       { libelle: 'Table noire', quantite: 1, facteur: 'table_bois', visible: true },
       { libelle: 'Chaises coque', quantite: 4, facteur: 'chaise_bois', visible: true },
     ],
+    kmCollecte: KM_COLLECTE_PAR_OPERATION,
     nonComptes: ['Luminaires (de seconde main, mais sans facteur ADEME)', 'Rideaux', 'Vaisselle', 'Linge', 'Petit électroménager', 'Décoration'],
   },
   'haussmannien-contemporain': {
@@ -59,6 +77,7 @@ export const CO2_REALISATIONS: Record<string, Co2Realisation> = {
       { libelle: 'Guéridon', quantite: 1, facteur: 'chaise_bois', visible: false },
       { libelle: 'Meuble TV', quantite: 1, facteur: 'chaise_bois', visible: false },
     ],
+    kmCollecte: KM_COLLECTE_PAR_OPERATION,
     nonComptes: [
       'Table ronde, chaises enveloppantes, lit et fauteuil du séjour (mobilier de déstockage, neuf jamais utilisé, donc non compté)',
       'Matelas (neuf)',
@@ -76,6 +95,7 @@ export const CO2_REALISATIONS: Record<string, Co2Realisation> = {
       { libelle: 'Chaises', quantite: 2, facteur: 'chaise_bois', visible: false },
       { libelle: 'Cadre de lit et sommier', quantite: 1, facteur: 'table_bois', visible: false },
     ],
+    kmCollecte: KM_COLLECTE_PAR_OPERATION,
     nonComptes: NON_COMPTES_LYON,
   },
   'scandinave-lumineux': {
@@ -88,6 +108,7 @@ export const CO2_REALISATIONS: Record<string, Co2Realisation> = {
       { libelle: 'Chaises', quantite: 2, facteur: 'chaise_bois', visible: false },
       { libelle: 'Cadre de lit et sommier', quantite: 1, facteur: 'table_bois', visible: false },
     ],
+    kmCollecte: KM_COLLECTE_PAR_OPERATION,
     nonComptes: NON_COMPTES_LYON,
   },
   'retro-chic': {
@@ -100,6 +121,7 @@ export const CO2_REALISATIONS: Record<string, Co2Realisation> = {
       { libelle: 'Étagères', quantite: 2, facteur: 'chaise_bois', visible: true },
       { libelle: 'Cadre de lit et sommier', quantite: 1, facteur: 'table_bois', visible: false },
     ],
+    kmCollecte: KM_COLLECTE_PAR_OPERATION,
     nonComptes: NON_COMPTES_LYON,
   },
 };
@@ -109,11 +131,21 @@ export function totalLigne(meuble: MeubleCompte): number {
   return arrondiTechnique(meuble.quantite * FACTEURS_ADEME[meuble.facteur].kg);
 }
 
-/** CO2e évité par une réalisation (somme quantité × facteur), en kg, ou null sans données */
+/** Empreinte évitée par le mobilier (somme quantité × facteur), en kg */
+export function totalMobilier(donnees: Co2Realisation): number {
+  return arrondiTechnique(donnees.meubles.reduce((somme, m) => somme + m.quantite * FACTEURS_ADEME[m.facteur].kg, 0));
+}
+
+/** Émissions du transport de collecte (km × facteur), en kg */
+export function transportCollecte(donnees: Co2Realisation): number {
+  return arrondiTechnique(donnees.kmCollecte * TRANSPORT_ADEME.kgParKm);
+}
+
+/** CO2e évité net d'une réalisation (mobilier − transport de collecte), en kg, ou null sans données */
 export function total(id: string): number | null {
   const donnees = CO2_REALISATIONS[id];
   if (!donnees) return null;
-  return arrondiTechnique(donnees.meubles.reduce((somme, m) => somme + m.quantite * FACTEURS_ADEME[m.facteur].kg, 0));
+  return arrondiTechnique(totalMobilier(donnees) - transportCollecte(donnees));
 }
 
 /**
@@ -133,6 +165,12 @@ export function format(kg: number): string {
 export function co2PourRealisation(id: string): string | null {
   const kg = total(id);
   return kg === null ? null : format(kg);
+}
+
+/** Plus grand CO2e évité parmi les réalisations, en tonnes arrondies au dixième inférieur (ex. « 1,1 t ») */
+export function maxTonnes(): string {
+  const max = Math.max(...Object.keys(CO2_REALISATIONS).map((id) => total(id) ?? 0));
+  return `${formatNombre(Math.floor(arrondiTechnique(max / 100)) / 10, 1)} t`;
 }
 
 /** Nombre au format français : espace insécable pour les milliers, virgule décimale */
