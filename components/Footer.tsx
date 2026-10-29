@@ -52,7 +52,7 @@ export const Footer: React.FC = () => {
 
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 border border-white/15 text-xs text-stone-200">
             <Leaf className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-            <span>100 % seconde main & réemploi en circuit court</span>
+            <span>Seconde main & réemploi en circuit court</span>
           </div>
         </div>
 

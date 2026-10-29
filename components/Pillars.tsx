@@ -3,6 +3,7 @@
 import React from 'react';
 import { motion, type Variants } from 'framer-motion';
 import { PiggyBank, Leaf, KeyRound, CheckCircle2, ArrowRight } from 'lucide-react';
+import { maxTonnes } from '@/data/co2';
 
 interface PillarsProps {
   onOpenEstimate?: () => void;
@@ -26,13 +27,15 @@ export const Pillars: React.FC<PillarsProps> = ({ onOpenEstimate }) => {
       id: 'ecoresponsable',
       category: '02 • Impact circulaire',
       title: 'Écoresponsable',
-      desc: 'Sourcing 100 % seconde main pour réduire l\'empreinte carbone et revaloriser le mobilier.',
+      desc: 'Sourcing seconde main et déstockage pour réduire l\'empreinte carbone et revaloriser le mobilier.',
       details: 'Chaque pièce a déjà son histoire. Nous sélectionnons du mobilier directement en bon état d’usage pour éviter la surproduction.',
-      stat: '1,2 t',
-      statLabel: 'de CO₂ évitée par appartement',
+      statPrefix: 'Jusqu\'à',
+      stat: maxTonnes(),
+      statLabel: 'de CO₂e évitée par appartement',
+      statHref: '/methode-co2',
       icon: Leaf,
       badgeColor: 'bg-emerald-500/10 text-emerald-700',
-      highlights: ['100% réemploi & zéro déchet neuf', 'Mobilier sélectionné en bon état', 'Circuit court à Lyon'],
+      highlights: ['Réemploi & zéro déchet neuf', 'Mobilier sélectionné en bon état', 'Circuit court à Lyon'],
     },
     {
       id: 'zero-effort',
@@ -139,7 +142,10 @@ export const Pillars: React.FC<PillarsProps> = ({ onOpenEstimate }) => {
 
                 {/* Chiffre clé & Points forts */}
                 <div className="pt-6 border-t border-[#063B39]/8 space-y-4">
-                  <div className="flex items-baseline gap-2">
+                  <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
+                    {p.statPrefix && (
+                      <span className="text-sm text-[#063B39]/70 font-semibold">{p.statPrefix}</span>
+                    )}
                     <span className="font-display text-3xl sm:text-4xl font-black text-[#063B39]">
                       {p.stat}
                     </span>
@@ -147,6 +153,15 @@ export const Pillars: React.FC<PillarsProps> = ({ onOpenEstimate }) => {
                       {p.statLabel}
                     </span>
                   </div>
+                  {p.statHref && (
+                    <a
+                      href={p.statHref}
+                      className="group/stat inline-flex items-center gap-1 text-xs sm:text-sm font-semibold text-[#C55D45] hover:text-[#063B39] transition-colors"
+                    >
+                      Voir comment on l’a estimé
+                      <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover/stat:translate-x-0.5" aria-hidden="true" />
+                    </a>
+                  )}
 
                   <ul className="space-y-2 pt-1">
                     {p.highlights.map((h, i) => (

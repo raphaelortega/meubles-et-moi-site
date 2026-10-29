@@ -2,73 +2,9 @@
 
 import React, { useCallback, useState } from 'react';
 import { motion, AnimatePresence, PanInfo } from 'framer-motion';
-import { Sparkles, MapPin, ChevronLeft, ChevronRight } from 'lucide-react';
-
-interface Project {
-  id: string;
-  title: string;
-  location: string;
-  surface?: string;
-  style: string;
-  image: string;
-  description: string;
-  highlights: string[];
-  co2?: string;
-}
-
-// L'ordre du tableau est l'ordre d'affichage dans le carrousel
-const PROJECTS: Project[] = [
-  {
-    id: 'haussmannien-contemporain',
-    title: 'Haussmannien & Contemporain',
-    location: 'Paris',
-    style: 'Moulures, parquet en chevrons et lignes contemporaines',
-    image: '/images/realisations/realisation-4.jpg',
-    description: 'Un séjour haussmannien lumineux avec un canapé en velours bleu nuit, une table ronde en bois, des chaises enveloppantes et une table basse bois et métal.',
-    highlights: ['Canapé velours bleu nuit', 'Table ronde en bois', 'Chaises enveloppantes', 'Table basse bois & métal'],
-    co2: '1 180 kg CO₂ évités',
-  },
-  {
-    id: 'verriere-atelier',
-    title: 'Moderne & Esprit Loft',
-    location: 'Lyon',
-    style: 'Style moderne, bois clair et touches de noir',
-    image: '/images/realisations/realisation-1.jpg',
-    description: 'Un salon moderne et lumineux avec une verrière, un canapé confortable, une table basse pratique et un meuble TV en bois.',
-    highlights: ['Canapé confortable', 'Table basse pratique', 'Meuble TV en bois', 'Verrière noire'],
-    co2: '1 250 kg CO₂ évités',
-  },
-  {
-    id: 'scandinave-lumineux',
-    title: 'Scandinave & Lumineux',
-    location: 'Lyon',
-    style: 'Couleurs douces, bois clair et ambiance chaleureuse',
-    image: '/images/realisations/realisation-2.jpg',
-    description: 'Un espace clair et apaisant avec un canapé gris confortable, une grande étagère en bois, un meuble TV blanc et une table basse pratique.',
-    highlights: ['Canapé gris confortable', 'Grande étagère en bois', 'Meuble TV blanc', 'Table basse pratique'],
-    co2: '980 kg CO₂ évités',
-  },
-  {
-    id: 'retro-chic',
-    title: 'Vintage & Bois Massif',
-    location: 'Lyon',
-    style: 'Meubles vintage en bois et finitions soignées',
-    image: '/images/realisations/realisation-3.jpg',
-    description: 'Un salon plein de charme avec une belle table en bois massif, des chaises rétro confortables, un meuble TV en bois et une table basse en verre.',
-    highlights: ['Table en bois massif', 'Chaises rétro confortables', 'Meuble TV en bois', 'Table basse en verre'],
-    co2: '1 420 kg CO₂ évités',
-  },
-  {
-    id: 'nordique-convivial',
-    title: 'Nordique & Convivial',
-    location: 'Villeurbanne',
-    surface: '42 m²',
-    style: 'Chaises coque, contrastes noir et blanc et touches de rouge',
-    image: '/images/realisations/realisation-5.jpg',
-    description: 'Un séjour clair et fonctionnel avec un canapé gris confortable, une table noire, des chaises coque d’inspiration scandinave et des coussins colorés.',
-    highlights: ['Canapé gris confortable', 'Table noire', 'Chaises coque scandinaves', 'Coussins vichy rouges'],
-  },
-];
+import { Sparkles, MapPin, ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react';
+import { co2PourRealisation } from '@/data/co2';
+import { REALISATIONS as PROJECTS } from '@/data/realisations';
 
 const slideVariants = {
   enter: (direction: number) => ({ x: direction > 0 ? 60 : -60, opacity: 0 }),
@@ -79,6 +15,7 @@ const slideVariants = {
 export const Gallery: React.FC = () => {
   const [[index, direction], setSlide] = useState<[number, number]>([0, 0]);
   const project = PROJECTS[index];
+  const co2 = co2PourRealisation(project.id);
   const total = PROJECTS.length;
 
   const paginate = useCallback((step: number) => {
@@ -118,7 +55,7 @@ export const Gallery: React.FC = () => {
             La seconde main a du caractère. La preuve en images.
           </h2>
           <p className="text-base sm:text-lg text-[#063B39]/70 mt-4 leading-relaxed font-normal">
-            Chaque logement a sa personnalité. Nous chinons et composons des intérieurs harmonieux, chaleureux et prêts à vivre, sans acheter un seul meuble neuf en kit.
+            Chaque logement a sa personnalité. Nous chinons et composons des intérieurs harmonieux, chaleureux et prêts à vivre, avec du mobilier chiné, de seconde main ou de déstockage.
           </p>
         </motion.div>
 
@@ -150,14 +87,14 @@ export const Gallery: React.FC = () => {
                 dragElastic={0.15}
                 onDragEnd={handleDragEnd}
                 aria-roledescription="diapositive"
-                aria-label={`${index + 1} sur ${total} : ${project.title}`}
+                aria-label={`${index + 1} sur ${total} : ${project.nom}`}
                 className="bg-white rounded-3xl overflow-hidden border border-stone-200/80 shadow-sm grid grid-cols-1 md:grid-cols-[1.05fr_1fr] cursor-grab active:cursor-grabbing select-none"
               >
                 {/* Grande photo au format portrait */}
                 <div className="relative aspect-[3/4] md:aspect-auto md:min-h-[520px] lg:min-h-[580px] overflow-hidden bg-stone-100">
                   <img
                     src={project.image}
-                    alt={`Projet d’aménagement intérieur Meubles&Moi : ${project.title} (${project.style})`}
+                    alt={project.alt}
                     draggable={false}
                     className="absolute inset-0 w-full h-full object-cover"
                   />
@@ -178,7 +115,7 @@ export const Gallery: React.FC = () => {
                       <span>{project.location}{project.surface ? ` • ${project.surface}` : ''}</span>
                     </div>
                     <h3 className="font-display text-2xl sm:text-3xl font-extrabold text-white">
-                      {project.title}
+                      {project.nom}
                     </h3>
                   </div>
                 </div>
@@ -196,7 +133,7 @@ export const Gallery: React.FC = () => {
                     {/* Mobilier revalorisé */}
                     <div className="pt-2">
                       <span className="text-[11px] uppercase font-bold text-[#063B39]/50 block mb-2.5">
-                        Mobilier chiné & soigné :
+                        Mobilier de la réalisation :
                       </span>
                       <div className="flex flex-wrap gap-2">
                         {project.highlights.map((h, i) => (
@@ -211,41 +148,64 @@ export const Gallery: React.FC = () => {
                     </div>
                   </div>
 
-                  {/* Impact CO2 & Réassurance en bas de carte */}
-                  <div className="pt-5 border-t border-[#063B39]/8 flex items-center justify-between gap-3 text-xs font-semibold text-[#063B39]">
-                    {project.co2 ? (
-                      <div className="flex items-center gap-1.5 text-emerald-800 font-bold bg-emerald-50 px-3 py-1.5 rounded-full border border-emerald-200/60">
-                        <Sparkles className="w-3.5 h-3.5 text-emerald-600" />
-                        <span>{project.co2}</span>
-                      </div>
-                    ) : (
-                      <span />
+                  {/* Impact CO2 (seulement si l'installation a des données) & réassurance */}
+                  <div className="pt-5 border-t border-[#063B39]/8 flex flex-wrap items-end justify-between gap-x-4 gap-y-3 text-[#063B39]">
+                    {co2 && (
+                      <a
+                        href={`/methode-co2#${project.id}`}
+                        onPointerDownCapture={(e) => e.stopPropagation()}
+                        className="group/co2 flex items-start gap-2.5 rounded-xl -m-1.5 p-1.5 transition-colors hover:bg-[#FAF8F5]"
+                      >
+                        <span className="mt-0.5 w-8 h-8 shrink-0 rounded-full bg-emerald-50 border border-emerald-200/60 flex items-center justify-center">
+                          <Sparkles className="w-4 h-4 text-emerald-600" />
+                        </span>
+                        <span className="block">
+                          <span className="block text-sm sm:text-base font-bold text-[#063B39] leading-snug underline decoration-[#063B39]/20 underline-offset-4 group-hover/co2:decoration-[#C55D45]">
+                            {co2}
+                          </span>
+                          <span className="mt-0.5 inline-flex items-center gap-1 text-xs sm:text-sm font-semibold text-[#C55D45] group-hover/co2:text-[#063B39] transition-colors">
+                            Voir comment on l’a estimé
+                            <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover/co2:translate-x-0.5" aria-hidden="true" />
+                          </span>
+                        </span>
+                      </a>
                     )}
-                    <span className="text-xs text-[#063B39]/60 font-medium">Installé en 48h</span>
+                    <span className="ml-auto text-xs text-[#063B39]/60 font-medium">Installé en 48h</span>
                   </div>
                 </div>
               </motion.article>
             </AnimatePresence>
+
+            {/* Flèches posées sur la photo (zone photo : pleine largeur sur mobile, colonne de gauche dès md) */}
+            <div className="absolute inset-x-0 top-0 aspect-[3/4] md:aspect-auto md:bottom-0 md:right-auto md:w-[51.2%] flex items-center justify-between px-3 sm:px-4 pointer-events-none z-20">
+              <button
+                type="button"
+                onClick={() => paginate(-1)}
+                aria-label="Réalisation précédente"
+                className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/90 backdrop-blur-md shadow-float border border-black/5 text-[#063B39] flex items-center justify-center pointer-events-auto transition-all duration-200 hover:bg-[#063B39] hover:text-white active:scale-95"
+              >
+                <ChevronLeft className="w-5 h-5" />
+              </button>
+              <button
+                type="button"
+                onClick={() => paginate(1)}
+                aria-label="Réalisation suivante"
+                className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/90 backdrop-blur-md shadow-float border border-black/5 text-[#063B39] flex items-center justify-center pointer-events-auto transition-all duration-200 hover:bg-[#063B39] hover:text-white active:scale-95"
+              >
+                <ChevronRight className="w-5 h-5" />
+              </button>
+            </div>
           </div>
 
-          {/* Navigation : flèches, points et compteur */}
-          <div className="mt-6 flex items-center justify-center gap-4 sm:gap-6">
-            <button
-              type="button"
-              onClick={() => paginate(-1)}
-              aria-label="Réalisation précédente"
-              className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-white border border-stone-200/80 shadow-sm text-[#063B39] flex items-center justify-center transition-all duration-200 hover:bg-[#063B39] hover:text-white hover:border-[#063B39] active:scale-95"
-            >
-              <ChevronLeft className="w-5 h-5" />
-            </button>
-
+          {/* Navigation : points et compteur */}
+          <div className="mt-6 flex items-center justify-center">
             <div className="flex items-center gap-2">
               {PROJECTS.map((p, i) => (
                 <button
                   key={p.id}
                   type="button"
                   onClick={() => goTo(i)}
-                  aria-label={`Voir la réalisation ${i + 1} : ${p.title}`}
+                  aria-label={`Voir la réalisation ${i + 1} : ${p.nom}`}
                   aria-current={i === index}
                   className={`h-2 rounded-full transition-all duration-300 ${
                     i === index ? 'w-7 bg-[#C55D45]' : 'w-2 bg-[#063B39]/20 hover:bg-[#063B39]/40'
@@ -253,15 +213,6 @@ export const Gallery: React.FC = () => {
                 />
               ))}
             </div>
-
-            <button
-              type="button"
-              onClick={() => paginate(1)}
-              aria-label="Réalisation suivante"
-              className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-white border border-stone-200/80 shadow-sm text-[#063B39] flex items-center justify-center transition-all duration-200 hover:bg-[#063B39] hover:text-white hover:border-[#063B39] active:scale-95"
-            >
-              <ChevronRight className="w-5 h-5" />
-            </button>
           </div>
 
           <p className="mt-3 text-center text-xs font-semibold text-[#063B39]/50 tabular-nums" aria-live="polite">

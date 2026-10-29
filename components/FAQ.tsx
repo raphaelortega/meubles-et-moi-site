@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown, HelpCircle, Phone, Mail, ArrowRight } from 'lucide-react';
+import { maxTonnes } from '@/data/co2';
 
 export interface FAQItem {
   question: string;
@@ -21,7 +22,7 @@ export const FAQS: FAQItem[] = [
     theme: 'Mobilier reconditionné seconde main',
     question: 'Pourquoi choisir du mobilier reconditionné et de seconde main ?',
     answer:
-      'Opter pour du mobilier reconditionné et de seconde main offre un triple bénéfice : économique, écologique et qualitatif. Vous réalisez jusqu’à 40 % d’économies par rapport à du mobilier neuf équivalent, tout en profitant de matériaux nobles et durables (bois massif, structures robustes). Chaque meuble est minutieusement choisi pour son esthétique, sa solidité et son parfait état d’usage. Enfin, en privilégiant l’économie circulaire locale, vous évitez la surproduction industrielle et économisez en moyenne 1,2 tonne de CO₂ par appartement.',
+      `Opter pour du mobilier reconditionné et de seconde main offre un triple bénéfice : économique, écologique et qualitatif. Vous réalisez jusqu’à 40 % d’économies par rapport à du mobilier neuf équivalent, tout en profitant de matériaux nobles et durables (bois massif, structures robustes). Chaque meuble est minutieusement choisi pour son esthétique, sa solidité et son parfait état d’usage. Enfin, en privilégiant l’économie circulaire locale, vous évitez la surproduction industrielle et évitez jusqu’à ${maxTonnes()} de CO₂e par appartement (détail du calcul sur notre page méthode CO₂e).`,
   },
   {
     theme: 'Installation & Livraison',
