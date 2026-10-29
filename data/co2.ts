@@ -45,7 +45,7 @@ export const CO2_REALISATIONS: Record<string, Co2Realisation> = {
       { libelle: 'Table noire', quantite: 1, facteur: 'table_bois', visible: true },
       { libelle: 'Chaises coque', quantite: 4, facteur: 'chaise_bois', visible: true },
     ],
-    nonComptes: ['Luminaires', 'Rideaux', 'Vaisselle', 'Linge', 'Petit électroménager', 'Décoration'],
+    nonComptes: ['Luminaires (de seconde main, mais sans facteur ADEME)', 'Rideaux', 'Vaisselle', 'Linge', 'Petit électroménager', 'Décoration'],
   },
   'haussmannien-contemporain': {
     meubles: [
