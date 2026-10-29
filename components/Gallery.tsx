@@ -2,7 +2,7 @@
 
 import React, { useCallback, useState } from 'react';
 import { motion, AnimatePresence, PanInfo } from 'framer-motion';
-import { Leaf, ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react';
+import { Sparkles, MapPin, ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react';
 import { co2PourRealisation } from '@/data/co2';
 import { REALISATIONS as PROJECTS } from '@/data/realisations';
 
@@ -59,7 +59,7 @@ export const Gallery: React.FC = () => {
           </p>
         </motion.div>
 
-        {/* Carrousel des réalisations : une grande photo à la fois, titre posé dessus */}
+        {/* Carrousel des réalisations : une grande carte à la fois */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -70,9 +70,9 @@ export const Gallery: React.FC = () => {
           aria-label="Nos réalisations"
           tabIndex={0}
           onKeyDown={handleKeyDown}
-          className="outline-none focus-visible:ring-2 focus-visible:ring-[#C55D45]/40 rounded-[2rem]"
+          className="outline-none focus-visible:ring-2 focus-visible:ring-[#C55D45]/40 rounded-3xl"
         >
-          <div className="relative overflow-hidden rounded-[2rem] shadow-sm bg-[#063B39] aspect-[3/4] sm:aspect-[16/9]">
+          <div className="relative overflow-hidden rounded-3xl">
             <AnimatePresence initial={false} custom={direction} mode="wait">
               <motion.article
                 key={project.id}
@@ -87,43 +87,97 @@ export const Gallery: React.FC = () => {
                 dragElastic={0.15}
                 onDragEnd={handleDragEnd}
                 aria-roledescription="diapositive"
-                aria-label={`${index + 1} sur ${total} : ${project.title}`}
-                className="absolute inset-0 cursor-grab active:cursor-grabbing select-none"
+                aria-label={`${index + 1} sur ${total} : ${project.nom}`}
+                className="bg-white rounded-3xl overflow-hidden border border-stone-200/80 shadow-sm grid grid-cols-1 md:grid-cols-[1.05fr_1fr] cursor-grab active:cursor-grabbing select-none"
               >
-                <picture>
-                  <source media="(min-width: 640px)" srcSet={project.imageLarge} />
+                {/* Grande photo au format portrait */}
+                <div className="relative aspect-[3/4] md:aspect-auto md:min-h-[520px] lg:min-h-[580px] overflow-hidden bg-stone-100">
                   <img
-                    src={project.imageMobile}
+                    src={project.image}
                     alt={project.alt}
                     draggable={false}
                     className="absolute inset-0 w-full h-full object-cover"
                   />
-                </picture>
-                <div className="absolute inset-0 bg-gradient-to-t from-[#063B39]/95 via-[#063B39]/20 via-40% to-transparent pointer-events-none" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
 
-                {/* Localisation, titre et pastilles sur la photo */}
-                <div className="absolute inset-x-0 bottom-0 p-5 sm:p-8 lg:p-10 text-white">
-                  <p className="flex items-center gap-2 text-xs sm:text-base font-medium text-white/90 mb-1.5 sm:mb-2">
-                    <span className="w-2.5 h-2.5 rounded-full bg-emerald-400" aria-hidden="true" />
-                    Réalisation réelle • {project.location}
-                  </p>
-                  <h3 className="font-display text-[1.35rem] sm:text-3xl lg:text-[2.3rem] font-extrabold leading-tight max-w-4xl">
-                    {project.title}
-                  </h3>
-                  <div className="mt-3 sm:mt-6 flex flex-wrap gap-2 sm:gap-2.5">
-                    <span className="px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full text-[13px] sm:text-base font-semibold bg-white/15 backdrop-blur-md border border-white/40">
-                      Installé en 48h
+                  {/* Badge en haut à droite */}
+                  <div className="absolute top-4 right-4 z-10">
+                    <span className="px-3 py-1.5 rounded-full text-[11px] font-extrabold tracking-wide uppercase shadow-float bg-white/95 backdrop-blur-md text-[#063B39] flex items-center gap-1.5 border border-black/5">
+                      <span className="w-2 h-2 rounded-full bg-emerald-500" />
+                      <span>Projet Réalisé</span>
                     </span>
-                    <span className="px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full text-[13px] sm:text-base font-semibold bg-[#C55D45]">
-                      Chiné & valorisé
+                  </div>
+
+                  {/* Localisation et titre sur l'image */}
+                  <div className="absolute bottom-5 left-5 right-5 text-white pointer-events-none">
+                    <div className="flex items-center gap-1.5 text-xs sm:text-sm text-[#FAF8F5]/90 font-medium mb-1">
+                      <MapPin className="w-3.5 h-3.5 text-[#C55D45]" />
+                      <span>{project.location}{project.surface ? ` • ${project.surface}` : ''}</span>
+                    </div>
+                    <h3 className="font-display text-2xl sm:text-3xl font-extrabold text-white">
+                      {project.nom}
+                    </h3>
+                  </div>
+                </div>
+
+                {/* Détails : Direction artistique & pièces phares */}
+                <div className="p-6 sm:p-8 lg:p-12 flex flex-col justify-center gap-6 md:gap-8">
+                  <div className="space-y-4">
+                    <span className="text-[#C55D45] font-bold uppercase tracking-wider text-xs block">
+                      {project.style}
                     </span>
+                    <p className="text-sm sm:text-base text-[#063B39]/75 leading-relaxed">
+                      {project.description}
+                    </p>
+
+                    {/* Mobilier revalorisé */}
+                    <div className="pt-2">
+                      <span className="text-[11px] uppercase font-bold text-[#063B39]/50 block mb-2.5">
+                        Mobilier de la réalisation :
+                      </span>
+                      <div className="flex flex-wrap gap-2">
+                        {project.highlights.map((h, i) => (
+                          <span
+                            key={i}
+                            className="px-3 py-1.5 rounded-lg bg-[#FAF8F5] text-[#063B39] text-xs sm:text-sm font-medium border border-stone-200/80"
+                          >
+                            {h}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Impact CO2 (seulement si l'installation a des données) & réassurance */}
+                  <div className="pt-5 border-t border-[#063B39]/8 flex flex-wrap items-end justify-between gap-x-4 gap-y-3 text-[#063B39]">
+                    {co2 && (
+                      <a
+                        href={`/methode-co2#${project.id}`}
+                        onPointerDownCapture={(e) => e.stopPropagation()}
+                        className="group/co2 flex items-start gap-2.5 rounded-xl -m-1.5 p-1.5 transition-colors hover:bg-[#FAF8F5]"
+                      >
+                        <span className="mt-0.5 w-8 h-8 shrink-0 rounded-full bg-emerald-50 border border-emerald-200/60 flex items-center justify-center">
+                          <Sparkles className="w-4 h-4 text-emerald-600" />
+                        </span>
+                        <span className="block">
+                          <span className="block text-sm sm:text-base font-bold text-[#063B39] leading-snug underline decoration-[#063B39]/20 underline-offset-4 group-hover/co2:decoration-[#C55D45]">
+                            {co2}
+                          </span>
+                          <span className="mt-0.5 inline-flex items-center gap-1 text-xs sm:text-sm font-semibold text-[#C55D45] group-hover/co2:text-[#063B39] transition-colors">
+                            Voir comment on l’a estimé
+                            <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover/co2:translate-x-0.5" aria-hidden="true" />
+                          </span>
+                        </span>
+                      </a>
+                    )}
+                    <span className="ml-auto text-xs text-[#063B39]/60 font-medium">Installé en 48h</span>
                   </div>
                 </div>
               </motion.article>
             </AnimatePresence>
 
-            {/* Flèches posées sur la photo */}
-            <div className="absolute inset-x-0 top-0 h-[50%] sm:h-[62%] flex items-center justify-between px-3 sm:px-5 pointer-events-none z-20">
+            {/* Flèches posées sur la photo (zone photo : pleine largeur sur mobile, colonne de gauche dès md) */}
+            <div className="absolute inset-x-0 top-0 aspect-[3/4] md:aspect-auto md:bottom-0 md:right-auto md:w-[51.2%] flex items-center justify-between px-3 sm:px-4 pointer-events-none z-20">
               <button
                 type="button"
                 onClick={() => paginate(-1)}
@@ -143,55 +197,27 @@ export const Gallery: React.FC = () => {
             </div>
           </div>
 
-          {/* Sous la photo : CO2e évité (si données) et navigation */}
-          <div className="mt-5 sm:mt-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-5">
-            <div className="min-h-[3.25rem]">
-              {co2 && (
-                <motion.div
-                  key={project.id}
-                  initial={{ opacity: 0, y: 6 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.35 }}
-                  className="flex items-start gap-3"
-                >
-                  <span className="mt-0.5 w-9 h-9 shrink-0 rounded-full bg-emerald-50 border border-emerald-200/70 flex items-center justify-center">
-                    <Leaf className="w-4 h-4 text-emerald-700" aria-hidden="true" />
-                  </span>
-                  <div>
-                    <p className="font-display text-base sm:text-lg font-extrabold text-[#063B39] leading-snug">{co2}</p>
-                    <a
-                      href={`/methode-co2#${project.id}`}
-                      className="group/co2 mt-0.5 inline-flex items-center gap-1 text-sm font-semibold text-[#C55D45] hover:text-[#063B39] transition-colors"
-                    >
-                      Voir comment on l’a estimé
-                      <ArrowRight className="w-4 h-4 transition-transform group-hover/co2:translate-x-0.5" aria-hidden="true" />
-                    </a>
-                  </div>
-                </motion.div>
-              )}
-            </div>
-
-            {/* Navigation : points et compteur */}
-            <div className="flex items-center justify-center sm:justify-end gap-4">
-              <div className="flex items-center gap-2">
-                {PROJECTS.map((p, i) => (
-                  <button
-                    key={p.id}
-                    type="button"
-                    onClick={() => goTo(i)}
-                    aria-label={`Voir la réalisation ${i + 1} : ${p.location}`}
-                    aria-current={i === index}
-                    className={`h-2 rounded-full transition-all duration-300 ${
-                      i === index ? 'w-7 bg-[#C55D45]' : 'w-2 bg-[#063B39]/20 hover:bg-[#063B39]/40'
-                    }`}
-                  />
-                ))}
-              </div>
-              <p className="text-xs font-semibold text-[#063B39]/50 tabular-nums" aria-live="polite">
-                {String(index + 1).padStart(2, '0')} / {String(total).padStart(2, '0')}
-              </p>
+          {/* Navigation : points et compteur */}
+          <div className="mt-6 flex items-center justify-center">
+            <div className="flex items-center gap-2">
+              {PROJECTS.map((p, i) => (
+                <button
+                  key={p.id}
+                  type="button"
+                  onClick={() => goTo(i)}
+                  aria-label={`Voir la réalisation ${i + 1} : ${p.nom}`}
+                  aria-current={i === index}
+                  className={`h-2 rounded-full transition-all duration-300 ${
+                    i === index ? 'w-7 bg-[#C55D45]' : 'w-2 bg-[#063B39]/20 hover:bg-[#063B39]/40'
+                  }`}
+                />
+              ))}
             </div>
           </div>
+
+          <p className="mt-3 text-center text-xs font-semibold text-[#063B39]/50 tabular-nums" aria-live="polite">
+            {String(index + 1).padStart(2, '0')} / {String(total).padStart(2, '0')}
+          </p>
         </motion.div>
 
       </div>
