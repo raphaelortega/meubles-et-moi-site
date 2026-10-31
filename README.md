@@ -48,7 +48,7 @@ Site web moderne, élégant et ultra-performant pour l'entreprise **Meubles&moi*
 
 ## 🛠️ Stack Technique
 
-- **Framework** : React 18 + Vite 6 + TypeScript
+- **Framework** : Next.js 14 (App Router) + React 18 + TypeScript
 - **Styling** : Tailwind CSS v3
 - **Icônes** : Lucide React
 - **Base de données / Backend** : Supabase (`@supabase/supabase-js`)
@@ -71,7 +71,9 @@ L'application démarre immédiatement sur `http://localhost:3000`.
 npm run build
 ```
 
-Le résultat optimisé et minifié est généré dans le dossier `dist/`.
+Le résultat optimisé est généré dans le dossier `.next/` (déployé automatiquement par Vercel).
+
+> Les consignes de travail pour Claude Code (branches, previews, pull requests) sont dans [`CLAUDE.md`](./CLAUDE.md).
 
 ---
 
@@ -84,8 +86,6 @@ Le script SQL complet est disponible dans `supabase/schema.sql`.
 3. Renseignez vos identifiants dans votre fichier `.env.local` :
 
 ```env
-VITE_SUPABASE_URL=https://votre-projet.supabase.co
-VITE_SUPABASE_ANON_KEY=votre-cle-anon-publique
 NEXT_PUBLIC_SUPABASE_URL=https://votre-projet.supabase.co
 NEXT_PUBLIC_SUPABASE_ANON_KEY=votre-cle-anon-publique
 ```
