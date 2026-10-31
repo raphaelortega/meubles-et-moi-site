@@ -11,6 +11,7 @@ import {
   ArrowRight
 } from 'lucide-react';
 import { submitLead } from '@/lib/supabase';
+import { getAttributionSummary } from '@/lib/attribution';
 import { LeadFormData } from '@/types';
 
 export interface BudgetTier {
@@ -244,6 +245,12 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
       quartier_ville: formData.ville.trim() || 'Lyon',
     };
 
+    const attribution = getAttributionSummary();
+    const provenanceSection = `\n\n🧭 PROVENANCE DU CONTACT
+• Arrivé via        : ${attribution.provenance}${attribution.premiere_visite ? `\n• Première visite   : ${attribution.premiere_visite}` : ''}
+• Site précédent    : ${attribution.site_precedent}
+• Page d'arrivée    : ${attribution.page_arrivee}${attribution.campagne ? `\n• Campagne (UTM)    : ${attribution.campagne}` : ''}`;
+
     const nomComplet = `${payload.prenom} ${formData.nom?.trim() || ''}`.trim();
     const dateSouhaitee = formData.date_souhaitee || 'Dans le mois';
 
@@ -283,7 +290,7 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
 ${payload.ambiance_souhaitee}
 
 🍳 ÉQUIPEMENTS DÉJÀ EN PLACE (À DÉDUIRE DU DEVIS)
-${payload.equipement_existant_detail}${simulatorSection}
+${payload.equipement_existant_detail}${simulatorSection}${provenanceSection}
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 💡 Action recommandée : Recontacter ${payload.prenom} au ${payload.telephone} sous 24h à 48h.
@@ -309,6 +316,8 @@ ${payload.equipement_existant_detail}${simulatorSection}
         "✨ Ambiance souhaitée": payload.ambiance_souhaitee,
         "🍳 Équipements en place": payload.equipement_existant_detail,
         "📅 Date souhaitée": dateSouhaitee,
+        "🧭 Provenance": attribution.provenance,
+        ...(attribution.premiere_visite ? { "🧭 Première visite": attribution.premiere_visite } : {}),
         ...(hasSimulatorData
           ? {
               "📊 Loyer nu estimé": simulatorData?.loyerNu ? `${simulatorData.loyerNu} € / mois` : 'Non renseigné',
@@ -333,6 +342,11 @@ ${payload.equipement_existant_detail}${simulatorSection}
         ambiance_souhaitee: payload.ambiance_souhaitee,
         equipement_existant_detail: payload.equipement_existant_detail,
         date_souhaitee: dateSouhaitee,
+        provenance: attribution.provenance,
+        provenance_premiere_visite: attribution.premiere_visite,
+        provenance_site_precedent: attribution.site_precedent,
+        provenance_page_arrivee: attribution.page_arrivee,
+        provenance_campagne: attribution.campagne,
       });
 
       // Envoi simultané aux deux associés via leurs endpoints Formspree respectifs
@@ -367,7 +381,7 @@ ${payload.equipement_existant_detail}${simulatorSection}
             surface_m2: surface,
             date_souhaitee: formData.date_souhaitee,
             pack_selectionne: `${payload.type_bien} • ${payload.budget_calcule}`,
-            message: `Ambiance: ${payload.ambiance_souhaitee} | Équipements: ${payload.equipement_existant_detail}${hasSimulatorData ? ` | Simulateur (CP: ${simulatorData?.cp || 'N/A'}, Loyer nu: ${simulatorData?.loyerNu || 'N/A'}€, Meublé: ${simulatorData?.loyerMeuble || 'N/A'}€, Source: ${simulatorData?.utmSource || 'simulateur'})` : ''}`,
+            message: `Ambiance: ${payload.ambiance_souhaitee} | Équipements: ${payload.equipement_existant_detail} | Provenance: ${attribution.provenance}${hasSimulatorData ? ` | Simulateur (CP: ${simulatorData?.cp || 'N/A'}, Loyer nu: ${simulatorData?.loyerNu || 'N/A'}€, Meublé: ${simulatorData?.loyerMeuble || 'N/A'}€, Source: ${simulatorData?.utmSource || 'simulateur'})` : ''}`,
           }, { skipEmailNotification: true }).catch(() => {});
         } catch {
           // ignore

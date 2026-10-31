@@ -3,6 +3,7 @@ import Script from 'next/script';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { MetaPixelPageView } from '@/components/MetaPixelPageView';
+import { AttributionCapture } from '@/components/AttributionCapture';
 import './globals.css';
 import { maxTonnes } from '@/data/co2';
 
@@ -278,6 +279,7 @@ export default function RootLayout({
           />
         </noscript>
         <MetaPixelPageView />
+        <AttributionCapture />
         {children}
         <Analytics />
         <SpeedInsights />
