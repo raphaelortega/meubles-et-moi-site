@@ -38,7 +38,9 @@ export default function Home() {
     const utmSource = getParam('utm_source');
     const prenom = getParam('prenom');
 
-    const hasSimulatorParams = Boolean(type || surfaceStr || cp || loyerNu || loyerMeuble || utmSource);
+    // utm_source seul (lien marqué LinkedIn, Instagram…) ne doit ni ouvrir le formulaire
+    // ni marquer la demande « Simulateur » : la provenance est gérée par lib/attribution.ts.
+    const hasSimulatorParams = Boolean(type || surfaceStr || cp || loyerNu || loyerMeuble);
     const hasEstimationAnchor = window.location.hash.includes('estimation');
 
     if (hasSimulatorParams || hasEstimationAnchor) {
