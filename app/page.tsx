@@ -12,8 +12,8 @@ import { Footer } from '@/components/Footer';
 import { QuoteModal, SimulatorData } from '@/components/QuoteModal';
 import { EstimatePopup } from '@/components/EstimatePopup';
 
-// Délai avant le pop-up d'estimation (une fois par visite)
-const POPUP_DELAI_MS = 20000;
+// Délai avant le pop-up d’estimation (une fois par visite)
+const POPUP_DELAI_MS = 8000;
 const POPUP_CLE_SESSION = 'mm_popup_estimation_vu';
 
 export default function Home() {
@@ -22,7 +22,7 @@ export default function Home() {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const estimateOpenedRef = useRef(false);
 
-  // Pop-up d'estimation : après 20 s, sauf si le formulaire a déjà été ouvert ou si le pop-up a déjà été vu
+  // Pop-up d’estimation : après 8 s, sauf si le formulaire a déjà été ouvert ou si le pop-up a déjà été vu
   useEffect(() => {
     const dejaVu = () => {
       try {
@@ -148,7 +148,7 @@ export default function Home() {
       {/* FOOTER */}
       <Footer />
 
-      {/* POP-UP D'ESTIMATION (après 20 s) */}
+      {/* POP-UP D'ESTIMATION (après 8 s) */}
       <EstimatePopup
         isOpen={isPopupOpen}
         onClose={() => setIsPopupOpen(false)}
