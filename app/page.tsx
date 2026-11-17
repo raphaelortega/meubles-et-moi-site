@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Header } from '@/components/Header';
 import { Hero } from '@/components/Hero';
 import { Pillars } from '@/components/Pillars';
@@ -10,10 +10,44 @@ import { FAQ } from '@/components/FAQ';
 import { FinalCTA } from '@/components/FinalCTA';
 import { Footer } from '@/components/Footer';
 import { QuoteModal, SimulatorData } from '@/components/QuoteModal';
+import { BeforeAfter } from '@/components/BeforeAfter';
+import { EstimatePopup } from '@/components/EstimatePopup';
+
+// Délai avant le pop-up d'estimation (une fois par visite)
+const POPUP_DELAI_MS = 20000;
+const POPUP_CLE_SESSION = 'mm_popup_estimation_vu';
 
 export default function Home() {
   const [isEstimateModalOpen, setIsEstimateModalOpen] = useState(false);
   const [simulatorData, setSimulatorData] = useState<SimulatorData | null>(null);
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const estimateOpenedRef = useRef(false);
+
+  // Pop-up d'estimation : après 20 s, sauf si le formulaire a déjà été ouvert ou si le pop-up a déjà été vu
+  useEffect(() => {
+    const dejaVu = () => {
+      try {
+        return sessionStorage.getItem(POPUP_CLE_SESSION) === '1';
+      } catch {
+        return false;
+      }
+    };
+    if (dejaVu()) return;
+    const timer = setTimeout(() => {
+      if (estimateOpenedRef.current || dejaVu()) return;
+      setIsPopupOpen(true);
+      try {
+        sessionStorage.setItem(POPUP_CLE_SESSION, '1');
+      } catch {
+        // stockage indisponible (navigation privée) : le pop-up s'affiche quand même une fois
+      }
+    }, POPUP_DELAI_MS);
+    return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    if (isEstimateModalOpen) estimateOpenedRef.current = true;
+  }, [isEstimateModalOpen]);
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
@@ -79,6 +113,7 @@ export default function Home() {
   }, []);
 
   const handleOpenEstimate = () => {
+    setIsPopupOpen(false);
     setIsEstimateModalOpen(true);
   };
 
@@ -104,6 +139,9 @@ export default function Home() {
         {/* SECTION 5 : GALERIE / AVANT-APRÈS */}
         <Gallery />
 
+        {/* SECTION 5 bis : AVANT / APRÈS AVEC CURSEUR */}
+        <BeforeAfter />
+
         {/* SECTION 6 : QUESTIONS FRÉQUENTES (FAQ) */}
         <FAQ />
 
@@ -113,6 +151,13 @@ export default function Home() {
 
       {/* FOOTER */}
       <Footer />
+
+      {/* POP-UP D'ESTIMATION (après 20 s) */}
+      <EstimatePopup
+        isOpen={isPopupOpen}
+        onClose={() => setIsPopupOpen(false)}
+        onEstimate={handleOpenEstimate}
+      />
 
       {/* MODAL ESTIMATEUR INTERACTIF */}
       <QuoteModal
