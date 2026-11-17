@@ -10,7 +10,7 @@ interface EstimatePopupProps {
   onEstimate: () => void;
 }
 
-// Pop-up affiché une fois par visite, après 8 s sur le site (déclenché dans app/page.tsx)
+// Pop-up affiché une fois par visite, après 5 s sur le site (déclenché dans app/page.tsx)
 export const EstimatePopup: React.FC<EstimatePopupProps> = ({ isOpen, onClose, onEstimate }) => {
   useEffect(() => {
     if (!isOpen) return;
