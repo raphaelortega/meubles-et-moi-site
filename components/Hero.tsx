@@ -42,7 +42,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenEstimate }) => {
   };
 
   return (
-    <section className="relative pt-32 pb-16 md:pt-40 md:pb-24 overflow-hidden">
+    <section className="relative pt-24 pb-16 md:pt-28 md:pb-24 overflow-hidden">
       {/* 2. Ambiance lumineuse Aurora / Glow terracotta (8-10%) + touche ambrée très douce */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-6xl h-[560px] pointer-events-none -z-10 overflow-hidden">
         {/* Lueur terracotta 8-10% */}
@@ -59,7 +59,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenEstimate }) => {
           className="flex flex-col items-center text-center max-w-4xl mx-auto"
         >
           {/* Badge animé */}
-          <motion.div variants={itemVariants} className="mb-6">
+          <motion.div variants={itemVariants} className="mb-4">
             <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-white border border-stone-200/80 shadow-[0_4px_14px_rgba(0,0,0,0.04)] backdrop-blur-md">
               <span className="flex h-2 w-2 relative">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#C55D45] opacity-75"></span>
@@ -74,7 +74,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenEstimate }) => {
           {/* Titre H1 percutant et universel */}
           <motion.h1
             variants={itemVariants}
-            className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-[68px] font-extrabold text-[#063B39] tracking-tight leading-[1.08] mb-6"
+            className="font-display text-[2rem] sm:text-5xl md:text-[3.25rem] lg:text-[56px] font-extrabold text-[#063B39] tracking-tight leading-[1.08] mb-4"
           >
             On meuble votre intérieur.{' '}
             <span className="block sm:inline text-[#063B39]">Moins cher.{' '}</span>
@@ -93,7 +93,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenEstimate }) => {
           {/* Sous-titre court, clair et orienté SEO */}
           <motion.p
             variants={itemVariants}
-            className="text-base sm:text-lg md:text-xl text-[#063B39]/80 font-normal leading-relaxed max-w-2xl mb-9"
+            className="text-[15px] sm:text-lg text-[#063B39]/80 font-normal leading-relaxed max-w-2xl mb-6"
           >
             Particuliers, locataires, propriétaires et professionnels : mobilier reconditionné et de seconde main soigné, livré et monté clé en main.{' '}
             <span className="font-semibold text-[#063B39]">Zéro logistique, un impact concret.</span>
@@ -102,7 +102,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenEstimate }) => {
           {/* 2 Boutons d'action (CTA) avec bouton secondaire blanc pur bien détaché */}
           <motion.div
             variants={itemVariants}
-            className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto mb-9"
+            className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 w-full sm:w-auto mb-8"
           >
             <motion.button
               whileHover={{ scale: 1.03, y: -2 }}
@@ -129,47 +129,6 @@ export const Hero: React.FC<HeroProps> = ({ onOpenEstimate }) => {
             </motion.button>
           </motion.div>
 
-          {/* Preuve sociale rapide sous les boutons */}
-          <motion.div
-            variants={itemVariants}
-            className="flex flex-wrap items-center justify-center gap-4 pt-1 mb-12"
-          >
-            {/* Avatars */}
-            <div className="flex -space-x-2.5 overflow-hidden">
-              <img
-                className="inline-block h-8 w-8 rounded-full ring-2 ring-white object-cover shadow-sm"
-                src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&h=120&q=80"
-                alt="Avis client Meubles&Moi - Aménagement mobilier de seconde main"
-              />
-              <img
-                className="inline-block h-8 w-8 rounded-full ring-2 ring-white object-cover shadow-sm"
-                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=120&h=120&q=80"
-                alt="Témoignage propriétaire Meubles&Moi - Aménagement clé en main"
-              />
-              <img
-                className="inline-block h-8 w-8 rounded-full ring-2 ring-white object-cover shadow-sm"
-                src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=120&h=120&q=80"
-                alt="Client satisfait Meubles&Moi - Mobilier reconditionné"
-              />
-              <img
-                className="inline-block h-8 w-8 rounded-full ring-2 ring-white object-cover shadow-sm"
-                src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=120&h=120&q=80"
-                alt="Avis aménagement intérieur Meubles&Moi"
-              />
-            </div>
-
-            {/* Note & texte */}
-            <div className="flex items-center gap-2 text-xs font-semibold text-[#063B39]">
-              <div className="flex items-center text-amber-500">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
-                ))}
-              </div>
-              <span>
-                <strong>100% de clients satisfaits</strong> sur nos aménagements
-              </span>
-            </div>
-          </motion.div>
         </motion.div>
 
         {/* Aperçu visuel : Réalisation Meubles & Moi */}
@@ -213,6 +172,49 @@ export const Hero: React.FC<HeroProps> = ({ onOpenEstimate }) => {
                 </div>
               </div>
             </div>
+          </div>
+        </motion.div>
+        {/* Preuve sociale rapide, sous la photo */}
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.6 }}
+          className="flex flex-wrap items-center justify-center gap-4 mt-6"
+        >
+          {/* Avatars */}
+          <div className="flex -space-x-2.5 overflow-hidden">
+            <img
+              className="inline-block h-8 w-8 rounded-full ring-2 ring-white object-cover shadow-sm"
+              src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&h=120&q=80"
+              alt="Avis client Meubles&Moi - Aménagement mobilier de seconde main"
+            />
+            <img
+              className="inline-block h-8 w-8 rounded-full ring-2 ring-white object-cover shadow-sm"
+              src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=120&h=120&q=80"
+              alt="Témoignage propriétaire Meubles&Moi - Aménagement clé en main"
+            />
+            <img
+              className="inline-block h-8 w-8 rounded-full ring-2 ring-white object-cover shadow-sm"
+              src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=120&h=120&q=80"
+              alt="Client satisfait Meubles&Moi - Mobilier reconditionné"
+            />
+            <img
+              className="inline-block h-8 w-8 rounded-full ring-2 ring-white object-cover shadow-sm"
+              src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=120&h=120&q=80"
+              alt="Avis aménagement intérieur Meubles&Moi"
+            />
+          </div>
+
+          {/* Note & texte */}
+          <div className="flex items-center gap-2 text-xs font-semibold text-[#063B39]">
+            <div className="flex items-center text-amber-500">
+              {[...Array(5)].map((_, i) => (
+                <Star key={i} className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
+              ))}
+            </div>
+            <span>
+              <strong>100% de clients satisfaits</strong> sur nos aménagements
+            </span>
           </div>
         </motion.div>
       </div>
