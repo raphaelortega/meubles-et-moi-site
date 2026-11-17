@@ -10,7 +10,6 @@ import { FAQ } from '@/components/FAQ';
 import { FinalCTA } from '@/components/FinalCTA';
 import { Footer } from '@/components/Footer';
 import { QuoteModal, SimulatorData } from '@/components/QuoteModal';
-import { BeforeAfter } from '@/components/BeforeAfter';
 import { EstimatePopup } from '@/components/EstimatePopup';
 
 // Délai avant le pop-up d'estimation (une fois par visite)
@@ -138,9 +137,6 @@ export default function Home() {
 
         {/* SECTION 5 : GALERIE / AVANT-APRÈS */}
         <Gallery />
-
-        {/* SECTION 5 bis : AVANT / APRÈS AVEC CURSEUR */}
-        <BeforeAfter />
 
         {/* SECTION 6 : QUESTIONS FRÉQUENTES (FAQ) */}
         <FAQ />
