@@ -15,6 +15,10 @@ import {
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 
+// Formulation fiscale autorisée (CLAUDE.md) : même texte dans la FAQ affichée et dans le JSON-LD
+const REPONSE_IMPOTS_MEUBLE =
+  'Pas forcément. Dans certains cas, le LMNP au réel peut permettre de ramener le résultat imposable proche de 0 grâce aux amortissements. La validation doit être faite avec un expert-comptable selon votre situation.';
+
 export const metadata: Metadata = {
   title: 'Passer sa location nue en meublée : conditions, fiscalité et démarches en 2026',
   description:
@@ -134,7 +138,7 @@ const articleJsonLd = {
           name: 'Est-ce que je paierai forcément moins d’impôts en meublé ?',
           acceptedAnswer: {
             '@type': 'Answer',
-            text: 'Dans la grande majorité des cas oui, notamment grâce au régime réel simplifié et à l’amortissement du bien et des meubles qui efface la base imposable pendant plusieurs années, contre une fiscalité lourde au barème de l’IR en revenus fonciers.',
+            text: REPONSE_IMPOTS_MEUBLE,
           },
         },
         {
@@ -329,7 +333,7 @@ export default function PasserLocationNueEnMeubleePage() {
                 Une attractivité locative accrue et une vacance minimale
               </h3>
               <p>
-                La sociologie des locataires urbains a profondément évolué. Qu’il s’agisse d’étudiants de grandes écoles, de jeunes actifs en premier emploi, de consultants en mission ou de couples en transition de vie, la perspective de devoir acheter, transporter et monter des meubles rebute une proportion grandissante de candidats. Un appartement meublé avec soin, contemporain et prêt à vivre se loue en moyenne en moins de 48 heures à Lyon, ramenant la vacance locative entre deux locataires à une durée quasi inexistante.
+                La sociologie des locataires urbains a profondément évolué. Qu’il s’agisse d’étudiants de grandes écoles, de jeunes actifs en premier emploi, de consultants en mission ou de couples en transition de vie, la perspective de devoir acheter, transporter et monter des meubles rebute une proportion grandissante de candidats.
               </p>
 
               <h3 className="font-display text-xl font-bold text-[#063B39] mt-6">
@@ -342,12 +346,12 @@ export default function PasserLocationNueEnMeubleePage() {
                 En meublé, vos loyers relèvent des Bénéfices Industriels et Commerciaux (BIC). En optant pour le <strong>régime réel simplifié</strong>, vous pouvez non seulement déduire toutes vos charges réelles (intérêts d’emprunt, taxe foncière, charges de copropriété, prime d’assurance PNO, frais de gestion), mais surtout <strong>amortir comptablement</strong> la valeur du bâti (hors terrain) sur 25 à 30 ans ainsi que le mobilier sur 5 à 10 ans. 
               </p>
               <p>
-                Dans la pratique, cette charge d’amortissement fictive vient neutraliser comptablement le résultat imposable. Pour un grand nombre de propriétaires, l’impôt sur les loyers est tout simplement ramené à <strong>0 € pendant 8 à 12 ans</strong>.
+                Dans certains cas, le LMNP au réel peut permettre de ramener le résultat imposable proche de 0 grâce aux amortissements. La validation doit être faite avec un expert-comptable selon votre situation.
               </p>
 
               {/* Citation éditoriale */}
               <blockquote className="my-8 pl-6 border-l-4 border-[#C55D45] py-2 text-lg sm:text-xl font-display font-medium italic text-[#063B39] bg-[#FAF8F5] rounded-r-2xl">
-                « En location meublée, le mobilier n’est pas une simple dépense esthétique : c’est un investissement amortissable qui protège durablement vos loyers de l’impôt. »
+                « En location meublée, le mobilier n’est pas une simple dépense esthétique : c’est un investissement amortissable. »
               </blockquote>
 
               <p className="text-sm text-[#063B39]/70 bg-stone-100/80 p-4 rounded-xl border border-stone-200">
@@ -679,7 +683,7 @@ export default function PasserLocationNueEnMeubleePage() {
                 </h3>
 
                 <p className="text-sm sm:text-base text-[#063B39]/80 leading-relaxed">
-                  Basée au cœur de la Métropole de Lyon, <strong>Meubles&moi</strong> prend en charge l’ensemble de la chaîne : sélection d’un mobilier chaleureux et robuste (alliant pièces circulaires reconditionnées de qualité et mobilier durable), livraison groupée en un seul passage, montage complet par nos équipes et remise de l’inventaire clé en main 100 % conforme au décret 2015-981.
+                  Basée au cœur de la Métropole de Lyon, <strong>Meubles&moi</strong> prend en charge l’ensemble de la chaîne : sélection d’un mobilier chaleureux et robuste (alliant pièces circulaires reconditionnées de qualité et mobilier durable), livraison groupée en un seul passage, montage complet par nos soins et remise de l’inventaire clé en main conforme au décret 2015-981.
                 </p>
 
                 <div className="pt-2">
@@ -724,7 +728,7 @@ export default function PasserLocationNueEnMeubleePage() {
                     Est-ce que je paierai forcément moins d’impôts en meublé ?
                   </h3>
                   <p className="text-sm text-[#063B39]/80 leading-relaxed">
-                    Dans une très large majorité des cas, oui. Grâce au régime réel et à l’amortissement du bien et des meubles, la base imposable nette est souvent ramenée proche de zéro pendant plusieurs années, contre une imposition au barème de l’IR en revenus fonciers. Chaque situation patrimoniale étant spécifique, un bilan personnalisé avec un expert-comptable est préconisé.
+                    {REPONSE_IMPOTS_MEUBLE}
                   </p>
                 </div>
 
@@ -825,7 +829,7 @@ export default function PasserLocationNueEnMeubleePage() {
                     LMNP au régime réel vs Micro-BIC : calcul comparatif et amortissement
                   </h4>
                   <p className="text-xs text-[#063B39]/70 leading-relaxed">
-                    Comment effacer l’impôt sur vos loyers grâce à l’amortissement du mobilier et des murs.
+                    Dans certains cas, le LMNP au réel peut permettre de ramener le résultat imposable proche de 0 grâce aux amortissements. La validation doit être faite avec un expert-comptable selon votre situation.
                   </p>
                 </div>
                 <div className="mt-4 pt-3 border-t border-stone-100 flex items-center justify-between text-[11px] text-[#063B39]/60">
