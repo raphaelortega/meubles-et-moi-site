@@ -15,6 +15,8 @@ export interface Realisation {
   highlights: string[];
   /** Description de la photo pour l'accessibilité et le référencement */
   alt: string;
+  /** Installation documentée en 48 h : affiche la mention « Installé en 48h » sur la carte */
+  installeEn48h?: boolean;
   /** Photo portrait 4:5 (carte du carrousel) */
   image: string;
   /** Photo paysage 16:9 (miniature de la page méthode) */
@@ -27,6 +29,7 @@ export const REALISATIONS: Realisation[] = [
     nom: 'Haussmannien & Contemporain',
     location: 'Paris',
     surface: '88 m²',
+    installeEn48h: true,
     style: 'Moulures, parquet en chevrons et lignes contemporaines',
     description: 'Un séjour haussmannien lumineux avec un canapé en velours bleu nuit, une table ronde en bois, des chaises enveloppantes et une table basse bois et métal.',
     highlights: ['Canapé velours bleu nuit', 'Table ronde en bois', 'Chaises enveloppantes', 'Table basse bois & métal'],
@@ -70,7 +73,7 @@ export const REALISATIONS: Realisation[] = [
   {
     id: 'nordique-convivial',
     nom: 'Nordique & Convivial',
-    location: 'Villeurbanne',
+    location: 'Villeurbanne • Cours Tolstoï',
     surface: 'T3 • 42 m²',
     style: 'Chaises coque, contrastes noir et blanc et touches de rouge',
     description: 'Un séjour clair et fonctionnel avec un canapé gris confortable, une table noire, des chaises coque d’inspiration scandinave et des coussins colorés.',

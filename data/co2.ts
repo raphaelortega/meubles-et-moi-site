@@ -49,6 +49,11 @@ export interface Co2Realisation {
   kmCollecte: number;
   /** Ce qui a été posé mais n'est pas compté, et pourquoi */
   nonComptes: string[];
+  /**
+   * Libellé affiché à la place de format(total), validé par les fondateurs.
+   * Vérifié au chargement : il doit rester inférieur ou égal au total net.
+   */
+  libelle?: string;
 }
 
 const NON_COMPTES_LYON = ['Matelas (neuf, par hygiène)', 'Luminaires', 'Linge', 'Décoration'];
@@ -66,6 +71,7 @@ export const CO2_REALISATIONS: Record<string, Co2Realisation> = {
     nonComptes: ['Luminaires (de seconde main, mais sans facteur ADEME)', 'Rideaux', 'Vaisselle', 'Linge', 'Petit électroménager', 'Décoration'],
   },
   'haussmannien-contemporain': {
+    libelle: 'Plus de 550 kg de CO₂e évités',
     meubles: [
       { libelle: 'Canapé velours bleu nuit', quantite: 1, facteur: 'canape_textile', visible: true },
       { libelle: 'Banquette', quantite: 1, facteur: 'canape_textile', visible: false },
@@ -164,7 +170,23 @@ export function format(kg: number): string {
 /** Texte CO2 d'une réalisation, ou null si elle n'a pas de données */
 export function co2PourRealisation(id: string): string | null {
   const kg = total(id);
-  return kg === null ? null : format(kg);
+  if (kg === null) return null;
+  return CO2_REALISATIONS[id].libelle ?? format(kg);
+}
+
+/** Valeur en kg annoncée par un libellé : « Plus de 550 kg… » → 550, « Plus de 1,2 t… » → 1200 */
+function kgAnnonces(libelle: string): number {
+  const m = libelle.match(/([\d\s\u00a0\u202f]+(?:,\d+)?)\s*(kg|t)\b/);
+  if (!m) throw new Error(`Libellé CO2 illisible : « ${libelle} »`);
+  const valeur = Number(m[1].replace(/[\s\u00a0\u202f]/g, '').replace(',', '.'));
+  return m[2] === 't' ? valeur * 1000 : valeur;
+}
+
+// Garde-fou : aucun libellé ne doit annoncer plus que le total net calculé.
+for (const [id, donnees] of Object.entries(CO2_REALISATIONS)) {
+  if (donnees.libelle && kgAnnonces(donnees.libelle) > (total(id) ?? 0)) {
+    throw new Error(`Libellé CO2 de « ${id} » supérieur au total net (${total(id)} kg) : « ${donnees.libelle} »`);
+  }
 }
 
 /** Plus grand CO2e évité parmi les réalisations, en tonnes arrondies au dixième inférieur (ex. « 1,1 t ») */

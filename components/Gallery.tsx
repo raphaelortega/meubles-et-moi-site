@@ -170,7 +170,9 @@ export const Gallery: React.FC = () => {
                         </span>
                       </a>
                     )}
-                    <span className="ml-auto text-xs text-[#063B39]/60 font-medium">Installé en 48h</span>
+                    {project.installeEn48h && (
+                      <span className="ml-auto text-xs text-[#063B39]/60 font-medium">Installé en 48h</span>
+                    )}
                   </div>
                 </div>
               </motion.article>
