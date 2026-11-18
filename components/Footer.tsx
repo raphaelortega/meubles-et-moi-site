@@ -207,12 +207,12 @@ export const Footer: React.FC = () => {
                 <span>Meubles&moi • Lyon</span>
               </li>
               <li>
-                <a href="#mentions-legales" onClick={(e) => e.preventDefault()} className="hover:text-white transition-colors cursor-pointer">
+                <a href="/mentions-legales" className="hover:text-white transition-colors">
                   Mentions légales
                 </a>
               </li>
               <li>
-                <a href="#politique-confidentialite" onClick={(e) => e.preventDefault()} className="hover:text-white transition-colors cursor-pointer">
+                <a href="/politique-de-confidentialite" className="hover:text-white transition-colors">
                   Politique de confidentialité
                 </a>
               </li>
