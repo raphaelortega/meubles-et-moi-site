@@ -62,13 +62,11 @@ export default function MentionsLegalesPage() {
       </SectionLegale>
 
       <SectionLegale titre="Hébergeur">
-        {/*
-          À reprendre depuis la page légale officielle de Vercel : https://vercel.com/legal
-          (page inaccessible depuis l'environnement de développement au moment de la rédaction,
-          d'où le TODO plutôt qu'une adresse écrite de mémoire).
-        */}
+        {/* Source : page légale officielle de Vercel, https://vercel.com/legal/dmca-policy (fournie par les fondateurs) */}
         <p>
-          Le site est hébergé par Vercel. <Todo>dénomination exacte et adresse de l’hébergeur, à recopier depuis vercel.com/legal</Todo>
+          Vercel Inc.
+          <br />
+          440 N Barranca Ave #4133, Covina, CA 91723, États-Unis
         </p>
       </SectionLegale>
 

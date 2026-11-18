@@ -51,13 +51,16 @@ export default function PolitiqueConfidentialitePage() {
         </p>
         <p>
           <strong>Destinataires :</strong> la demande est transmise par e-mail aux deux fondateurs, Raphaël Ortega et
-          Maxence Aucourt, via le service Formspree (formspree.io). Elle est aussi enregistrée dans notre base de données
-          hébergée par Supabase. Si cette base est indisponible, une copie de la demande reste seulement dans votre
-          navigateur (stockage local).
+          Maxence Aucourt, via Formspree (formspree.io), un service américain. Elle n’est pas enregistrée dans une base de
+          données du site. Une copie technique reste dans le stockage local de votre navigateur.
         </p>
         <p>
-          <strong>Durée de conservation :</strong> <Todo>durée de conservation des demandes</Todo>
+          <strong>Durée de conservation :</strong>
         </p>
+        <ul className="list-disc pl-5 space-y-1">
+          <li>demandes de devis non suivies d’une commande : 3 ans après le dernier contact ;</li>
+          <li>données clients et factures : 10 ans (obligations comptables).</li>
+        </ul>
       </SectionLegale>
 
       <SectionLegale titre="2. Mesure d’audience et performance">
@@ -105,11 +108,21 @@ export default function PolitiqueConfidentialitePage() {
             Le site mémorise pendant la visite que la fenêtre « Et si on estimait votre projet ? » a déjà été affichée, pour
             ne pas la montrer deux fois.
           </li>
-          <li>Le site est hébergé par Vercel (voir les <Link href="/mentions-legales" className={lienClass}>mentions légales</Link>).</li>
+          <li>Le site est hébergé par Vercel Inc., aux États-Unis (voir les <Link href="/mentions-legales" className={lienClass}>mentions légales</Link>).</li>
         </ul>
       </SectionLegale>
 
-      <SectionLegale titre="6. Vos droits">
+      <SectionLegale titre="6. Transferts hors de l’Union européenne">
+        <p>Certaines données sont traitées par des prestataires établis aux États-Unis, donc hors de l’Union européenne :</p>
+        <ul className="list-disc pl-5 space-y-1">
+          <li>Formspree, qui achemine les demandes d’estimation (section 1) ;</li>
+          <li>Vercel Inc., qui héberge le site et fournit la mesure d’audience et de performance (section 2) ;</li>
+          <li>Meta Platforms, uniquement si vous acceptez le pixel Meta (section 4) ;</li>
+          <li>Google, pour le chargement des polices de caractères (section 5).</li>
+        </ul>
+      </SectionLegale>
+
+      <SectionLegale titre="7. Vos droits">
         <p>
           Vous pouvez demander à accéder à vos données, les rectifier, les effacer ou vous opposer à leur utilisation. Écrivez
           à{' '}

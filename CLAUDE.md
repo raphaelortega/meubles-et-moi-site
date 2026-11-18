@@ -34,7 +34,7 @@ Il n'y a pas de tests automatisés. Avant chaque commit : `npm run lint` puis `n
 - `components/` : une section du site par fichier.
 - `data/` : sources uniques des contenus chiffrés et répétés : `co2.ts` (CO₂e évité), `realisations.ts` (carrousel), `faq.ts` (FAQ affichée et JSON-LD).
 - `components/Gallery.tsx` : réalisations clients. Les photos sont dans `public/images/realisations/`, en portrait 3:4, 768×1024.
-- `lib/supabase.ts` et `supabase/schema.sql` : enregistrement des demandes dans la table `leads`
+- `lib/supabase.ts` et `supabase/schema.sql` : enregistrement des demandes dans la table `leads`. **Inactif en production** (novembre 2026) : les variables Supabase de Vercel ne contiennent pas d'URL valide, donc les demandes partent seulement par e-mail via Formspree, avec une copie dans le `localStorage` du visiteur. Mettre à jour la politique de confidentialité si on l'active (choisir une région UE).
 - `public/` : images, logo et favicon
 
 ### Variables d'environnement
