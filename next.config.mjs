@@ -2,14 +2,6 @@
 const nextConfig = {
   reactStrictMode: true,
   optimizeFonts: false,
-  images: {
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'images.unsplash.com',
-      },
-    ],
-  },
   // Liens courts pour les réseaux : affichage propre + provenance suivie dans les mails de devis
   async redirects() {
     const links = [

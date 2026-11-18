@@ -173,6 +173,21 @@ export function maxTonnes(): string {
   return `${formatNombre(Math.floor(arrondiTechnique(max / 100)) / 10, 1)} t`;
 }
 
+/** Nombre de réalisations qui ont des données CO2e */
+export function nombreRealisationsCo2(): number {
+  return Object.keys(CO2_REALISATIONS).length;
+}
+
+/** CO2e évité net cumulé sur toutes les réalisations, en kg (ex. 3 017,7) */
+export function totalToutesRealisations(): number {
+  return arrondiTechnique(Object.keys(CO2_REALISATIONS).reduce((somme, id) => somme + (total(id) ?? 0), 0));
+}
+
+/** Total cumulé en tonnes entières, arrondi vers le bas (ex. « 3 t ») */
+export function totalToutesRealisationsTonnes(): string {
+  return `${formatNombre(Math.floor(totalToutesRealisations() / 1000))} t`;
+}
+
 /** Nombre au format français : espace insécable pour les milliers, virgule décimale */
 export function formatNombre(valeur: number, decimales = 0): string {
   return valeur

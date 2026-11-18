@@ -2,7 +2,8 @@
 
 import React from 'react';
 import { motion, type Variants } from 'framer-motion';
-import { ArrowRight, Star, ArrowUpRight } from 'lucide-react';
+import { ArrowRight, ArrowUpRight, Leaf } from 'lucide-react';
+import { totalToutesRealisationsTonnes } from '@/data/co2';
 
 interface HeroProps {
   onOpenEstimate?: () => void;
@@ -141,40 +142,18 @@ export const Hero: React.FC<HeroProps> = ({ onOpenEstimate }) => {
             </motion.button>
           </motion.div>
 
-          {/* Preuve sociale rapide */}
-          <motion.div variants={itemVariants} className="flex flex-wrap items-center justify-center gap-4">
-            <div className="flex -space-x-2.5 overflow-hidden">
-              <img
-                className="inline-block h-8 w-8 rounded-full ring-2 ring-white/80 object-cover shadow-sm"
-                src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&h=120&q=80"
-                alt="Avis client Meubles&Moi - Aménagement mobilier de seconde main"
-              />
-              <img
-                className="inline-block h-8 w-8 rounded-full ring-2 ring-white/80 object-cover shadow-sm"
-                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=120&h=120&q=80"
-                alt="Témoignage propriétaire Meubles&Moi - Aménagement clé en main"
-              />
-              <img
-                className="inline-block h-8 w-8 rounded-full ring-2 ring-white/80 object-cover shadow-sm"
-                src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=120&h=120&q=80"
-                alt="Client satisfait Meubles&Moi - Mobilier reconditionné"
-              />
-              <img
-                className="inline-block h-8 w-8 rounded-full ring-2 ring-white/80 object-cover shadow-sm"
-                src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=120&h=120&q=80"
-                alt="Avis aménagement intérieur Meubles&Moi"
-              />
-            </div>
-            <div className="flex items-center gap-2 text-xs font-semibold text-white">
-              <div className="flex items-center">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
-                ))}
-              </div>
+          {/* Preuve vérifiable : CO2e évité, calculé dans data/co2.ts et détaillé sur /methode-co2 */}
+          <motion.div variants={itemVariants}>
+            <a
+              href="/methode-co2"
+              className="group inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-white/10 border border-white/25 backdrop-blur-md text-xs sm:text-sm font-semibold text-white hover:bg-white/20 transition-colors"
+            >
+              <Leaf className="w-4 h-4 text-emerald-300 shrink-0" aria-hidden="true" />
               <span>
-                <strong>100% de clients satisfaits</strong> sur nos aménagements
+                Plus de {totalToutesRealisationsTonnes()} de CO₂e évitées sur nos réalisations
               </span>
-            </div>
+              <ArrowRight className="w-3.5 h-3.5 opacity-80 transition-transform group-hover:translate-x-0.5" aria-hidden="true" />
+            </a>
           </motion.div>
         </motion.div>
       </div>
@@ -192,7 +171,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenEstimate }) => {
         </div>
         <div className="hidden sm:flex items-center gap-2.5 text-xs">
           <span className="px-3.5 py-1.5 rounded-full bg-white/15 backdrop-blur-md border border-white/30 font-semibold">
-            Installé en 48h
+            Devis sous 24 h
           </span>
           <span className="px-3.5 py-1.5 rounded-full bg-[#C55D45] font-bold shadow-sm">Chiné & valorisé</span>
         </div>
