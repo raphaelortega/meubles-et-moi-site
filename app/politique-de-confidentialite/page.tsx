@@ -40,7 +40,6 @@ export default function PolitiqueConfidentialitePage() {
           <li>votre projet : type de bien, surface, équipements déjà présents, ambiance souhaitée ;</li>
           <li>vos coordonnées : prénom, téléphone et e-mail (obligatoires), quartier ou ville ;</li>
           <li>la réponse facultative à « Comment nous avez-vous connus ? » ;</li>
-          <li>le budget indicatif affiché par le formulaire ;</li>
           <li>
             la provenance de votre visite (voir la section 3) et, si vous êtes arrivé par un lien pré-rempli, les
             informations contenues dans ce lien (type de bien, surface, code postal, loyers, prénom, source).
