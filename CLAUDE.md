@@ -31,7 +31,8 @@ Il n'y a pas de tests automatisés. Avant chaque commit : `npm run lint` puis `n
 - `app/page.tsx` : page d'accueil. Elle assemble les sections dans l'ordre Header, Hero, Pillars, Method, Gallery, FAQ, FinalCTA et Footer, plus la fenêtre de devis `QuoteModal`.
 - `app/blog/` : blog (`/blog` et un article)
 - `app/api/quote/route.ts` : route API qui envoie les demandes de devis par e-mail (Resend, Brevo ou Formspree)
-- `components/` : une section du site par fichier. `Testimonials.tsx` et `Simulator.tsx` existent mais ne sont pas affichés sur l'accueil.
+- `components/` : une section du site par fichier.
+- `data/` : sources uniques des contenus chiffrés et répétés : `co2.ts` (CO₂e évité), `realisations.ts` (carrousel), `faq.ts` (FAQ affichée et JSON-LD).
 - `components/Gallery.tsx` : réalisations clients. Les photos sont dans `public/images/realisations/`, en portrait 3:4, 768×1024.
 - `lib/supabase.ts` et `supabase/schema.sql` : enregistrement des demandes dans la table `leads`
 - `public/` : images, logo et favicon

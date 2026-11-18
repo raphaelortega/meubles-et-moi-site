@@ -263,11 +263,11 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
     );
 
     const simulatorSection = hasSimulatorData
-      ? `\n\n📊 DONNÉES DU SIMULATEUR FISCAL (LMNP)
+      ? `\n\n📊 DONNÉES PRÉ-REMPLIES PAR LE LIEN (LMNP)
 • Code postal renseigné : ${simulatorData?.cp || payload.quartier_ville}
 • Loyer estimé en nu    : ${simulatorData?.loyerNu ? `${simulatorData.loyerNu} € / mois` : 'Non renseigné'}
 • Loyer estimé en meublé: ${simulatorData?.loyerMeuble ? `${simulatorData.loyerMeuble} € / mois` : 'Non renseigné'}
-• Source de provenance  : ${simulatorData?.utmSource || 'simulateur'}`
+• Source de provenance  : ${simulatorData?.utmSource || 'lien pré-rempli'}`
       : '';
 
     // Synthèse soignée et chaleureuse pour le corps de l'e-mail Formspree
@@ -303,7 +303,7 @@ ${payload.equipement_existant_detail}${simulatorSection}${provenanceSection}
       };
 
       const requestBody = JSON.stringify({
-        _subject: `🌿 Meubles&moi • Nouveau devis : ${nomComplet} — ${payload.type_bien} (${payload.surface_m2})${hasSimulatorData ? ' [Simulateur]' : ''}`,
+        _subject: `🌿 Meubles&moi • Nouveau devis : ${nomComplet} — ${payload.type_bien} (${payload.surface_m2})${hasSimulatorData ? ' [Lien pré-rempli]' : ''}`,
         _replyto: payload.email,
         message: messageBriefing,
         "👤 Prospect": nomComplet,
@@ -322,11 +322,11 @@ ${payload.equipement_existant_detail}${simulatorSection}${provenanceSection}
           ? {
               "📊 Loyer nu estimé": simulatorData?.loyerNu ? `${simulatorData.loyerNu} € / mois` : 'Non renseigné',
               "📊 Loyer meublé estimé": simulatorData?.loyerMeuble ? `${simulatorData.loyerMeuble} € / mois` : 'Non renseigné',
-              "🏷️ Source": simulatorData?.utmSource || 'simulateur',
+              "🏷️ Source": simulatorData?.utmSource || 'lien pré-rempli',
               code_postal: simulatorData?.cp || '',
               loyer_nu: simulatorData?.loyerNu || '',
               loyer_meuble: simulatorData?.loyerMeuble || '',
-              utm_source: simulatorData?.utmSource || 'simulateur',
+              utm_source: simulatorData?.utmSource || 'lien pré-rempli',
             }
           : {}),
         // Variables pour template HTML Formspree
@@ -381,7 +381,7 @@ ${payload.equipement_existant_detail}${simulatorSection}${provenanceSection}
             surface_m2: surface,
             date_souhaitee: formData.date_souhaitee,
             pack_selectionne: `${payload.type_bien} • ${payload.budget_calcule}`,
-            message: `Ambiance: ${payload.ambiance_souhaitee} | Équipements: ${payload.equipement_existant_detail} | Provenance: ${attribution.provenance}${hasSimulatorData ? ` | Simulateur (CP: ${simulatorData?.cp || 'N/A'}, Loyer nu: ${simulatorData?.loyerNu || 'N/A'}€, Meublé: ${simulatorData?.loyerMeuble || 'N/A'}€, Source: ${simulatorData?.utmSource || 'simulateur'})` : ''}`,
+            message: `Ambiance: ${payload.ambiance_souhaitee} | Équipements: ${payload.equipement_existant_detail} | Provenance: ${attribution.provenance}${hasSimulatorData ? ` | Lien pré-rempli (CP: ${simulatorData?.cp || 'N/A'}, Loyer nu: ${simulatorData?.loyerNu || 'N/A'}€, Meublé: ${simulatorData?.loyerMeuble || 'N/A'}€, Source: ${simulatorData?.utmSource || 'lien pré-rempli'})` : ''}`,
           }, { skipEmailNotification: true }).catch(() => {});
         } catch {
           // ignore
@@ -496,7 +496,7 @@ ${payload.equipement_existant_detail}${simulatorSection}${provenanceSection}
                     </div>
                     <div className="text-xs">
                       <p className="font-bold text-emerald-900">
-                        Données de votre simulation importées
+                        Informations de votre lien importées
                       </p>
                       <p className="text-emerald-800/90 mt-0.5 leading-relaxed">
                         Logement : <span className="font-semibold">{simulatorData.type || currentTier.typeLabel} ({surface} m²)</span>

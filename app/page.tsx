@@ -72,7 +72,7 @@ export default function Home() {
     const prenom = getParam('prenom');
 
     // utm_source seul (lien marqué LinkedIn, Instagram…) ne doit ni ouvrir le formulaire
-    // ni marquer la demande « Simulateur » : la provenance est gérée par lib/attribution.ts.
+    // ni marquer la demande « Lien pré-rempli » : la provenance est gérée par lib/attribution.ts.
     const hasSimulatorParams = Boolean(type || surfaceStr || cp || loyerNu || loyerMeuble);
     const hasEstimationAnchor = window.location.hash.includes('estimation');
 

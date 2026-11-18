@@ -16,10 +16,6 @@ Site web moderne, élégant et ultra-performant pour l'entreprise **Meubles&moi*
    - Rentabilité locative maximisée (+15% à +30% vs nu, réduction de vacance locative).
    - Optimisation fiscale LMNP (amortissement comptable à 100% du mobilier sur 5-10 ans).
    - Démarche circulaire sans effort (mobilier revalorisé, reconditionné localement à Lyon, bilan carbone / 5).
-4. **Simulateur Interactif de Rendement & Défiscalisation LMNP** :
-   - Sélecteur Studio / T2 / T3+, surface en m², loyer nu actuel, TMI de l'investisseur.
-   - Calcul en temps réel du surloyer annuel, de l'économie d'impôt annuelle, du gain net sur 3 ans et du CO2 évité.
-   - Bouton d'injection directe des résultats dans le formulaire de devis.
 5. **Présentation des Packs Clé en Main** :
    - **Pack Studio / T1** (18-30 m²)
    - **Pack T2 Confort** (35-52 m² - Best-seller)
