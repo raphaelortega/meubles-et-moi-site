@@ -1,42 +1,8 @@
 'use client';
 
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown, HelpCircle, Phone, Mail, ArrowRight } from 'lucide-react';
-import { maxTonnes } from '@/data/co2';
-
-export interface FAQItem {
-  question: string;
-  answer: string;
-  theme: string;
-}
-
-export const FAQS: FAQItem[] = [
-  {
-    theme: 'Aménagement clé en main',
-    question: 'En quoi consiste votre service d’aménagement d’appartement clé en main ?',
-    answer:
-      'Notre service d’aménagement d’appartement clé en main prend en charge l’intégralité de votre projet pour vous libérer de toute charge mentale. Dès l’analyse de vos besoins (surface, style souhaité, contraintes d’espace et budget), nous élaborons une sélection cohérente et harmonieuse de mobilier reconditionné de seconde main. Nous gérons ensuite toute la chaîne logistique : transport, livraison à l’étage, assemblage et montage complet sur place. Vous retrouvez un logement immédiatement fonctionnel, soigné et prêt à vivre ou à louer, sans avoir à porter le moindre meuble ni manipuler un tournevis.',
-  },
-  {
-    theme: 'Mobilier reconditionné seconde main',
-    question: 'Pourquoi choisir du mobilier reconditionné et de seconde main ?',
-    answer:
-      `Opter pour du mobilier reconditionné et de seconde main offre un triple bénéfice : économique, écologique et qualitatif. Vous réalisez jusqu’à 40 % d’économies par rapport à du mobilier neuf équivalent, tout en profitant de matériaux nobles et durables (bois massif, structures robustes). Chaque meuble est minutieusement choisi pour son esthétique, sa solidité et son parfait état d’usage. Enfin, en privilégiant l’économie circulaire locale, vous évitez la surproduction industrielle et évitez jusqu’à ${maxTonnes()} de CO₂e par appartement (détail du calcul sur notre page méthode CO₂e).`,
-  },
-  {
-    theme: 'Installation & Livraison',
-    question: 'Comment se déroulent l’installation et la livraison de meubles à Lyon et sa métropole ?',
-    answer:
-      'Notre équipe dédiée prend en charge l’acheminement complet de votre mobilier dans toute la métropole de Lyon (Presqu’île, Croix-Rousse, Part-Dieu, Confluence, Villeurbanne, etc.), quel que soit l’étage, avec ou sans ascenseur. Nous réalisons sur place le montage minutieux de chaque élément selon vos plans d’agencement. Une fois le mobilier installé, nous évacuons l’intégralité des protections et emballages pour vous restituer des pièces propres et prêtes à l’usage. L’intervention est planifiée selon vos disponibilités et réalisée en 48h chrono après validation.',
-  },
-  {
-    theme: 'Investissement & Fiscalité LMNP',
-    question: 'Votre service d’ameublement clé en main est-il compatible avec la fiscalité LMNP ?',
-    answer:
-      'Oui, absolument. Notre prestation d’aménagement en mobilier reconditionné répond à 100 % à la liste des équipements obligatoires définis par le décret du statut LMNP (Loueur en Meublé Non Professionnel). Si vous louez au régime réel, la totalité du coût du mobilier et de son installation est amortissable sur 5 à 10 ans, ce qui permet de déduire ces charges de vos revenus locatifs et d’effacer vos impôts fonciers. Nous vous fournissons une facture détaillée et conforme pour votre expert-comptable.',
-  },
-];
+import { FAQS } from '@/data/faq';
 
 export const FAQ: React.FC = () => {
   const [openIdx, setOpenIdx] = useState<number | null>(0);
@@ -102,24 +68,22 @@ export const FAQ: React.FC = () => {
                   </div>
                 </button>
 
-                <AnimatePresence initial={false}>
-                  {isOpen && (
-                    <motion.div
-                      id={`faq-panel-${idx}`}
-                      role="region"
-                      aria-labelledby={`faq-header-${idx}`}
-                      initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: 'auto' }}
-                      exit={{ opacity: 0, height: 0 }}
-                      transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-                      className="overflow-hidden"
-                    >
-                      <div className="px-6 pb-6 pt-1 text-sm sm:text-base text-[#063B39]/75 leading-relaxed border-t border-stone-100 font-normal">
-                        <p>{item.answer}</p>
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                {/* Réponse toujours présente dans le HTML (référencement), masquée en CSS quand fermée */}
+                <div
+                  id={`faq-panel-${idx}`}
+                  role="region"
+                  aria-labelledby={`faq-header-${idx}`}
+                  aria-hidden={!isOpen}
+                  className={`grid transition-[grid-template-rows,opacity] duration-300 ease-out ${
+                    isOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'
+                  }`}
+                >
+                  <div className="overflow-hidden">
+                    <div className="px-6 pb-6 pt-1 text-sm sm:text-base text-[#063B39]/75 leading-relaxed border-t border-stone-100 font-normal">
+                      <p>{item.answer}</p>
+                    </div>
+                  </div>
+                </div>
               </div>
             );
           })}
@@ -132,7 +96,7 @@ export const FAQ: React.FC = () => {
               Vous avez une autre question ?
             </span>
             <p className="text-sm sm:text-base font-bold text-[#063B39] mt-0.5">
-              Notre équipe à Lyon est disponible pour échanger sur votre bien.
+              Raphaël et Maxence vous répondent pour échanger sur votre bien.
             </p>
           </div>
           <div className="flex items-center gap-3 shrink-0">
