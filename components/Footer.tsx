@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { MapPin, Phone, Mail, Leaf, ArrowUp, Linkedin, Instagram, ShieldCheck } from 'lucide-react';
+import { GererCookiesLien } from '@/components/ConsentementCookies';
 
 export const Footer: React.FC = () => {
   const scrollToTop = () => {
@@ -215,6 +216,9 @@ export const Footer: React.FC = () => {
                 <a href="/politique-de-confidentialite" className="hover:text-white transition-colors">
                   Politique de confidentialité
                 </a>
+              </li>
+              <li>
+                <GererCookiesLien className="text-left hover:text-white transition-colors cursor-pointer" />
               </li>
             </ul>
           </div>

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { PageLegale, SectionLegale, Todo } from '@/components/PageLegale';
+import { GererCookiesLien } from '@/components/ConsentementCookies';
 
 export const metadata: Metadata = {
   title: 'Politique de confidentialité',
@@ -89,7 +90,8 @@ export default function PolitiqueConfidentialitePage() {
         </p>
         <p>
           Si vous refusez, le pixel n’est pas chargé. Votre choix est conservé 6 mois dans votre navigateur, et vous pouvez
-          le modifier à tout moment avec le lien « Gérer les cookies » en bas de chaque page.
+          le modifier à tout moment avec le lien « Gérer les cookies » en bas de chaque page, ou ici :{' '}
+          <GererCookiesLien className={lienClass} />.
         </p>
       </SectionLegale>
 
