@@ -95,15 +95,14 @@ const jsonLd = {
   '@context': 'https://schema.org',
   '@graph': [
     {
-      '@type': ['LocalBusiness', 'ProfessionalService', 'HomeGoodsStore'],
+      '@type': ['LocalBusiness', 'ProfessionalService'],
       '@id': 'https://www.meubles-et-moi.fr/#organization',
-      name: 'Meubles&Moi',
-      legalName: 'Meubles&Moi',
+      name: 'Meubles&moi',
       url: 'https://www.meubles-et-moi.fr',
       logo: 'https://www.meubles-et-moi.fr/logo.png',
       image: 'https://www.meubles-et-moi.fr/images/hero-appartement.jpg',
       description:
-        'Service d’aménagement intérieur clé en main et mobilier reconditionné de seconde main pour particuliers, locataires, propriétaires et professionnels. Sélection soignée, livraison, montage et démarche circulaire.',
+        'Service d’aménagement intérieur clé en main et mobilier de seconde main sélectionné pour particuliers, locataires, propriétaires et professionnels. Sélection soignée, livraison, montage et démarche circulaire.',
       telephone: '+33783276352',
       email: 'r.ortega@meubles-et-moi.fr',
       address: {
@@ -135,7 +134,7 @@ const jsonLd = {
       ],
       priceRange: '€€',
       currenciesAccepted: 'EUR',
-      paymentAccepted: 'Virement, Carte bancaire',
+      paymentAccepted: 'Virement',
       sameAs: [
         'https://www.instagram.com/meubles.et.moi/',
         'https://www.linkedin.com/company/meubles-moi/',
@@ -173,7 +172,7 @@ const jsonLd = {
               '@type': 'Service',
               name: 'Mobilier reconditionné pour logements et locaux professionnels',
               description:
-                'Mobilier soigné pour studios, appartements et locaux professionnels, livré et monté sous 48h.',
+                'Mobilier soigné pour studios, appartements et locaux professionnels : devis sous 24 h, installation en général en moins de 48 h après remise des clés.',
             },
           },
         ],
@@ -183,7 +182,7 @@ const jsonLd = {
       '@type': 'WebSite',
       '@id': 'https://www.meubles-et-moi.fr/#website',
       url: 'https://www.meubles-et-moi.fr',
-      name: 'Meubles&Moi',
+      name: 'Meubles&moi',
       publisher: {
         '@id': 'https://www.meubles-et-moi.fr/#organization',
       },
