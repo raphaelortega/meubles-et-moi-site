@@ -55,6 +55,7 @@ Issues de l'audit SEO & GEO de novembre 2026. Elles s'appliquent à tout texte v
 
 - **Aucun chiffre, client, témoignage, prix ou résultat inventé.**
 - **Qui nous sommes** : Meubles&moi, ce sont deux fondateurs, Raphaël Ortega et Maxence Aucourt, sans salarié ni entrepôt. Ne jamais écrire « notre équipe », « nos équipes » ou « nos déménageurs ».
+- **Statut juridique** : Meubles&moi est le nom commercial de l'entreprise individuelle (EI) de Maxence Aucourt, immatriculée au RNE, SIREN 944 056 746, siège 4 rue des Écoles, 69540 Irigny. Maxence Aucourt est le directeur de la publication. Le régime fiscal et la TVA sont en cours de vérification avec un comptable : n'écrire **rien** à ce sujet (ni « micro-entreprise », ni « TVA non applicable, art. 293 B du CGI ») sans validation des fondateurs. Utiliser le SIREN, jamais un SIRET.
 - **Fiscalité** : jamais de résultat garanti ni de taux fixe. Seule formulation autorisée : « Dans certains cas, le LMNP au réel peut permettre de ramener le résultat imposable proche de 0 grâce aux amortissements. La validation doit être faite avec un expert-comptable selon votre situation. »
 - **Écologie** : pas d'allégation absolue (« zéro impact », « neutre en carbone », « 100 % écologique »). Les chiffres CO₂ viennent uniquement de `/methode-co2` (données `data/co2.ts`), arrondis vers le bas.
 - **Prix** : aucun prix affiché sans validation écrite des fondateurs.

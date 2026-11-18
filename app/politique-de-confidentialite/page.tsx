@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { PageLegale, SectionLegale, Todo } from '@/components/PageLegale';
+import { PageLegale, SectionLegale } from '@/components/PageLegale';
 import { GererCookiesLien } from '@/components/ConsentementCookies';
 
 export const metadata: Metadata = {
@@ -23,7 +23,8 @@ export default function PolitiqueConfidentialitePage() {
     >
       <SectionLegale titre="Responsable du traitement">
         <p>
-          Meubles&amp;moi, micro-entreprise, SIRET 944 056 746 00026. <Todo>nom de l’entrepreneur et adresse du siège</Todo>
+          Maxence Aucourt, entrepreneur individuel (EI), nom commercial Meubles&amp;moi, SIREN 944 056 746, 4 rue des Écoles,
+          69540 Irigny.
         </p>
         <p>
           Contact pour toute question sur vos données :{' '}

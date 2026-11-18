@@ -42,12 +42,3 @@ export function SectionLegale({ titre, children }: { titre: string; children: Re
     </section>
   );
 }
-
-/** Information manquante, laissée visible tant que les fondateurs ne l'ont pas fournie */
-export function Todo({ children }: { children: React.ReactNode }) {
-  return (
-    <span className="inline-block px-2 py-0.5 rounded-md bg-amber-100 border border-amber-300 text-amber-900 text-sm font-semibold">
-      TODO : {children}
-    </span>
-  );
-}

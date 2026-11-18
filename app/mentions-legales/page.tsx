@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { PageLegale, SectionLegale, Todo } from '@/components/PageLegale';
+import { PageLegale, SectionLegale } from '@/components/PageLegale';
 
 export const metadata: Metadata = {
   title: 'Mentions légales',
@@ -19,19 +19,19 @@ export default function MentionsLegalesPage() {
             <strong>Nom commercial :</strong> Meubles&amp;moi
           </li>
           <li>
-            <strong>Entrepreneur :</strong> <Todo>nom de l’entrepreneur titulaire du SIRET</Todo>
+            <strong>Entrepreneur :</strong> Maxence Aucourt
           </li>
           <li>
-            <strong>Statut :</strong> micro-entreprise. TVA non applicable, art. 293 B du CGI.
+            <strong>Forme :</strong> entrepreneur individuel (EI), immatriculé au Registre national des entreprises (RNE)
           </li>
           <li>
-            <strong>SIRET :</strong> 944 056 746 00026
+            <strong>SIREN :</strong> 944 056 746
           </li>
           <li>
-            <strong>Adresse du siège :</strong> <Todo>adresse du siège</Todo>
+            <strong>Adresse du siège :</strong> 4 rue des Écoles, 69540 Irigny
           </li>
           <li>
-            <strong>Directeur de la publication :</strong> <Todo>directeur de la publication</Todo>
+            <strong>Directeur de la publication :</strong> Maxence Aucourt
           </li>
         </ul>
       </SectionLegale>
