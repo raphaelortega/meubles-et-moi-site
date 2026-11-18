@@ -189,12 +189,6 @@ for (const [id, donnees] of Object.entries(CO2_REALISATIONS)) {
   }
 }
 
-/** Plus grand CO2e évité parmi les réalisations, en tonnes arrondies au dixième inférieur (ex. « 1,1 t ») */
-export function maxTonnes(): string {
-  const max = Math.max(...Object.keys(CO2_REALISATIONS).map((id) => total(id) ?? 0));
-  return `${formatNombre(Math.floor(arrondiTechnique(max / 100)) / 10, 1)} t`;
-}
-
 /** Nombre de réalisations qui ont des données CO2e */
 export function nombreRealisationsCo2(): number {
   return Object.keys(CO2_REALISATIONS).length;

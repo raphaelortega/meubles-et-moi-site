@@ -83,7 +83,7 @@ export async function submitLead(
       return {
         success: true,
         isDemo: false,
-        message: 'Votre demande a été transmise avec succès à notre équipe lyonnaise.',
+        message: 'Votre demande a été transmise avec succès à Raphaël et Maxence.',
       };
     } catch (err: any) {
       console.error('[Meubles&moi] Exception Supabase:', err);

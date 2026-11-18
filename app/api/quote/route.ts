@@ -118,7 +118,7 @@ export async function POST(request: Request) {
           </div>
 
           <div class="footer">
-            E-mail généré automatiquement le ${nowFormatted} pour l'équipe Meubles&moi.<br>
+            E-mail généré automatiquement le ${nowFormatted} pour Meubles&moi.<br>
             Destinataires : ${NOTIFICATION_RECIPIENTS.join(', ')}
           </div>
         </div>

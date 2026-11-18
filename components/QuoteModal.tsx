@@ -299,8 +299,8 @@ ${payload.ambiance_souhaitee}
 ${payload.equipement_existant_detail}${simulatorSection}${provenanceSection}
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-💡 Action recommandée : Recontacter ${payload.prenom} au ${payload.telephone} sous 24h à 48h.
-Équipe Meubles&moi • Mobilier durable & sélection soignée`;
+💡 Action recommandée : Recontacter ${payload.prenom} au ${payload.telephone} sous 24 h.
+Meubles&moi • Mobilier durable & sélection soignée`;
 
     try {
       const requestHeaders = {
@@ -460,7 +460,7 @@ ${payload.equipement_existant_detail}${simulatorSection}${provenanceSection}
                   Demande bien reçue, {formData.prenom} !
                 </h3>
                 <p className="text-sm sm:text-base text-[#063B39]/80 max-w-md mx-auto leading-relaxed">
-                  Votre estimation personnalisée arrive par e-mail sous 48h.
+                  Votre devis arrive par e-mail sous 24 h.
                 </p>
                 <div className="pt-4">
                   <button
@@ -486,7 +486,7 @@ ${payload.equipement_existant_detail}${simulatorSection}${provenanceSection}
                     />
                     <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#C55D45]/10 text-[#C55D45] text-[11px] font-extrabold uppercase tracking-wider">
                       <Sparkles className="w-3 h-3" />
-                      <span>Grille tarifaire transparente • Devis gratuit 48h</span>
+                      <span>Grille tarifaire transparente • Devis gratuit sous 24 h</span>
                     </div>
                   </div>
                   <h2 className="font-display text-2xl sm:text-3xl font-extrabold text-[#063B39] tracking-tight">
@@ -622,7 +622,7 @@ ${payload.equipement_existant_detail}${simulatorSection}${provenanceSection}
                     </div>
 
                     <p className="text-xs text-[#063B39]/80 leading-relaxed">
-                      Budget indicatif à partir de <strong className="text-[#063B39] font-bold">{currentTier.minPrice.toLocaleString('fr-FR')} €</strong> selon la surface et le niveau d’équipement déjà présent (électroménager, dressing…). Devis personnalisé gratuit sous 48h.
+                      Budget indicatif à partir de <strong className="text-[#063B39] font-bold">{currentTier.minPrice.toLocaleString('fr-FR')} €</strong> selon la surface et le niveau d’équipement déjà présent (électroménager, dressing…). Devis personnalisé gratuit sous 24 h.
                     </p>
                   </div>
 
@@ -762,7 +762,7 @@ ${payload.equipement_existant_detail}${simulatorSection}${provenanceSection}
                         </>
                       ) : (
                         <>
-                          <span>Recevoir mon devis personnalisé sous 48h</span>
+                          <span>Recevoir mon devis personnalisé sous 24 h</span>
                           <ArrowRight className="w-4 h-4" />
                         </>
                       )}
@@ -781,7 +781,7 @@ ${payload.equipement_existant_detail}${simulatorSection}${provenanceSection}
                     )}
 
                     <p className="text-center text-[11px] text-[#063B39]/60 mt-2">
-                      🔒 Sans engagement • Accompagnement sur-mesure par l’équipe Meubles&moi Lyon
+                      🔒 Sans engagement • Accompagnement sur-mesure par Raphaël et Maxence, à Lyon
                     </p>
                   </div>
                 </form>
