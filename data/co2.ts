@@ -71,7 +71,6 @@ export const CO2_REALISATIONS: Record<string, Co2Realisation> = {
     nonComptes: ['Luminaires (de seconde main, mais sans facteur ADEME)', 'Rideaux', 'Vaisselle', 'Linge', 'Petit électroménager', 'Décoration'],
   },
   'haussmannien-contemporain': {
-    libelle: 'Plus de 550 kg de CO₂e évités',
     meubles: [
       { libelle: 'Canapé velours bleu nuit', quantite: 1, facteur: 'canape_textile', visible: true },
       { libelle: 'Banquette', quantite: 1, facteur: 'canape_textile', visible: false },
@@ -156,14 +155,15 @@ export function total(id: string): number | null {
 
 /**
  * Texte affiché, toujours arrondi vers le bas :
- * - moins de 1 000 kg : « Près de X kg de CO₂e évités » (centaine inférieure)
+ * - moins de 1 000 kg : « Plus de X kg de CO₂e évités » (cinquantaine inférieure)
  * - 1 000 kg et plus : « Plus de X,X t de CO₂e évitées » (dixième inférieur)
  */
 export function format(kg: number): string {
   if (kg < 1000) {
-    return `Près de ${formatNombre(Math.floor(kg / 100) * 100)} kg de CO₂e évités`;
+    // « Plus de » strict : 591,7 → 550 ; un total pile sur un multiple (600) donne 550, pas 600
+    return `Plus de ${formatNombre(Math.ceil(arrondiTechnique(kg / 50)) * 50 - 50)} kg de CO₂e évités`;
   }
-  const tonnes = Math.floor(arrondiTechnique(kg / 100)) / 10;
+  const tonnes = (Math.ceil(arrondiTechnique(kg / 100)) - 1) / 10;
   return `Plus de ${formatNombre(tonnes, 1)} t de CO₂e évitées`;
 }
 
@@ -182,10 +182,12 @@ function kgAnnonces(libelle: string): number {
   return m[2] === 't' ? valeur * 1000 : valeur;
 }
 
-// Garde-fou : aucun libellé ne doit annoncer plus que le total net calculé.
-for (const [id, donnees] of Object.entries(CO2_REALISATIONS)) {
-  if (donnees.libelle && kgAnnonces(donnees.libelle) > (total(id) ?? 0)) {
-    throw new Error(`Libellé CO2 de « ${id} » supérieur au total net (${total(id)} kg) : « ${donnees.libelle} »`);
+// Garde-fou (fait échouer le build) : aucun texte affiché, calculé ou saisi à la main,
+// ne doit annoncer autant ou plus que le total net calculé (« Plus de » est strict).
+for (const id of Object.keys(CO2_REALISATIONS)) {
+  const affiche = co2PourRealisation(id) ?? '';
+  if (kgAnnonces(affiche) >= (total(id) ?? 0)) {
+    throw new Error(`Libellé CO2 de « ${id} » supérieur au total net (${total(id)} kg) : « ${affiche} »`);
   }
 }
 
@@ -201,7 +203,8 @@ export function totalToutesRealisations(): number {
 
 /** Total cumulé en tonnes entières, arrondi vers le bas (ex. « 3 t ») */
 export function totalToutesRealisationsTonnes(): string {
-  return `${formatNombre(Math.floor(totalToutesRealisations() / 1000))} t`;
+  // Utilisé après « Plus de » : strict, comme format()
+  return `${formatNombre(Math.ceil(arrondiTechnique(totalToutesRealisations() / 1000)) - 1)} t`;
 }
 
 /** Nombre au format français : espace insécable pour les milliers, virgule décimale */
