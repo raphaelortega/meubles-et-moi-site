@@ -55,7 +55,7 @@ export const EstimatePopup: React.FC<EstimatePopupProps> = ({ isOpen, onClose, o
             <div className="relative h-40 sm:h-44 overflow-hidden">
               <img
                 src="/images/hero-appartement.jpg"
-                alt="Appartement meublé clé en main par Meubles&Moi"
+                alt="Appartement meublé clé en main par Meubles&moi"
                 className="w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#063B39]/70 to-transparent" />
@@ -70,7 +70,7 @@ export const EstimatePopup: React.FC<EstimatePopupProps> = ({ isOpen, onClose, o
                 Et si on estimait votre projet&nbsp;?
               </h2>
               <p className="mt-2 text-sm sm:text-[15px] text-[#063B39]/75 leading-relaxed">
-                Quelques infos sur votre logement et vos coordonnées : vous voyez tout de suite votre budget indicatif, et recevez un devis personnalisé gratuit sous 48h.
+                Quelques infos sur votre logement et vos coordonnées, et vous recevez un devis personnalisé gratuit sous 24 h.
               </p>
 
               <button

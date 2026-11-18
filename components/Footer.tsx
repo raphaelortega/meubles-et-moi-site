@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { MapPin, Phone, Mail, Leaf, ArrowUp, Linkedin, Instagram, ShieldCheck } from 'lucide-react';
+import { GererCookiesLien } from '@/components/ConsentementCookies';
 
 export const Footer: React.FC = () => {
   const scrollToTop = () => {
@@ -34,7 +35,7 @@ export const Footer: React.FC = () => {
             <div className="w-10 h-10 rounded-full overflow-hidden border border-white/20 bg-[#063B39] shadow-sm shrink-0 flex items-center justify-center">
               <img
                 src="/logo.png"
-                alt="Meubles&Moi - Mobilier de seconde main et aménagement clé en main"
+                alt="Meubles&moi - Mobilier de seconde main et aménagement clé en main"
                 className="w-full h-full object-cover"
                 width={40}
                 height={40}
@@ -207,14 +208,17 @@ export const Footer: React.FC = () => {
                 <span>Meubles&moi • Lyon</span>
               </li>
               <li>
-                <a href="#mentions-legales" onClick={(e) => e.preventDefault()} className="hover:text-white transition-colors cursor-pointer">
+                <a href="/mentions-legales" className="hover:text-white transition-colors">
                   Mentions légales
                 </a>
               </li>
               <li>
-                <a href="#politique-confidentialite" onClick={(e) => e.preventDefault()} className="hover:text-white transition-colors cursor-pointer">
+                <a href="/politique-de-confidentialite" className="hover:text-white transition-colors">
                   Politique de confidentialité
                 </a>
+              </li>
+              <li>
+                <GererCookiesLien className="text-left hover:text-white transition-colors cursor-pointer" />
               </li>
             </ul>
           </div>

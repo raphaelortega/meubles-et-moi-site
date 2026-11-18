@@ -16,10 +16,6 @@ Site web moderne, élégant et ultra-performant pour l'entreprise **Meubles&moi*
    - Rentabilité locative maximisée (+15% à +30% vs nu, réduction de vacance locative).
    - Optimisation fiscale LMNP (amortissement comptable à 100% du mobilier sur 5-10 ans).
    - Démarche circulaire sans effort (mobilier revalorisé, reconditionné localement à Lyon, bilan carbone / 5).
-4. **Simulateur Interactif de Rendement & Défiscalisation LMNP** :
-   - Sélecteur Studio / T2 / T3+, surface en m², loyer nu actuel, TMI de l'investisseur.
-   - Calcul en temps réel du surloyer annuel, de l'économie d'impôt annuelle, du gain net sur 3 ans et du CO2 évité.
-   - Bouton d'injection directe des résultats dans le formulaire de devis.
 5. **Présentation des Packs Clé en Main** :
    - **Pack Studio / T1** (18-30 m²)
    - **Pack T2 Confort** (35-52 m² - Best-seller)
@@ -48,7 +44,7 @@ Site web moderne, élégant et ultra-performant pour l'entreprise **Meubles&moi*
 
 ## 🛠️ Stack Technique
 
-- **Framework** : React 18 + Vite 6 + TypeScript
+- **Framework** : Next.js 14 (App Router) + React 18 + TypeScript
 - **Styling** : Tailwind CSS v3
 - **Icônes** : Lucide React
 - **Base de données / Backend** : Supabase (`@supabase/supabase-js`)
@@ -71,7 +67,9 @@ L'application démarre immédiatement sur `http://localhost:3000`.
 npm run build
 ```
 
-Le résultat optimisé et minifié est généré dans le dossier `dist/`.
+Le résultat optimisé est généré dans le dossier `.next/` (déployé automatiquement par Vercel).
+
+> Les consignes de travail pour Claude Code (branches, previews, pull requests) sont dans [`CLAUDE.md`](./CLAUDE.md).
 
 ---
 
@@ -84,8 +82,6 @@ Le script SQL complet est disponible dans `supabase/schema.sql`.
 3. Renseignez vos identifiants dans votre fichier `.env.local` :
 
 ```env
-VITE_SUPABASE_URL=https://votre-projet.supabase.co
-VITE_SUPABASE_ANON_KEY=votre-cle-anon-publique
 NEXT_PUBLIC_SUPABASE_URL=https://votre-projet.supabase.co
 NEXT_PUBLIC_SUPABASE_ANON_KEY=votre-cle-anon-publique
 ```

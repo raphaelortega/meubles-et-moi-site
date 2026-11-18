@@ -4,8 +4,6 @@ set -e
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd "$DIR"
 
-export PATH="/Users/rapha/.gemini/antigravity/scratch/.tools/node/bin:$PATH"
-
 echo "1. Nettoyage des processus..."
 lsof -ti:3000 | xargs kill -9 2>/dev/null || true
 pkill -9 -f "next dev" 2>/dev/null || true

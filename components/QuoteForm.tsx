@@ -122,7 +122,7 @@ export const QuoteForm: React.FC<QuoteFormProps> = ({
                 <CheckCircle2 className="w-7 h-7" />
               </div>
               <h3 className="text-xl font-bold text-charcoal-900">
-                Merci {formData.prenom} ! C'est bien noté.
+                Merci {formData.prenom} ! C’est bien noté.
               </h3>
               <p className="text-xs sm:text-sm text-slate-600">
                 Nous préparons la sélection pour votre {formData.type_bien} à {formData.ville}. Nous vous recontactons au {formData.telephone} sous 24h ouvrées.

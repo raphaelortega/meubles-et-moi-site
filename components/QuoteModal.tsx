@@ -14,35 +14,32 @@ import { submitLead } from '@/lib/supabase';
 import { getAttributionSummary } from '@/lib/attribution';
 import { LeadFormData } from '@/types';
 
-export interface BudgetTier {
+// Correspondance surface → type de logement (aucun prix : aucun tarif n'est validé par les fondateurs)
+export interface TrancheLogement {
   surfaceRange: string;
-  minSurface: number;
-  maxSurface: number;
   typeLabel: string;
-  minPrice: number;
-  maxPrice: number;
 }
 
-export const BUDGET_GRID: BudgetTier[] = [
-  { surfaceRange: '15–20 m²', minSurface: 15, maxSurface: 20, typeLabel: 'Studio', minPrice: 1190, maxPrice: 1590 },
-  { surfaceRange: '20–30 m²', minSurface: 20, maxSurface: 30, typeLabel: 'Studio / T1', minPrice: 1390, maxPrice: 1890 },
-  { surfaceRange: '30–40 m²', minSurface: 30, maxSurface: 40, typeLabel: 'T1 bis / petit T2', minPrice: 1590, maxPrice: 2190 },
-  { surfaceRange: '40–50 m²', minSurface: 40, maxSurface: 50, typeLabel: 'T2', minPrice: 1890, maxPrice: 2790 },
-  { surfaceRange: '50–65 m²', minSurface: 50, maxSurface: 65, typeLabel: 'T2 bis / T3', minPrice: 2390, maxPrice: 3390 },
-  { surfaceRange: '65–80 m²', minSurface: 65, maxSurface: 80, typeLabel: 'T3 / T3 bis', minPrice: 2990, maxPrice: 4190 },
-  { surfaceRange: '80–100 m²', minSurface: 80, maxSurface: 100, typeLabel: 'T4', minPrice: 3690, maxPrice: 5490 },
-  { surfaceRange: '100–120 m²', minSurface: 100, maxSurface: 120, typeLabel: 'T4 bis / T5', minPrice: 4490, maxPrice: 6890 },
+export const TRANCHES_LOGEMENT: TrancheLogement[] = [
+  { surfaceRange: '15–20 m²', typeLabel: 'Studio' },
+  { surfaceRange: '20–30 m²', typeLabel: 'Studio / T1' },
+  { surfaceRange: '30–40 m²', typeLabel: 'T1 bis / petit T2' },
+  { surfaceRange: '40–50 m²', typeLabel: 'T2' },
+  { surfaceRange: '50–65 m²', typeLabel: 'T2 bis / T3' },
+  { surfaceRange: '65–80 m²', typeLabel: 'T3 / T3 bis' },
+  { surfaceRange: '80–100 m²', typeLabel: 'T4' },
+  { surfaceRange: '100–120 m²', typeLabel: 'T4 bis / T5' },
 ];
 
-export const getBudgetTier = (m2: number): BudgetTier => {
-  if (m2 < 20) return BUDGET_GRID[0];
-  if (m2 < 30) return BUDGET_GRID[1];
-  if (m2 < 40) return BUDGET_GRID[2];
-  if (m2 < 50) return BUDGET_GRID[3];
-  if (m2 < 65) return BUDGET_GRID[4];
-  if (m2 < 80) return BUDGET_GRID[5];
-  if (m2 < 100) return BUDGET_GRID[6];
-  return BUDGET_GRID[7];
+export const getTrancheLogement = (m2: number): TrancheLogement => {
+  if (m2 < 20) return TRANCHES_LOGEMENT[0];
+  if (m2 < 30) return TRANCHES_LOGEMENT[1];
+  if (m2 < 40) return TRANCHES_LOGEMENT[2];
+  if (m2 < 50) return TRANCHES_LOGEMENT[3];
+  if (m2 < 65) return TRANCHES_LOGEMENT[4];
+  if (m2 < 80) return TRANCHES_LOGEMENT[5];
+  if (m2 < 100) return TRANCHES_LOGEMENT[6];
+  return TRANCHES_LOGEMENT[7];
 };
 
 const PROPERTY_OPTIONS = [
@@ -77,6 +74,9 @@ export const FORMSPREE_ENDPOINTS: string[] = envEndpoints && envEndpoints.length
     ];
 
 export const FORMSPREE_ENDPOINT = FORMSPREE_ENDPOINTS[0];
+
+// Réponses proposées à « Comment nous avez-vous connus ? » (champ facultatif)
+const CONNU_PAR_OPTIONS = ['Google', 'Instagram', 'LinkedIn', 'Bouche-à-oreille', 'Agence ou partenaire immobilier', 'Autre'];
 
 export interface SimulatorData {
   type?: string;
@@ -133,6 +133,7 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
     email: '',
     telephone: '',
     ville: 'Lyon',
+    connu_par: '',
     date_souhaitee: 'Dans le mois',
     hasEquipments: false,
     equipmentsDetails: '',
@@ -158,7 +159,7 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
     }
   }, [success]);
 
-  const currentTier = getBudgetTier(surface);
+  const currentTier = getTrancheLogement(surface);
 
   useEffect(() => {
     if (simulatorData) {
@@ -227,8 +228,6 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
       return;
     }
 
-    const budgetCalculeFormatted = `${currentTier.minPrice.toLocaleString('fr-FR')} € – ${currentTier.maxPrice.toLocaleString('fr-FR')} € TTC`;
-
     // 2. PAYLOAD COMPLET À ENVOYER (en POST JSON)
     const payload = {
       type_bien: currentTier.typeLabel,
@@ -237,12 +236,12 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
       equipement_existant_detail: formData.hasEquipments
         ? (formData.equipmentsDetails.trim() || 'Non précisé')
         : 'Aucun',
-      budget_calcule: budgetCalculeFormatted,
       ambiance_souhaitee: ambianceDescription.trim() || 'Non renseignée',
       prenom: formData.prenom.trim(),
       telephone: formData.telephone.trim(),
       email: formData.email.trim(),
       quartier_ville: formData.ville.trim() || 'Lyon',
+      connu_par: formData.connu_par || 'Non renseigné',
     };
 
     const attribution = getAttributionSummary();
@@ -263,11 +262,11 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
     );
 
     const simulatorSection = hasSimulatorData
-      ? `\n\n📊 DONNÉES DU SIMULATEUR FISCAL (LMNP)
+      ? `\n\n📊 DONNÉES PRÉ-REMPLIES PAR LE LIEN (LMNP)
 • Code postal renseigné : ${simulatorData?.cp || payload.quartier_ville}
 • Loyer estimé en nu    : ${simulatorData?.loyerNu ? `${simulatorData.loyerNu} € / mois` : 'Non renseigné'}
 • Loyer estimé en meublé: ${simulatorData?.loyerMeuble ? `${simulatorData.loyerMeuble} € / mois` : 'Non renseigné'}
-• Source de provenance  : ${simulatorData?.utmSource || 'simulateur'}`
+• Source de provenance  : ${simulatorData?.utmSource || 'lien pré-rempli'}`
       : '';
 
     // Synthèse soignée et chaleureuse pour le corps de l'e-mail Formspree
@@ -279,12 +278,12 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
 • Téléphone direct : ${payload.telephone}
 • Adresse e-mail   : ${payload.email}
 • Ville / Quartier : ${payload.quartier_ville}
+• Nous a connus via : ${payload.connu_par}
 
 🏡 PROJET D'AMÉNAGEMENT
 • Typologie        : ${payload.type_bien}
 • Surface exacte   : ${payload.surface_m2}
 • Date souhaitée   : ${dateSouhaitee}
-• Enveloppe TTC    : ${payload.budget_calcule} (mobilier sourcé, livré & installé)
 
 ✨ AMBIANCE RECHERCHÉE
 ${payload.ambiance_souhaitee}
@@ -293,8 +292,8 @@ ${payload.ambiance_souhaitee}
 ${payload.equipement_existant_detail}${simulatorSection}${provenanceSection}
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-💡 Action recommandée : Recontacter ${payload.prenom} au ${payload.telephone} sous 24h à 48h.
-Équipe Meubles&moi • Mobilier durable & sélection soignée`;
+💡 Action recommandée : Recontacter ${payload.prenom} au ${payload.telephone} sous 24 h.
+Meubles&moi • Mobilier durable & sélection soignée`;
 
     try {
       const requestHeaders = {
@@ -303,16 +302,16 @@ ${payload.equipement_existant_detail}${simulatorSection}${provenanceSection}
       };
 
       const requestBody = JSON.stringify({
-        _subject: `🌿 Meubles&moi • Nouveau devis : ${nomComplet} — ${payload.type_bien} (${payload.surface_m2})${hasSimulatorData ? ' [Simulateur]' : ''}`,
+        _subject: `🌿 Meubles&moi • Nouveau devis : ${nomComplet} — ${payload.type_bien} (${payload.surface_m2})${hasSimulatorData ? ' [Lien pré-rempli]' : ''}`,
         _replyto: payload.email,
         message: messageBriefing,
         "👤 Prospect": nomComplet,
         "📞 Téléphone": payload.telephone,
         "✉️ E-mail": payload.email,
         "📍 Secteur": payload.quartier_ville,
+        "📣 Comment nous avez-vous connus": payload.connu_par,
         "🏡 Type de bien": payload.type_bien,
         "📐 Surface": payload.surface_m2,
-        "💰 Budget indicatif clé en main": payload.budget_calcule,
         "✨ Ambiance souhaitée": payload.ambiance_souhaitee,
         "🍳 Équipements en place": payload.equipement_existant_detail,
         "📅 Date souhaitée": dateSouhaitee,
@@ -322,11 +321,11 @@ ${payload.equipement_existant_detail}${simulatorSection}${provenanceSection}
           ? {
               "📊 Loyer nu estimé": simulatorData?.loyerNu ? `${simulatorData.loyerNu} € / mois` : 'Non renseigné',
               "📊 Loyer meublé estimé": simulatorData?.loyerMeuble ? `${simulatorData.loyerMeuble} € / mois` : 'Non renseigné',
-              "🏷️ Source": simulatorData?.utmSource || 'simulateur',
+              "🏷️ Source": simulatorData?.utmSource || 'lien pré-rempli',
               code_postal: simulatorData?.cp || '',
               loyer_nu: simulatorData?.loyerNu || '',
               loyer_meuble: simulatorData?.loyerMeuble || '',
-              utm_source: simulatorData?.utmSource || 'simulateur',
+              utm_source: simulatorData?.utmSource || 'lien pré-rempli',
             }
           : {}),
         // Variables pour template HTML Formspree
@@ -336,9 +335,9 @@ ${payload.equipement_existant_detail}${simulatorSection}${provenanceSection}
         email: payload.email,
         ville: payload.quartier_ville,
         quartier_ville: payload.quartier_ville,
+        connu_par: payload.connu_par,
         type_bien: payload.type_bien,
         surface_m2: payload.surface_m2,
-        budget_calcule: payload.budget_calcule,
         ambiance_souhaitee: payload.ambiance_souhaitee,
         equipement_existant_detail: payload.equipement_existant_detail,
         date_souhaitee: dateSouhaitee,
@@ -380,8 +379,8 @@ ${payload.equipement_existant_detail}${simulatorSection}${provenanceSection}
             type_bien: `${payload.type_bien} (${currentTier.surfaceRange})`,
             surface_m2: surface,
             date_souhaitee: formData.date_souhaitee,
-            pack_selectionne: `${payload.type_bien} • ${payload.budget_calcule}`,
-            message: `Ambiance: ${payload.ambiance_souhaitee} | Équipements: ${payload.equipement_existant_detail} | Provenance: ${attribution.provenance}${hasSimulatorData ? ` | Simulateur (CP: ${simulatorData?.cp || 'N/A'}, Loyer nu: ${simulatorData?.loyerNu || 'N/A'}€, Meublé: ${simulatorData?.loyerMeuble || 'N/A'}€, Source: ${simulatorData?.utmSource || 'simulateur'})` : ''}`,
+            pack_selectionne: `${payload.type_bien} (${surface} m²)`,
+            message: `Ambiance: ${payload.ambiance_souhaitee} | Équipements: ${payload.equipement_existant_detail} | Connu via: ${payload.connu_par} | Provenance: ${attribution.provenance}${hasSimulatorData ? ` | Lien pré-rempli (CP: ${simulatorData?.cp || 'N/A'}, Loyer nu: ${simulatorData?.loyerNu || 'N/A'}€, Meublé: ${simulatorData?.loyerMeuble || 'N/A'}€, Source: ${simulatorData?.utmSource || 'lien pré-rempli'})` : ''}`,
           }, { skipEmailNotification: true }).catch(() => {});
         } catch {
           // ignore
@@ -452,7 +451,7 @@ ${payload.equipement_existant_detail}${simulatorSection}${provenanceSection}
                   Demande bien reçue, {formData.prenom} !
                 </h3>
                 <p className="text-sm sm:text-base text-[#063B39]/80 max-w-md mx-auto leading-relaxed">
-                  Votre estimation personnalisée arrive par e-mail sous 48h.
+                  Votre devis arrive par e-mail sous 24 h.
                 </p>
                 <div className="pt-4">
                   <button
@@ -473,19 +472,19 @@ ${payload.equipement_existant_detail}${simulatorSection}${provenanceSection}
                   <div className="flex items-center gap-2 mb-2">
                     <img
                       src="/logo.png"
-                      alt="Meubles&Moi - Aménagement clé en main"
+                      alt="Meubles&moi - Aménagement clé en main"
                       className="w-5 h-5 rounded-full object-cover shrink-0 shadow-xs"
                     />
                     <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#C55D45]/10 text-[#C55D45] text-[11px] font-extrabold uppercase tracking-wider">
                       <Sparkles className="w-3 h-3" />
-                      <span>Grille tarifaire transparente • Devis gratuit 48h</span>
+                      <span>Estimation gratuite • Devis sous 24 h</span>
                     </div>
                   </div>
                   <h2 className="font-display text-2xl sm:text-3xl font-extrabold text-[#063B39] tracking-tight">
                     Estimer mon projet d’ameublement
                   </h2>
                   <p className="text-xs sm:text-sm text-[#063B39]/70 mt-1">
-                    Calculez votre budget clé en main selon la surface de votre logement.
+                    Décrivez votre logement et vos envies : nous vous envoyons un devis personnalisé sous 24 h.
                   </p>
                 </div>
 
@@ -496,7 +495,7 @@ ${payload.equipement_existant_detail}${simulatorSection}${provenanceSection}
                     </div>
                     <div className="text-xs">
                       <p className="font-bold text-emerald-900">
-                        Données de votre simulation importées
+                        Informations de votre lien importées
                       </p>
                       <p className="text-emerald-800/90 mt-0.5 leading-relaxed">
                         Logement : <span className="font-semibold">{simulatorData.type || currentTier.typeLabel} ({surface} m²)</span>
@@ -565,7 +564,7 @@ ${payload.equipement_existant_detail}${simulatorSection}${provenanceSection}
                           className="rounded border-stone-300 text-[#C55D45] focus:ring-[#C55D45] w-4 h-4"
                         />
                         <span className="font-medium">
-                          J'ai déjà l'électroménager ou des rangements intégrés <span className="text-[#C55D45] font-semibold">(budget revu à la baisse)</span>
+                          J’ai déjà l’électroménager ou des rangements intégrés <span className="text-[#C55D45] font-semibold">(nous en tenons compte dans le devis)</span>
                         </span>
                       </label>
 
@@ -598,26 +597,6 @@ ${payload.equipement_existant_detail}${simulatorSection}${provenanceSection}
                     </div>
                   </div>
 
-                  {/* 2. Bloc estimation budget indicatif basé sur la grille officielle */}
-                  <div className="p-4 sm:p-5 rounded-2xl bg-[#063B39]/5 border border-[#063B39]/15 space-y-2.5">
-                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
-                      <span className="text-[11px] uppercase font-extrabold text-[#063B39]/70 tracking-wider">
-                        Budget indicatif TTC clés en main • {currentTier.typeLabel} ({currentTier.surfaceRange})
-                      </span>
-                      <span className="text-[11px] font-bold text-emerald-800 bg-emerald-100/80 px-2.5 py-0.5 rounded-full border border-emerald-300/50 inline-flex items-center gap-1 self-start sm:self-auto">
-                        🌱 Mobilier sourcé, livré & installé
-                      </span>
-                    </div>
-
-                    <div className="font-display text-2xl sm:text-3xl font-extrabold text-[#063B39] tracking-tight">
-                      {currentTier.minPrice.toLocaleString('fr-FR')} € – {currentTier.maxPrice.toLocaleString('fr-FR')} € <span className="text-sm font-semibold text-[#063B39]/60">TTC</span>
-                    </div>
-
-                    <p className="text-xs text-[#063B39]/80 leading-relaxed">
-                      Budget indicatif à partir de <strong className="text-[#063B39] font-bold">{currentTier.minPrice.toLocaleString('fr-FR')} €</strong> selon la surface et le niveau d'équipement déjà présent (électroménager, dressing…). Devis personnalisé gratuit sous 48h.
-                    </p>
-                  </div>
-
                   {/* 3. Ambiance souhaitée : Saisie libre en quelques lignes par l'utilisateur */}
                   <div>
                     <div className="flex justify-between items-baseline mb-1.5">
@@ -639,7 +618,7 @@ ${payload.equipement_existant_detail}${simulatorSection}${provenanceSection}
 
                     {/* Suggestions d'inspiration à cliquer pour enrichir rapidement */}
                     <div className="flex flex-wrap items-center gap-1.5 mt-2">
-                      <span className="text-[10px] text-[#063B39]/60 font-medium mr-1">Idées d'ambiance :</span>
+                      <span className="text-[10px] text-[#063B39]/60 font-medium mr-1">Idées d’ambiance :</span>
                       {AMBIANCE_SUGGESTIONS.map((tag) => (
                         <button
                           key={tag}
@@ -656,7 +635,7 @@ ${payload.equipement_existant_detail}${simulatorSection}${provenanceSection}
                   {/* 4. Coordonnées de contact */}
                   <div className="space-y-3 pt-1">
                     <span className="text-xs font-bold text-[#063B39] block">
-                      Vos coordonnées pour recevoir l'estimation
+                      Vos coordonnées pour recevoir l’estimation
                     </span>
                     
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -717,6 +696,25 @@ ${payload.equipement_existant_detail}${simulatorSection}${provenanceSection}
                         />
                       </div>
                     </div>
+
+                    <div>
+                      <label htmlFor="connu-par" className="block text-[11px] font-semibold text-[#063B39]/80 mb-1">
+                        Comment nous avez-vous connus ? <span className="font-normal text-[#063B39]/50">(facultatif)</span>
+                      </label>
+                      <select
+                        id="connu-par"
+                        value={formData.connu_par}
+                        onChange={(e) => setFormData({ ...formData, connu_par: e.target.value })}
+                        className="w-full px-3.5 py-2.5 rounded-xl border border-stone-200 bg-white text-xs font-medium text-[#063B39] focus:border-[#C55D45] outline-none transition-colors"
+                      >
+                        <option value="">Choisir…</option>
+                        {CONNU_PAR_OPTIONS.map((opt) => (
+                          <option key={opt} value={opt}>
+                            {opt}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
                   </div>
 
                   {/* 5. Bouton CTA */}
@@ -735,7 +733,7 @@ ${payload.equipement_existant_detail}${simulatorSection}${provenanceSection}
                         </>
                       ) : (
                         <>
-                          <span>Recevoir mon devis personnalisé sous 48h</span>
+                          <span>Recevoir mon devis personnalisé sous 24 h</span>
                           <ArrowRight className="w-4 h-4" />
                         </>
                       )}
@@ -754,7 +752,7 @@ ${payload.equipement_existant_detail}${simulatorSection}${provenanceSection}
                     )}
 
                     <p className="text-center text-[11px] text-[#063B39]/60 mt-2">
-                      🔒 Sans engagement • Accompagnement sur-mesure par l'équipe Meubles&moi Lyon
+                      🔒 Sans engagement • Accompagnement sur-mesure par Raphaël et Maxence, à Lyon
                     </p>
                   </div>
                 </form>

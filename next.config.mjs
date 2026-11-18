@@ -2,14 +2,6 @@
 const nextConfig = {
   reactStrictMode: true,
   optimizeFonts: false,
-  images: {
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'images.unsplash.com',
-      },
-    ],
-  },
   // Liens courts pour les réseaux : affichage propre + provenance suivie dans les mails de devis
   async redirects() {
     const links = [
@@ -20,18 +12,15 @@ const nextConfig = {
       ['/google', 'utm_source=google&utm_medium=fiche', ''],
       ['/mail', 'utm_source=email&utm_medium=signature', ''],
     ];
-    return links.map(([source, query, hash]) => ({
-      source,
-      destination: `/?${query}${hash}`,
-      permanent: false,
-    }));
-  },
-  async rewrites() {
     return [
-      {
-        source: '/simulateur',
-        destination: '/simulateur/index.html',
-      },
+      ...links.map(([source, query, hash]) => ({
+        source,
+        destination: `/?${query}${hash}`,
+        permanent: false,
+      })),
+      // L'ancien simulateur n'existe plus : redirection permanente vers le formulaire d'estimation
+      { source: '/simulateur', destination: '/#estimation', permanent: true },
+      { source: '/simulateur/:path*', destination: '/#estimation', permanent: true },
     ];
   },
 };

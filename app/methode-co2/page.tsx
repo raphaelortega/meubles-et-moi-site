@@ -14,14 +14,14 @@ import {
   totalLigne,
   totalMobilier,
   transportCollecte,
-  format,
+  co2PourRealisation,
   formatKg,
   formatNombre,
   KM_COLLECTE_PAR_OPERATION,
 } from '@/data/co2';
 
 export const metadata: Metadata = {
-  title: 'Notre méthode CO₂e | Meubles&Moi',
+  title: 'Notre méthode CO₂e',
   description:
     "Comment Meubles&moi estime le CO₂e évité grâce au mobilier de seconde main, réalisation par réalisation et meuble par meuble, à partir des facteurs de l'ADEME.",
   alternates: {
@@ -183,7 +183,7 @@ function DetailRealisation({ realisation, donnees }: { realisation: Realisation;
         </ul>
 
         <div className="mt-5 bg-[#063B39] text-white rounded-[14px] px-5 py-4 font-display font-bold text-lg sm:text-xl text-center">
-          {format(kg)}
+          {co2PourRealisation(realisation.id)}
         </div>
 
         <p className="mt-4 text-sm text-[#5b6b69]">

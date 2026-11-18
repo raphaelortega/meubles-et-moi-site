@@ -27,7 +27,7 @@ export const Method: React.FC<MethodProps> = ({ onOpenEstimate }) => {
       subtitle: 'Sourcing selon vos critères',
       desc: 'Nous dénichons chaque meuble en nous appuyant fidèlement sur tous les détails que vous nous avez donnés : l’ambiance souhaitée, les dimensions de vos pièces, vos équipements déjà en place et votre budget. Nous sélectionnons du mobilier de seconde main en bon état, parfaitement adapté à vos besoins.',
       icon: Search,
-      tag: 'Proposition sous 24h à 48h',
+      tag: 'Devis sous 24 h',
       color: 'text-[#C55D45] bg-[#C55D45]/10',
       accent: 'border-[#C55D45]/20',
       bullets: ['Mobilier choisi selon vos critères', 'Pièces de seconde main en bon état', 'Harmonie des couleurs et matières']
@@ -36,9 +36,9 @@ export const Method: React.FC<MethodProps> = ({ onOpenEstimate }) => {
       num: '03',
       title: 'Livraison & installation complète',
       subtitle: 'Clé en main en quelques jours',
-      desc: 'Notre équipe logistique livre à l’étage, monte et installe l’ensemble de votre mobilier de façon soignée, puis évacue tous les emballages pour laisser votre espace parfaitement propre.',
+      desc: 'Nous livrons à l’étage, montons et installons l’ensemble de votre mobilier, puis évacuons tous les emballages pour laisser votre espace propre.',
       icon: Truck,
-      tag: 'Installé en 48h chrono',
+      tag: 'Installé en général sous 48 h après remise des clés',
       color: 'text-emerald-700 bg-emerald-500/10',
       accent: 'border-emerald-500/20',
       bullets: ['Livraison à l’étage & montage complet', 'Zéro carton, espace propre et impeccable', 'Prêt à habiter ou à louer']
@@ -173,7 +173,7 @@ export const Method: React.FC<MethodProps> = ({ onOpenEstimate }) => {
             }}
             className="inline-flex items-center gap-3 px-8 py-3.5 rounded-full font-display font-bold text-xs uppercase tracking-wider text-white bg-[#C55D45] hover:bg-[#B04F38] shadow-glow-terracotta transition-all cursor-pointer hover:scale-105"
           >
-            <span>Démarrer l'étape 1 : Estimer mon projet</span>
+            <span>Démarrer l’étape 1 : Estimer mon projet</span>
             <ArrowRight className="w-4 h-4" />
           </button>
         </motion.div>
