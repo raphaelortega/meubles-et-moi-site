@@ -89,7 +89,7 @@ export const Pillars: React.FC<PillarsProps> = ({ onOpenEstimate }) => {
             Pourquoi choisir Meubles&moi
           </span>
           <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#063B39] tracking-tight leading-tight">
-            Le bon goût n'a plus besoin de coûter cher ou d'abîmer la planète.
+            Le bon goût n’a plus besoin de coûter cher ou d’abîmer la planète.
           </h2>
           <p className="text-base sm:text-lg text-[#063B39]/70 mt-4 leading-relaxed font-normal">
             Une formule pensée pour les propriétaires exigeants et les citadins modernes qui veulent une solution radicalement plus simple.

@@ -173,7 +173,7 @@ export const Method: React.FC<MethodProps> = ({ onOpenEstimate }) => {
             }}
             className="inline-flex items-center gap-3 px-8 py-3.5 rounded-full font-display font-bold text-xs uppercase tracking-wider text-white bg-[#C55D45] hover:bg-[#B04F38] shadow-glow-terracotta transition-all cursor-pointer hover:scale-105"
           >
-            <span>Démarrer l'étape 1 : Estimer mon projet</span>
+            <span>Démarrer l’étape 1 : Estimer mon projet</span>
             <ArrowRight className="w-4 h-4" />
           </button>
         </motion.div>

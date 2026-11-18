@@ -48,7 +48,7 @@ export const Simulator: React.FC<SimulatorProps> = ({ onSelectPropertyType }) =>
           </span>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-charcoal-900 tracking-tight">
             Votre rentabilité locative <br className="hidden sm:inline" />
-            <span className="text-sage-600 font-serif font-normal italic">en un coup d'œil.</span>
+            <span className="text-sage-600 font-serif font-normal italic">en un coup d’œil.</span>
           </h2>
           <p className="text-sm text-slate-600 mt-3">
             Sélectionnez votre type de logement et visualisez instantanément le bénéfice financier et fiscal.
@@ -133,7 +133,7 @@ export const Simulator: React.FC<SimulatorProps> = ({ onSelectPropertyType }) =>
                 ~{annualTaxSavings} €
               </p>
               <p className="text-[11px] text-slate-500 font-medium mt-1">
-                Économie d'impôt par an
+                Économie d’impôt par an
               </p>
             </div>
 

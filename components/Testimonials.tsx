@@ -59,7 +59,7 @@ export const Testimonials: React.FC = () => {
                 </div>
 
                 <p className="text-charcoal-800 text-sm leading-relaxed mb-6 italic">
-                  "{r.quote}"
+                  “{r.quote}”
                 </p>
               </div>
 

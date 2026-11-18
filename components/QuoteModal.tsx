@@ -565,7 +565,7 @@ ${payload.equipement_existant_detail}${simulatorSection}${provenanceSection}
                           className="rounded border-stone-300 text-[#C55D45] focus:ring-[#C55D45] w-4 h-4"
                         />
                         <span className="font-medium">
-                          J'ai déjà l'électroménager ou des rangements intégrés <span className="text-[#C55D45] font-semibold">(budget revu à la baisse)</span>
+                          J’ai déjà l’électroménager ou des rangements intégrés <span className="text-[#C55D45] font-semibold">(budget revu à la baisse)</span>
                         </span>
                       </label>
 
@@ -614,7 +614,7 @@ ${payload.equipement_existant_detail}${simulatorSection}${provenanceSection}
                     </div>
 
                     <p className="text-xs text-[#063B39]/80 leading-relaxed">
-                      Budget indicatif à partir de <strong className="text-[#063B39] font-bold">{currentTier.minPrice.toLocaleString('fr-FR')} €</strong> selon la surface et le niveau d'équipement déjà présent (électroménager, dressing…). Devis personnalisé gratuit sous 48h.
+                      Budget indicatif à partir de <strong className="text-[#063B39] font-bold">{currentTier.minPrice.toLocaleString('fr-FR')} €</strong> selon la surface et le niveau d’équipement déjà présent (électroménager, dressing…). Devis personnalisé gratuit sous 48h.
                     </p>
                   </div>
 
@@ -639,7 +639,7 @@ ${payload.equipement_existant_detail}${simulatorSection}${provenanceSection}
 
                     {/* Suggestions d'inspiration à cliquer pour enrichir rapidement */}
                     <div className="flex flex-wrap items-center gap-1.5 mt-2">
-                      <span className="text-[10px] text-[#063B39]/60 font-medium mr-1">Idées d'ambiance :</span>
+                      <span className="text-[10px] text-[#063B39]/60 font-medium mr-1">Idées d’ambiance :</span>
                       {AMBIANCE_SUGGESTIONS.map((tag) => (
                         <button
                           key={tag}
@@ -656,7 +656,7 @@ ${payload.equipement_existant_detail}${simulatorSection}${provenanceSection}
                   {/* 4. Coordonnées de contact */}
                   <div className="space-y-3 pt-1">
                     <span className="text-xs font-bold text-[#063B39] block">
-                      Vos coordonnées pour recevoir l'estimation
+                      Vos coordonnées pour recevoir l’estimation
                     </span>
                     
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -754,7 +754,7 @@ ${payload.equipement_existant_detail}${simulatorSection}${provenanceSection}
                     )}
 
                     <p className="text-center text-[11px] text-[#063B39]/60 mt-2">
-                      🔒 Sans engagement • Accompagnement sur-mesure par l'équipe Meubles&moi Lyon
+                      🔒 Sans engagement • Accompagnement sur-mesure par l’équipe Meubles&moi Lyon
                     </p>
                   </div>
                 </form>

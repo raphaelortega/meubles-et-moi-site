@@ -20,9 +20,9 @@ Site vitrine de Meubles&moi (aménagement clé en main avec du mobilier de secon
 | Serveur de dev | `npm run dev` | `next dev -H 0.0.0.0 -p 3000`, soit **http://localhost:3000** |
 | Build de production | `npm run build` | `next build`, sortie dans `.next/` |
 | Serveur de production | `npm run start` | `next start -p 3000`, après un build |
-| Lint | `npm run lint` | `next lint`. ESLint n'est pas installé : la commande lance un assistant de configuration interactif, donc ne pas s'en servir comme vérification. |
+| Lint | `npm run lint` | `next lint` avec `next/core-web-vitals` (`.eslintrc.json`). Doit finir sans erreur ; les avertissements `<img>` sont connus. |
 
-Il n'y a pas de tests automatisés. `npm run build` vérifie aussi les types TypeScript : c'est le contrôle de référence avant chaque push.
+Il n'y a pas de tests automatisés. Avant chaque commit : `npm run lint` puis `npm run build` (qui vérifie aussi les types TypeScript).
 
 `./start-server.sh` libère le port 3000, lance `npm run dev` en arrière-plan (logs dans `server.log`) et attend que le site réponde.
 
