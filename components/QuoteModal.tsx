@@ -78,6 +78,9 @@ export const FORMSPREE_ENDPOINTS: string[] = envEndpoints && envEndpoints.length
 
 export const FORMSPREE_ENDPOINT = FORMSPREE_ENDPOINTS[0];
 
+// Réponses proposées à « Comment nous avez-vous connus ? » (champ facultatif)
+const CONNU_PAR_OPTIONS = ['Google', 'Instagram', 'LinkedIn', 'Bouche-à-oreille', 'Agence ou partenaire immobilier', 'Autre'];
+
 export interface SimulatorData {
   type?: string;
   surface?: number;
@@ -133,6 +136,7 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
     email: '',
     telephone: '',
     ville: 'Lyon',
+    connu_par: '',
     date_souhaitee: 'Dans le mois',
     hasEquipments: false,
     equipmentsDetails: '',
@@ -243,6 +247,7 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
       telephone: formData.telephone.trim(),
       email: formData.email.trim(),
       quartier_ville: formData.ville.trim() || 'Lyon',
+      connu_par: formData.connu_par || 'Non renseigné',
     };
 
     const attribution = getAttributionSummary();
@@ -279,6 +284,7 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
 • Téléphone direct : ${payload.telephone}
 • Adresse e-mail   : ${payload.email}
 • Ville / Quartier : ${payload.quartier_ville}
+• Nous a connus via : ${payload.connu_par}
 
 🏡 PROJET D'AMÉNAGEMENT
 • Typologie        : ${payload.type_bien}
@@ -310,6 +316,7 @@ ${payload.equipement_existant_detail}${simulatorSection}${provenanceSection}
         "📞 Téléphone": payload.telephone,
         "✉️ E-mail": payload.email,
         "📍 Secteur": payload.quartier_ville,
+        "📣 Comment nous avez-vous connus": payload.connu_par,
         "🏡 Type de bien": payload.type_bien,
         "📐 Surface": payload.surface_m2,
         "💰 Budget indicatif clé en main": payload.budget_calcule,
@@ -336,6 +343,7 @@ ${payload.equipement_existant_detail}${simulatorSection}${provenanceSection}
         email: payload.email,
         ville: payload.quartier_ville,
         quartier_ville: payload.quartier_ville,
+        connu_par: payload.connu_par,
         type_bien: payload.type_bien,
         surface_m2: payload.surface_m2,
         budget_calcule: payload.budget_calcule,
@@ -381,7 +389,7 @@ ${payload.equipement_existant_detail}${simulatorSection}${provenanceSection}
             surface_m2: surface,
             date_souhaitee: formData.date_souhaitee,
             pack_selectionne: `${payload.type_bien} • ${payload.budget_calcule}`,
-            message: `Ambiance: ${payload.ambiance_souhaitee} | Équipements: ${payload.equipement_existant_detail} | Provenance: ${attribution.provenance}${hasSimulatorData ? ` | Lien pré-rempli (CP: ${simulatorData?.cp || 'N/A'}, Loyer nu: ${simulatorData?.loyerNu || 'N/A'}€, Meublé: ${simulatorData?.loyerMeuble || 'N/A'}€, Source: ${simulatorData?.utmSource || 'lien pré-rempli'})` : ''}`,
+            message: `Ambiance: ${payload.ambiance_souhaitee} | Équipements: ${payload.equipement_existant_detail} | Connu via: ${payload.connu_par} | Provenance: ${attribution.provenance}${hasSimulatorData ? ` | Lien pré-rempli (CP: ${simulatorData?.cp || 'N/A'}, Loyer nu: ${simulatorData?.loyerNu || 'N/A'}€, Meublé: ${simulatorData?.loyerMeuble || 'N/A'}€, Source: ${simulatorData?.utmSource || 'lien pré-rempli'})` : ''}`,
           }, { skipEmailNotification: true }).catch(() => {});
         } catch {
           // ignore
@@ -716,6 +724,25 @@ ${payload.equipement_existant_detail}${simulatorSection}${provenanceSection}
                           className="w-full px-3.5 py-2.5 rounded-xl border border-stone-200 bg-white text-xs font-medium text-[#063B39] focus:border-[#C55D45] outline-none transition-colors"
                         />
                       </div>
+                    </div>
+
+                    <div>
+                      <label htmlFor="connu-par" className="block text-[11px] font-semibold text-[#063B39]/80 mb-1">
+                        Comment nous avez-vous connus ? <span className="font-normal text-[#063B39]/50">(facultatif)</span>
+                      </label>
+                      <select
+                        id="connu-par"
+                        value={formData.connu_par}
+                        onChange={(e) => setFormData({ ...formData, connu_par: e.target.value })}
+                        className="w-full px-3.5 py-2.5 rounded-xl border border-stone-200 bg-white text-xs font-medium text-[#063B39] focus:border-[#C55D45] outline-none transition-colors"
+                      >
+                        <option value="">Choisir…</option>
+                        {CONNU_PAR_OPTIONS.map((opt) => (
+                          <option key={opt} value={opt}>
+                            {opt}
+                          </option>
+                        ))}
+                      </select>
                     </div>
                   </div>
 
