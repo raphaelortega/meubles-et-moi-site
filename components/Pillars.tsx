@@ -3,7 +3,7 @@
 import React from 'react';
 import { motion, type Variants } from 'framer-motion';
 import { PiggyBank, Leaf, KeyRound, CheckCircle2, ArrowRight } from 'lucide-react';
-import { maxTonnes } from '@/data/co2';
+import { nombreRealisationsCo2, totalToutesRealisationsTonnes } from '@/data/co2';
 
 interface PillarsProps {
   onOpenEstimate?: () => void;
@@ -17,11 +17,11 @@ export const Pillars: React.FC<PillarsProps> = ({ onOpenEstimate }) => {
       title: 'Économique',
       desc: 'Des économies massives par rapport au neuf sans rogner sur le style.',
       details: 'Nous dénichons des meubles de qualité, robustes et actuels, à un tarif bien inférieur aux grandes enseignes. Un aménagement complet et soigné sans exploser votre enveloppe.',
-      stat: '-40%',
-      statLabel: 'par rapport à du mobilier neuf',
+      stat: 'Moins cher',
+      statLabel: 'que l’équivalent neuf',
       icon: PiggyBank,
       badgeColor: 'bg-[#C55D45]/10 text-[#C55D45]',
-      highlights: ['Bois massifs & finitions durables', 'Éligible 100% amortissement LMNP', 'Meilleur rapport style/prix'],
+      highlights: ['Bois massifs & finitions durables', 'Facture détaillée pour votre comptable', 'Meilleur rapport style/prix'],
     },
     {
       id: 'ecoresponsable',
@@ -29,22 +29,22 @@ export const Pillars: React.FC<PillarsProps> = ({ onOpenEstimate }) => {
       title: 'Écoresponsable',
       desc: 'Sourcing seconde main et déstockage pour réduire l\'empreinte carbone et revaloriser le mobilier.',
       details: 'Chaque pièce a déjà son histoire. Nous sélectionnons du mobilier directement en bon état d’usage pour éviter la surproduction.',
-      statPrefix: 'Jusqu\'à',
-      stat: maxTonnes(),
-      statLabel: 'de CO₂e évitée par appartement',
+      statPrefix: 'Plus de',
+      stat: totalToutesRealisationsTonnes(),
+      statLabel: `de CO₂e évitées sur nos ${nombreRealisationsCo2()} réalisations`,
       statHref: '/methode-co2',
       icon: Leaf,
       badgeColor: 'bg-emerald-500/10 text-emerald-700',
-      highlights: ['Réemploi & zéro déchet neuf', 'Mobilier sélectionné en bon état', 'Circuit court à Lyon'],
+      highlights: ['Réemploi de meubles qui existent déjà', 'Mobilier sélectionné en bon état', 'Circuit court à Lyon'],
     },
     {
       id: 'zero-effort',
       category: '03 • Sérénité absolue',
       title: 'Zéro effort',
       desc: 'Sélection, transport, montage et agencement complet. Vous récupérez juste les clés.',
-      details: 'Fini le marathon des magasins et les notices de montage suédoises. Notre équipe gère tout de A à Z en 48h chrono.',
+      details: 'Fini le marathon des magasins et les notices de montage suédoises. Nous gérons tout de A à Z : devis sous 24 h, installation en général en moins de 48 h après la remise des clés.',
       stat: '48h',
-      statLabel: 'd\'installation complète sur place',
+      statLabel: 'en général pour installer, après remise des clés',
       icon: KeyRound,
       badgeColor: 'bg-[#063B39]/10 text-[#063B39]',
       highlights: ['Zéro carton, zéro tournevis', 'Mobilier installé & espace propre', 'Prêt à habiter ou à louer'],
@@ -191,7 +191,7 @@ export const Pillars: React.FC<PillarsProps> = ({ onOpenEstimate }) => {
               Un projet d’aménagement à Lyon ?
             </span>
             <p className="text-lg sm:text-xl font-display font-bold text-white">
-              Obtenez une estimation personnalisée et recevez une proposition adaptée sous 24h à 48h.
+              Obtenez une estimation personnalisée et recevez votre devis sous 24 h.
             </p>
             <p className="text-xs sm:text-sm text-stone-300">
               Sans engagement • Conseils d’agencement • Service complet à Lyon et toute sa métropole.
