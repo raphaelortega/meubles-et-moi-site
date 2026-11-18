@@ -10,27 +10,14 @@ import { FAQS } from '@/data/faq';
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.meubles-et-moi.fr'),
   title: {
-    default: 'Meubles&Moi | Aménagement clé en main et mobilier écoresponsable',
-    template: '%s | Meubles&Moi',
+    default: 'Meubles&moi | Aménagement clé en main et mobilier écoresponsable',
+    template: '%s | Meubles&moi',
   },
   description:
     'Aménagement intérieur clé en main & mobilier de seconde main reconditionné. Livraison et montage soignés inclus pour particuliers et professionnels.',
-  keywords: [
-    'Meubles&Moi',
-    'mobilier reconditionné',
-    'aménagement intérieur clé en main',
-    'mobilier seconde main',
-    'livraison et montage inclus',
-    'ameublement écoresponsable',
-    'économie circulaire ameublement',
-    'meubles seconde main lyon',
-    'aménagement locatif lmnp',
-    'agencement clé en main',
-    'décoration circulaire',
-  ],
-  authors: [{ name: 'Meubles&Moi', url: 'https://www.meubles-et-moi.fr' }],
-  creator: 'Meubles&Moi',
-  publisher: 'Meubles&Moi',
+  authors: [{ name: 'Meubles&moi', url: 'https://www.meubles-et-moi.fr' }],
+  creator: 'Meubles&moi',
+  publisher: 'Meubles&moi',
   formatDetection: {
     email: false,
     address: false,
@@ -40,11 +27,11 @@ export const metadata: Metadata = {
     canonical: '/',
   },
   openGraph: {
-    title: 'Meubles&Moi | Aménagement clé en main et mobilier écoresponsable',
+    title: 'Meubles&moi | Aménagement clé en main et mobilier écoresponsable',
     description:
       'Aménagement intérieur clé en main & mobilier de seconde main reconditionné. Livraison et montage soignés inclus pour particuliers et professionnels.',
     url: 'https://www.meubles-et-moi.fr',
-    siteName: 'Meubles&Moi',
+    siteName: 'Meubles&moi',
     locale: 'fr_FR',
     type: 'website',
     images: [
@@ -52,13 +39,13 @@ export const metadata: Metadata = {
         url: '/images/hero-appartement.jpg',
         width: 1200,
         height: 630,
-        alt: 'Meubles&Moi - Aménagement clé en main et mobilier écoresponsable',
+        alt: 'Meubles&moi - Aménagement clé en main et mobilier écoresponsable',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Meubles&Moi | Aménagement clé en main et mobilier écoresponsable',
+    title: 'Meubles&moi | Aménagement clé en main et mobilier écoresponsable',
     description:
       'Aménagement intérieur clé en main & mobilier de seconde main reconditionné. Livraison et montage soignés inclus.',
     images: ['/images/hero-appartement.jpg'],

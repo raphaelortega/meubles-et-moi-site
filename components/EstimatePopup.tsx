@@ -55,7 +55,7 @@ export const EstimatePopup: React.FC<EstimatePopupProps> = ({ isOpen, onClose, o
             <div className="relative h-40 sm:h-44 overflow-hidden">
               <img
                 src="/images/hero-appartement.jpg"
-                alt="Appartement meublé clé en main par Meubles&Moi"
+                alt="Appartement meublé clé en main par Meubles&moi"
                 className="w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#063B39]/70 to-transparent" />

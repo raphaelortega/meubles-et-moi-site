@@ -16,28 +16,18 @@ import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 
 export const metadata: Metadata = {
-  title: 'Passer sa location nue en meublée : conditions, fiscalité et démarches en 2026 | Blog Meubles&Moi',
+  title: 'Passer sa location nue en meublée : conditions, fiscalité et démarches en 2026',
   description:
     'Bail en cours, liste des 11 meubles obligatoires, encadrement des loyers et fiscalité LMNP au régime réel : le guide éditorial complet pour réussir votre transition sans erreur.',
-  keywords: [
-    'passer location nue en meublée',
-    'changer bail vide en meublé',
-    'louer en meublé lyon',
-    'démarches LMNP régime réel',
-    'meubles obligatoires meublé décret 2015-981',
-    'loyer encadré meublé lyon',
-    'fiscalité lmnp amortissement 2026',
-    'rentabilité location meublée'
-  ],
   alternates: {
     canonical: 'https://www.meubles-et-moi.fr/blog/passer-location-nue-en-meublee',
   },
   openGraph: {
-    title: 'Passer sa location nue en meublée : conditions, fiscalité et démarches en 2026 | Meubles&Moi',
+    title: 'Passer sa location nue en meublée : conditions, fiscalité et démarches en 2026 | Meubles&moi',
     description:
       'Bail en cours, liste des 11 meubles obligatoires, encadrement des loyers et fiscalité LMNP au régime réel : le guide éditorial complet pour réussir votre transition sans erreur.',
     url: 'https://www.meubles-et-moi.fr/blog/passer-location-nue-en-meublee',
-    siteName: 'Meubles&Moi',
+    siteName: 'Meubles&moi',
     locale: 'fr_FR',
     type: 'article',
     publishedTime: '2026-09-29T08:00:00+02:00',
@@ -70,7 +60,7 @@ const articleJsonLd = {
       isPartOf: {
         '@type': 'WebSite',
         '@id': 'https://www.meubles-et-moi.fr/#website',
-        name: 'Meubles&Moi',
+        name: 'Meubles&moi',
         url: 'https://www.meubles-et-moi.fr',
       },
       headline: 'Passer sa location nue en meublée : conditions, fiscalité et démarches en 2026',
@@ -89,7 +79,7 @@ const articleJsonLd = {
       },
       publisher: {
         '@type': 'Organization',
-        name: 'Meubles&Moi',
+        name: 'Meubles&moi',
         url: 'https://www.meubles-et-moi.fr',
         logo: {
           '@type': 'ImageObject',
@@ -136,7 +126,7 @@ const articleJsonLd = {
           name: 'Combien de temps faut-il pour meubler un logement ?',
           acceptedAnswer: {
             '@type': 'Answer',
-            text: 'En faisant appel à un service clé en main comme Meubles&Moi, quelques jours suffisent entre la commande et l’installation complète. En autonomie, comptez plutôt 3 à 6 semaines pour l’approvisionnement, la livraison fractionnée et le montage.',
+            text: 'En faisant appel à un service clé en main comme Meubles&moi, quelques jours suffisent entre la commande et l’installation complète. En autonomie, comptez plutôt 3 à 6 semaines pour l’approvisionnement, la livraison fractionnée et le montage.',
           },
         },
         {
@@ -220,7 +210,7 @@ export default function PasserLocationNueEnMeubleePage() {
                 </div>
                 <div>
                   <div className="font-bold text-[#063B39]">Maxence</div>
-                  <div className="text-[11px] text-[#063B39]/60">Co-fondateur Meubles&Moi</div>
+                  <div className="text-[11px] text-[#063B39]/60">Co-fondateur Meubles&moi</div>
                 </div>
               </div>
 
@@ -681,7 +671,7 @@ export default function PasserLocationNueEnMeubleePage() {
               <div className="my-8 p-7 sm:p-9 rounded-3xl bg-white border border-[#063B39]/15 shadow-sm space-y-4">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#063B39]/5 text-[#063B39] text-xs font-bold uppercase tracking-wider">
                   <Sparkles className="w-3.5 h-3.5 text-[#C55D45]" />
-                  <span>La solution clé en main Meubles&Moi</span>
+                  <span>La solution clé en main Meubles&moi</span>
                 </div>
 
                 <h3 className="font-display text-xl sm:text-2xl font-bold text-[#063B39]">
@@ -689,7 +679,7 @@ export default function PasserLocationNueEnMeubleePage() {
                 </h3>
 
                 <p className="text-sm sm:text-base text-[#063B39]/80 leading-relaxed">
-                  Basée au cœur de la Métropole de Lyon, <strong>Meubles&Moi</strong> prend en charge l’ensemble de la chaîne : sélection d’un mobilier chaleureux et robuste (alliant pièces circulaires reconditionnées de qualité et mobilier durable), livraison groupée en un seul passage, montage complet par nos équipes et remise de l’inventaire clé en main 100 % conforme au décret 2015-981.
+                  Basée au cœur de la Métropole de Lyon, <strong>Meubles&moi</strong> prend en charge l’ensemble de la chaîne : sélection d’un mobilier chaleureux et robuste (alliant pièces circulaires reconditionnées de qualité et mobilier durable), livraison groupée en un seul passage, montage complet par nos équipes et remise de l’inventaire clé en main 100 % conforme au décret 2015-981.
                 </p>
 
                 <div className="pt-2">
@@ -725,7 +715,7 @@ export default function PasserLocationNueEnMeubleePage() {
                     Combien de temps faut-il pour meubler un logement ?
                   </h3>
                   <p className="text-sm text-[#063B39]/80 leading-relaxed">
-                    En faisant appel à un service clé en main comme Meubles&Moi, quelques jours suffisent entre la validation de la proposition et l’installation terminée. En autonomie complète, comptez plutôt 3 à 6 semaines entre la commande, les aléas de livraison et le montage des meubles.
+                    En faisant appel à un service clé en main comme Meubles&moi, quelques jours suffisent entre la validation de la proposition et l’installation terminée. En autonomie complète, comptez plutôt 3 à 6 semaines entre la commande, les aléas de livraison et le montage des meubles.
                   </p>
                 </div>
 
@@ -791,7 +781,7 @@ export default function PasserLocationNueEnMeubleePage() {
                 À propos de l&apos;auteur : Maxence
               </div>
               <p className="text-xs sm:text-sm text-[#063B39]/75 leading-relaxed">
-                Co-fondateur de <strong>Meubles&Moi</strong> et passionné d’aménagement durable, Maxence accompagne au quotidien les propriétaires et investisseurs de la Métropole de Lyon dans l’optimisation de leur patrimoine locatif à travers un aménagement clé en main, élégant et écoresponsable.
+                Co-fondateur de <strong>Meubles&moi</strong> et passionné d’aménagement durable, Maxence accompagne au quotidien les propriétaires et investisseurs de la Métropole de Lyon dans l’optimisation de leur patrimoine locatif à travers un aménagement clé en main, élégant et écoresponsable.
               </p>
             </div>
           </div>
@@ -853,7 +843,7 @@ export default function PasserLocationNueEnMeubleePage() {
               className="inline-flex items-center gap-2 text-xs font-bold text-[#063B39] hover:text-[#C55D45] transition-colors"
             >
               <ArrowLeft className="w-4 h-4" />
-              <span>Retour à l&apos;accueil Meubles&Moi</span>
+              <span>Retour à l&apos;accueil Meubles&moi</span>
             </Link>
 
             <Link

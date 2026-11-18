@@ -21,7 +21,7 @@ import {
 } from '@/data/co2';
 
 export const metadata: Metadata = {
-  title: 'Notre méthode CO₂e | Meubles&Moi',
+  title: 'Notre méthode CO₂e',
   description:
     "Comment Meubles&moi estime le CO₂e évité grâce au mobilier de seconde main, réalisation par réalisation et meuble par meuble, à partir des facteurs de l'ADEME.",
   alternates: {

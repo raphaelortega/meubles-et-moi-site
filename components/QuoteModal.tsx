@@ -473,7 +473,7 @@ ${payload.equipement_existant_detail}${simulatorSection}${provenanceSection}
                   <div className="flex items-center gap-2 mb-2">
                     <img
                       src="/logo.png"
-                      alt="Meubles&Moi - Aménagement clé en main"
+                      alt="Meubles&moi - Aménagement clé en main"
                       className="w-5 h-5 rounded-full object-cover shrink-0 shadow-xs"
                     />
                     <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#C55D45]/10 text-[#C55D45] text-[11px] font-extrabold uppercase tracking-wider">

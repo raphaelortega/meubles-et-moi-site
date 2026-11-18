@@ -55,7 +55,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenEstimate }) => {
           <source media="(min-width: 640px)" srcSet="/images/hero-appartement.jpg" />
           <img
             src="/images/realisations/realisation-loft-mobile.jpg"
-            alt="Appartement meublé clé en main par Meubles&Moi à Lyon : salon, cuisine bar et verrière"
+            alt="Appartement meublé clé en main par Meubles&moi à Lyon : salon, cuisine bar et verrière"
             className="w-full h-full object-cover object-[50%_45%]"
             fetchPriority="high"
           />
